@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D&amp;D 5E Toolkit</title>
+<style>
+:root {
+  --bg: #0e0c14; --bg2: #1c1826; --panel: #282234; --edge: #544664; --text: #e8e0d2; --dim: #8c8296;
+  --gold: #e8b04a; --gold-dk: #8c6220; --blood: #c83034; --emerald: #3cc878; --arcane: #786ef0; --ice: #6ec8e6;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--ice); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--gold); margin: 0; font-weight: bold; }
+h2 { font-size: 1.35rem; margin-bottom: .6rem; }
+h3 { font-size: 1.05rem; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: .35rem .75rem; cursor: pointer; }
+button:hover { border-color: var(--gold); }
+button.primary { background: var(--gold-dk); border-color: var(--gold); color: #fff; }
+button.danger:hover { border-color: var(--blood); color: var(--blood); }
+button.icon { padding: .15rem .45rem; background: none; border-color: transparent; color: var(--dim); }
+button.icon:hover { color: var(--text); border-color: var(--edge); }
+input[type=text], input[type=password], input[type=search], textarea, select {
+  background: var(--bg); border: 1px solid var(--edge); border-radius: 6px; padding: .4rem .55rem; width: 100%;
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold); }
+textarea { resize: vertical; }
+header { position: sticky; top: 0; z-index: 5; background: var(--bg2); border-bottom: 2px solid var(--gold-dk);
+  display: flex; align-items: center; gap: 1rem; padding: .5rem 1rem; flex-wrap: wrap; }
+header h1 { font-size: 1.2rem; white-space: nowrap; }
+nav { display: flex; gap: .25rem; flex-wrap: wrap; flex: 1; }
+nav a { color: var(--dim); padding: .3rem .7rem; border-radius: 6px; }
+nav a.on { color: var(--gold); background: var(--panel); }
+nav a:hover { text-decoration: none; color: var(--text); }
+#conn { font-size: .8rem; color: var(--dim); }
+#conn.bad { color: var(--blood); }
+main { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.grow { flex: 1; }
+.muted { color: var(--dim); }
+.small { font-size: .85rem; }
+.card { background: var(--bg2); border: 1px solid var(--edge); border-radius: 8px; padding: .8rem 1rem; }
+.list { display: flex; flex-direction: column; gap: .4rem; }
+.list > a.card { color: var(--text); display: block; }
+.list > a.card:hover { border-color: var(--gold); text-decoration: none; }
+.tag { display: inline-block; font-size: .75rem; padding: 0 .45rem; border-radius: 9px; border: 1px solid var(--edge); color: var(--dim); }
+.tag.gold { color: var(--gold); border-color: var(--gold-dk); }
+.tag.green { color: var(--emerald); border-color: #2a6a48; }
+.st { font-size: .85rem; color: var(--dim); }
+.st.err { color: var(--blood); }
+.st.ok { color: var(--emerald); }
+.cols { display: grid; grid-template-columns: 280px 1fr; gap: 1rem; align-items: start; }
+.cols > * { min-width: 0; }
+@media (max-width: 760px) {
+  .cols { grid-template-columns: 1fr; }
+  header { flex-wrap: nowrap; gap: .5rem; padding: .4rem .6rem; }
+  header h1 { font-size: 1rem; }
+  nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  nav a { padding: .3rem .5rem; white-space: nowrap; }
+  .toolbar { top: 44px; }
+}
+.toolbar { position: sticky; top: 52px; z-index: 4; background: var(--bg); padding: .5rem 0; margin-bottom: .5rem; }
+
+/* outline editor */
+.sec { margin-bottom: .8rem; }
+.sec > .head { display: flex; align-items: baseline; gap: .5rem; cursor: pointer; padding: .3rem 0; border-bottom: 1px solid var(--edge); }
+.sec > .head .hint { color: var(--dim); font-size: .85rem; flex: 1; }
+.sec.closed > .body { display: none; }
+.sec > .head::before { content: "\25BE"; color: var(--dim); width: 1em; }
+.sec.closed > .head::before { content: "\25B8"; }
+.item { display: flex; gap: .4rem; align-items: flex-start; padding: .25rem 0; }
+.item input[type=checkbox] { margin-top: .6rem; accent-color: var(--emerald); width: 1.1rem; height: 1.1rem; }
+.item textarea { min-height: 2.2rem; overflow: hidden; resize: none; }
+.item.done textarea { color: var(--dim); text-decoration: line-through; }
+.item .btns { display: flex; opacity: .35; }
+.item:hover .btns, .item:focus-within .btns { opacity: 1; }
+.add { display: flex; gap: .4rem; padding: .3rem 0 0 1.5rem; }
+.add textarea { min-height: 2.2rem; resize: none; overflow: hidden; }
+
+/* live table */
+.combat { display: flex; flex-direction: column; gap: .35rem; }
+.cmb { display: grid; grid-template-columns: 3rem 1fr auto; gap: .2rem .8rem; align-items: center; background: var(--bg2);
+  border: 1px solid var(--edge); border-radius: 8px; padding: .5rem .8rem; }
+.cmb.turn { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 14px #e8b04a44; }
+.cmb.down { opacity: .45; }
+.cmb .ini { font: bold 1.5rem Georgia, serif; color: var(--gold); text-align: center; grid-row: span 2; }
+.cmb .nm { font-weight: 600; font-size: 1.1rem; }
+.cmb .nm .tag { margin-left: .4rem; }
+.cmb .ac { color: var(--dim); text-align: right; }
+.cmb .hp { grid-column: 2 / 4; display: flex; gap: .6rem; align-items: center; }
+.bar { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; max-width: 320px; }
+.bar > div { height: 100%; }
+.conds { grid-column: 2 / 4; display: flex; gap: .3rem; flex-wrap: wrap; }
+.cond { font-size: .8rem; background: #3a2448; color: #e0c8f0; border-radius: 9px; padding: 0 .5rem; }
+.rolls { display: flex; flex-direction: column; gap: .35rem; }
+.roll { background: var(--bg2); border: 1px solid var(--edge); border-radius: 8px; padding: .45rem .8rem; display: grid;
+  grid-template-columns: 1fr auto; gap: 0 .6rem; }
+.roll .tot { font: bold 1.6rem Georgia, serif; grid-row: span 2; align-self: center; }
+.roll.crit { border-color: var(--gold); } .roll.crit .tot { color: var(--gold); }
+.roll.fumble { border-color: var(--blood); } .roll.fumble .tot { color: var(--blood); }
+.roll.fresh { animation: flash 1.2s ease-out; }
+@keyframes flash { from { background: #4a3a20; } }
+.live { display: grid; grid-template-columns: 1fr 320px; gap: 1.2rem; align-items: start; }
+@media (max-width: 860px) { .live { grid-template-columns: 1fr; } }
+body.tv { font-size: 20px; }
+body.tv main { max-width: none; }
+
+/* reference + files */
+.results { max-height: 70vh; overflow: auto; }
+.res { display: block; padding: .3rem .5rem; border-radius: 6px; color: var(--text); }
+.res:hover, .res.on { background: var(--panel); text-decoration: none; }
+.res .meta { color: var(--dim); font-size: .8rem; display: block; }
+.entry dl { display: grid; grid-template-columns: max-content 1fr; gap: .15rem 1rem; margin: .5rem 0 1rem; }
+.entry dt { color: var(--dim); text-transform: capitalize; }
+.entry dd { margin: 0; }
+.entry h4 { color: var(--gold); margin: 1rem 0 .3rem; text-transform: capitalize; font-family: Georgia, serif; }
+.entry p { margin: .3rem 0; white-space: pre-wrap; }
+.entry ul { margin: .3rem 0; padding-left: 1.3rem; }
+.entry li { margin: .15rem 0; }
+.entry .tbl { overflow-x: auto; margin: .5rem 0; }
+.entry table { border-collapse: collapse; font-size: .92rem; }
+.entry th, .entry td { border: 1px solid var(--edge); padding: .25rem .55rem; text-align: left; vertical-align: top; }
+.entry th { background: var(--panel); color: var(--gold); font-weight: 600; }
+.entry tr:nth-child(even) td { background: #ffffff06; }
+.entry p.tcap { color: var(--gold); font-weight: 600; margin: .8rem 0 .2rem; }
+.entry tr.sect td { background: var(--bg); color: var(--gold); font-weight: 600; }
+table.files { width: 100%; border-collapse: collapse; }
+table.files td { padding: .35rem .4rem; border-bottom: 1px solid var(--bg2); }
+table.files tr:hover td { background: var(--bg2); }
+table.files td.sz { color: var(--dim); text-align: right; white-space: nowrap; font-size: .85rem; }
+table.files td.act { text-align: right; white-space: nowrap; }
+.crumbs a, .crumbs span { margin-right: .3rem; }
+.drop { border: 2px dashed var(--edge); border-radius: 8px; padding: .8rem; text-align: center; color: var(--dim); margin: .5rem 0; }
+.drop.over { border-color: var(--gold); color: var(--gold); }
+textarea.code { font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; min-height: 70vh; white-space: pre; }
+textarea.note { min-height: 65vh; font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace; }
+progress { width: 100%; accent-color: var(--gold); }
+
+#login { position: fixed; inset: 0; background: #000c; display: none; align-items: center; justify-content: center; z-index: 20; }
+#login.show { display: flex; }
+#login .card { width: min(340px, 90vw); text-align: center; }
+#login input { font-size: 2rem; text-align: center; letter-spacing: .5rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>D&amp;D 5E Toolkit</h1>
+  <nav id="nav">
+    <a href="#table">Table</a><a href="#campaign">Campaign</a><a href="#notes">Notes</a>
+    <a href="#ref">Reference</a><a href="#files">Files</a><a href="#device">WiFi</a>
+  </nav>
+  <span id="conn"></span>
+</header>
+<main id="main"></main>
+<div id="login"><form class="card" id="loginForm">
+  <h2>Enter PIN</h2>
+  <div class="muted">The 4-digit PIN is on the Cardputer's Web screen.</div>
+  <input id="pin" type="text" inputmode="numeric" autocomplete="off" maxlength="8">
+  <button class="primary" style="width:100%">Unlock</button>
+  <div class="st err" id="loginErr"></div>
+</form></div>
+<script>
+"use strict";
+// ------------------------------------------------------------------ basics
+const $ = (s, el = document) => el.querySelector(s);
+const enc = encodeURIComponent;
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (v == null || v === false) continue;
+    if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (k === "class") e.className = v;
+    else if (k === "style") e.style.cssText = v;
+    else if (k === "value") e.value = v;
+    else if (k in e && typeof v !== "string") e[k] = v;
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat(Infinity)) if (c != null && c !== false) e.append(c instanceof Node ? c : String(c));
+  return e;
+}
+function autosize(t) { t.style.height = "auto"; t.style.height = t.scrollHeight + 2 + "px"; }
+function kb(n) { return n < 1024 ? n + " B" : n < 1048576 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(1) + " MB"; }
+
+let token = localStorage.getItem("tok") || "";
+let loginWaiters = [];
+function setConn(ok, msg) { const c = $("#conn"); c.textContent = msg || (ok ? "" : "offline"); c.className = ok ? "" : "bad"; }
+
+async function api(path, opts = {}) {
+  opts.headers = Object.assign({}, opts.headers || {}, { "X-Token": token });   // current token, also on retries
+  let r;
+  try { r = await fetch(path, opts); } catch (e) { setConn(false); throw new Error("Can't reach the Cardputer"); }
+  setConn(true);
+  if (r.status === 401) { await needLogin(); return api(path, opts); }
+  if (!r.ok) throw new Error((await r.text()) || r.statusText);
+  return r;
+}
+const getText = (p, extra = "") => api("/api/file?path=" + enc(p) + extra).then(r => r.text());
+const putText = (p, t) => api("/api/file?path=" + enc(p), { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: t });
+const post = (what, p, extra = "") => api(`/api/${what}?path=${enc(p)}${extra}`, { method: "POST" });
+async function ls(p) {
+  try { return await api("/api/ls?path=" + enc(p)).then(r => r.json()); } catch (e) { return []; }
+}
+
+function needLogin() {
+  $("#login").classList.add("show");
+  setTimeout(() => $("#pin").focus(), 50);
+  return new Promise(r => loginWaiters.push(r));
+}
+$("#loginForm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const r = await fetch("/api/login", { method: "POST", body: $("#pin").value.trim() }).catch(() => null);
+  if (!r) { $("#loginErr").textContent = "Can't reach the Cardputer"; return; }
+  if (!r.ok) { $("#loginErr").textContent = await r.text(); $("#pin").select(); return; }
+  token = await r.text();
+  localStorage.setItem("tok", token);
+  $("#login").classList.remove("show");
+  $("#loginErr").textContent = "";
+  $("#pin").value = "";
+  loginWaiters.splice(0).forEach(f => f());
+});
+
+// Autosave: edits save 1.5 s after the last change, and before leaving a page.
+let saver = null;
+function makeSaver(saveFn, statusEl) {
+  let timer = null, pending = false;
+  const s = {
+    touch() { pending = true; statusEl.textContent = "Unsaved"; statusEl.className = "st"; clearTimeout(timer); timer = setTimeout(s.flush, 1500); },
+    get pending() { return pending; },
+    cancel() { clearTimeout(timer); pending = false; },
+    async flush() {
+      clearTimeout(timer);
+      if (!pending) return;
+      pending = false;
+      statusEl.textContent = "Saving…";
+      try { await saveFn(); statusEl.textContent = "Saved"; statusEl.className = "st ok"; }
+      catch (e) { pending = true; statusEl.textContent = "Not saved: " + e.message; statusEl.className = "st err"; }
+    },
+  };
+  saver = s;
+  return s;
+}
+window.addEventListener("beforeunload", e => { if (saver && saver.pending) { saver.flush(); e.preventDefault(); } });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); if (saver) saver.flush(); }
+});
+
+// ------------------------------------------------------------------ routing
+let pollTimer = null;
+const views = { table: viewTable, campaign: viewCampaign, notes: viewNotes, ref: viewRef, files: viewFiles, edit: viewEdit, device: viewDevice };
+async function route() {
+  clearInterval(pollTimer);
+  pollTimer = null;
+  if (saver) { await saver.flush(); saver = null; }
+  const [name, ...rest] = (location.hash.slice(1) || "table").split("/");
+  const arg = rest.map(decodeURIComponent);
+  document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + (name === "edit" ? "files" : name)));
+  document.body.classList.remove("tv");
+  const main = $("#main");
+  main.replaceChildren(h("div", { class: "muted" }, "Loading…"));
+  try { await (views[name] || viewTable)(main, arg); }
+  catch (e) { main.replaceChildren(h("div", { class: "card st err" }, e.message)); }
+}
+window.addEventListener("hashchange", route);
+const go = (...parts) => { location.hash = parts.map((p, i) => i ? enc(p) : p).join("/"); };
+
+// ------------------------------------------------------------------ live table
+function parseInit(txt) {
+  const lines = txt.split("\n").map(l => l.trim()).filter(Boolean);
+  if (!lines.length) return null;
+  const [round, turn] = lines[0].split("|").map(Number);
+  const list = lines.slice(1).map(l => {
+    const f = l.split("|");
+    return {
+      name: f[0], init: +f[1], hp: +f[2], max: +f[3], ac: +f[5], pc: f[6] === "1", monster: f[7] || "",
+      conds: (f[4] || "").split(",").filter(Boolean).map(c => { const i = c.lastIndexOf(":"); return { name: c.slice(0, i), rounds: +c.slice(i + 1) }; }),
+    };
+  });
+  return { round: round || 1, turn: turn || 0, list };
+}
+
+async function viewTable(main) {
+  const pv = h("input", { type: "checkbox", checked: localStorage.getItem("pv") === "1" });
+  const showRolls = h("input", { type: "checkbox", checked: localStorage.getItem("rolls") !== "0" });
+  const tv = h("input", { type: "checkbox", checked: localStorage.getItem("tv") === "1" });
+  const initBox = h("div", { class: "combat" }), rollBox = h("div", { class: "rolls" }), roundEl = h("span", { class: "muted" });
+  const rollCol = h("div", {}, h("h3", { style: "margin-bottom:.5rem" }, "Rolls"), rollBox);
+  main.replaceChildren(
+    h("div", { class: "row", style: "margin-bottom:.8rem" },
+      h("h2", { style: "margin:0" }, "Initiative"), roundEl, h("span", { class: "grow" }),
+      h("label", { title: "Hide monster HP and AC" }, pv, " Player view"),
+      h("label", {}, showRolls, " Rolls"), h("label", { title: "Bigger text for a TV or tablet" }, tv, " Big")),
+    h("div", { class: "live" }, h("div", {}, initBox), rollCol));
+  let lastInit = null, lastRoll = -1, seen = +(sessionStorage.getItem("seenRoll") || 0);
+  const apply = () => {
+    localStorage.setItem("pv", pv.checked ? "1" : "0");
+    localStorage.setItem("rolls", showRolls.checked ? "1" : "0");
+    localStorage.setItem("tv", tv.checked ? "1" : "0");
+    document.body.classList.toggle("tv", tv.checked);
+    rollCol.style.display = showRolls.checked ? "" : "none";
+    lastInit = null;
+    refresh();
+  };
+  [pv, showRolls, tv].forEach(c => c.addEventListener("change", apply));
+
+  function renderInit(st) {
+    if (!st || !st.list.length) {
+      roundEl.textContent = "";
+      initBox.replaceChildren(h("div", { class: "card muted" }, "No combat yet. Add combatants in Initiative on the Cardputer and they appear here."));
+      return;
+    }
+    roundEl.textContent = "Round " + st.round;
+    initBox.replaceChildren(...st.list.map((c, i) => {
+      const hide = pv.checked && !c.pc, frac = c.max > 0 ? Math.max(0, Math.min(1, c.hp / c.max)) : 0;
+      const color = frac > .5 ? "var(--emerald)" : frac > .25 ? "var(--gold)" : "var(--blood)";
+      const status = c.hp <= 0 ? "Down" : c.hp <= c.max / 2 ? "Bloodied" : c.hp < c.max ? "Hurt" : "Healthy";
+      return h("div", { class: "cmb" + (i === st.turn ? " turn" : "") + (c.hp <= 0 && c.max > 0 ? " down" : "") },
+        h("div", { class: "ini" }, c.init),
+        h("div", { class: "nm" }, (i === st.turn ? "▶ " : "") + c.name, c.pc ? h("span", { class: "tag green" }, "PC") : null),
+        h("div", { class: "ac" }, !hide && c.ac ? "AC " + c.ac : ""),
+        c.max > 0 ? h("div", { class: "hp" },
+          hide ? h("span", { class: "muted" }, status)
+               : [h("div", { class: "bar" }, h("div", { style: `width:${frac * 100}%;background:${color}` })), h("span", {}, `${c.hp} / ${c.max}`)]) : null,
+        c.conds.length ? h("div", { class: "conds" }, c.conds.map(k => h("span", { class: "cond" }, k.name + (k.rounds > 0 ? " " + k.rounds : "")))) : null);
+    }));
+  }
+  function renderRolls(rolls) {
+    if (!rolls.length) { rollBox.replaceChildren(h("div", { class: "muted small" }, "Rolls made on the Cardputer show up here.")); return; }
+    rollBox.replaceChildren(...rolls.slice().reverse().map(r => h("div", {
+      class: "roll" + (r.nat === 20 ? " crit" : r.nat === 1 ? " fumble" : "") + (r.id > seen ? " fresh" : "") },
+      h("div", {}, h("b", {}, r.title), r.label ? " · " + r.label : "", r.crit ? h("span", { class: "tag gold", style: "margin-left:.4rem" }, "crit") : null),
+      h("div", { class: "tot" }, r.total),
+      h("div", { class: "muted small" }, r.expr + (r.detail ? "  " + r.detail : "")))));
+    seen = Math.max(seen, ...rolls.map(r => r.id));
+    sessionStorage.setItem("seenRoll", seen);
+  }
+  async function refresh() {
+    try {
+      const d = await api("/api/live").then(r => r.json());
+      if (d.init !== lastInit) { lastInit = d.init; renderInit(parseInit(d.init)); }
+      const top = d.rolls.length ? d.rolls[d.rolls.length - 1].id : 0;
+      if (top !== lastRoll) { lastRoll = top; renderRolls(d.rolls); }
+    } catch (e) { /* shown in the header */ }
+  }
+  apply();
+  pollTimer = setInterval(refresh, 1500);
+}
+
+// ------------------------------------------------------------------ campaigns
+const ROOT = "/gmtools/campaigns";
+const CAMPAIGN_SECTIONS = ["Pitch & notes", "Threads & quests", "NPCs", "Locations", "Factions", "Party"];
+const SESSION_SECTIONS = ["Recap", "Spotlight", "Strong start", "Scenes", "Secrets & clues", "Locations", "NPCs", "Encounters", "Treasure", "Notes"];
+const HINTS = {
+  "Pitch & notes": ["The campaign in a sentence, tone, themes", "done"], "Threads & quests": ["Open plot threads and quests", "resolved"],
+  "NPCs": ["Who matters, and what do they want?", "met"], "Locations": ["Places the heroes might go", "visited"],
+  "Factions": ["Groups, goals and their next move", "done"], "Party": ["Each hero's goals and hooks", "done"],
+  "Recap": ["What happened last time", "told"], "Spotlight": ["A moment for each hero", "done"],
+  "Strong start": ["Open with action", "used"], "Scenes": ["A few likely scenes - not a script", "played"],
+  "Secrets & clues": ["10 things they could learn, any order", "revealed"], "Encounters": ["e.g. 3x Goblin Warrior - R on the Cardputer runs it", "run"],
+  "Treasure": ["Rewards worth finding", "given"], "Notes": ["What actually happened (becomes next recap)", "done"],
+};
+const unesc = s => s.replace(/\\n/g, "\n");
+const esc = s => s.replace(/\r/g, "").replace(/\n/g, "\\n");
+
+function parseDoc(txt, kind) {
+  const doc = { kind, title: "", number: 0, played: false, sections: (kind === "session" ? SESSION_SECTIONS : CAMPAIGN_SECTIONS).map(n => ({ name: n, items: [] })) };
+  let cur = null;
+  for (let l of txt.split("\n")) {
+    l = l.trim();
+    if (!l) continue;
+    if (l.startsWith("## ")) {
+      const n = l.slice(3);
+      cur = doc.sections.find(s => s.name.toLowerCase() === n.toLowerCase());
+      if (!cur) { cur = { name: n, items: [] }; doc.sections.push(cur); }
+    } else if (cur && l[0] === "[" && l.length >= 3 && l[2] === "]") {
+      cur.items.push({ text: unesc(l.slice(3).trim()), done: l[1] === "x" || l[1] === "X" });
+    } else if (!cur && l.startsWith("title: ")) doc.title = l.slice(7);
+    else if (!cur && l.startsWith("number: ")) doc.number = parseInt(l.slice(8)) || 0;
+    else if (!cur && l.startsWith("status: ")) doc.played = l.slice(8) === "played";
+  }
+  return doc;
+}
+function docText(d) {
+  let s = "title: " + d.title.replace(/\n/g, " ") + "\n";
+  if (d.kind === "session") s += `number: ${d.number}\nstatus: ${d.played ? "played" : "planned"}\n`;
+  for (const sec of d.sections) {
+    s += "\n## " + sec.name + "\n";
+    for (const it of sec.items) if (it.text.trim()) s += (it.done ? "[x] " : "[ ] ") + esc(it.text.trim()) + "\n";
+  }
+  return s;
+}
+const header = async (path, n = 240) => { try { return await getText(path, "&off=0&len=" + n); } catch (e) { return ""; } };
+const headVal = (txt, key) => { const m = txt.split("\n##")[0].match(new RegExp("^" + key + ": (.*)$", "m")); return m ? m[1].trim() : ""; };
+
+async function currentPlan() {
+  const t = await header(ROOT + "/current.txt", 256);
+  const [id, path] = t.split("\n").map(s => s.trim());
+  return { id, path };
+}
+async function sessionsOf(id) {
+  const files = (await ls(ROOT + "/" + id)).filter(f => !f.d && f.n.startsWith("session_"));
+  const out = await Promise.all(files.map(async f => {
+    const t = await header(`${ROOT}/${id}/${f.n}`);
+    return { file: f.n, title: headVal(t, "title"), number: parseInt(headVal(t, "number")) || parseInt(f.n.slice(8)) || 0, played: headVal(t, "status") === "played" };
+  }));
+  return out.sort((a, b) => a.number - b.number);
+}
+
+async function viewCampaign(main, [id, file]) {
+  if (!id) return campaignList(main);
+  if (file) return sessionPage(main, id, file);
+  const cur = await currentPlan(), sessions = await sessionsOf(id);
+  const title = h("input", { type: "text", style: "font-size:1.2rem" });
+  const status = h("span", { class: "st" });
+  const newTitle = h("input", { type: "text", placeholder: `Session ${(sessions.length ? sessions[sessions.length - 1].number : 0) + 1} title (optional)` });
+  const body = h("div");
+  main.replaceChildren(
+    h("div", { class: "row", style: "margin-bottom:.6rem" }, h("a", { href: "#campaign" }, "← Campaigns")),
+    h("div", { class: "cols" },
+      h("div", {},
+        h("h3", { style: "margin-bottom:.4rem" }, "Sessions"),
+        h("div", { class: "list" }, sessions.length ? sessions.map(s => h("a", { class: "card", href: `#campaign/${enc(id)}/${enc(s.file)}` },
+          h("div", { class: "row" }, h("b", {}, "S" + s.number), h("span", { class: "grow" }, s.title),
+            s.played ? h("span", { class: "tag green" }, "played") : h("span", { class: "tag" }, "planned"),
+            cur.path === `${ROOT}/${id}/${s.file}` ? h("span", { class: "tag gold", title: "Other apps add to this session" }, "current") : null)))
+          : h("div", { class: "muted small" }, "No sessions yet.")),
+        h("form", { class: "list", style: "margin-top:.8rem", onsubmit: async ev => {
+          ev.preventDefault();
+          const r = await newSession(id, newTitle.value.trim(), sessions);
+          go("campaign", id, r);
+        } }, newTitle, h("button", { class: "primary" }, "New session")),
+        h("p", { class: "muted small" }, "A new session carries over unrevealed secrets, and the last session's notes become its recap.")),
+      h("div", {}, h("div", { class: "row toolbar" }, title, status), body)));
+  await docEditor(body, `${ROOT}/${id}/campaign.txt`, "campaign", title, status);
+}
+
+async function campaignList(main) {
+  const dirs = (await ls(ROOT)).filter(f => f.d).map(f => f.n).sort();
+  const cur = await currentPlan();
+  const items = await Promise.all(dirs.map(async d => ({ id: d, title: headVal(await header(`${ROOT}/${d}/campaign.txt`, 160), "title") || d, sessions: (await ls(ROOT + "/" + d)).filter(f => f.n.startsWith("session_")).length })));
+  const name = h("input", { type: "text", placeholder: "New campaign name" });
+  main.replaceChildren(h("h2", {}, "Campaigns"),
+    h("div", { class: "list" }, items.length ? items.map(c => h("a", { class: "card", href: "#campaign/" + enc(c.id) },
+      h("div", { class: "row" }, h("b", { class: "grow" }, c.title), cur.id === c.id ? h("span", { class: "tag gold" }, "current") : null,
+        h("span", { class: "muted small" }, c.sessions + " session" + (c.sessions === 1 ? "" : "s")))))
+      : h("div", { class: "muted" }, "No campaigns yet.")),
+    h("form", { class: "row", style: "margin-top:1rem", onsubmit: async ev => {
+      ev.preventDefault();
+      const t = name.value.trim();
+      if (!t) return;
+      // same folder naming as the Cardputer
+      let id = "";
+      for (const ch of t) { if (id.length >= 24) break; id += /[a-z0-9]/i.test(ch) ? ch.toLowerCase() : "_"; }
+      while (id.includes("__")) id = id.replace("__", "_");
+      if (!id || id === "_") id = "campaign";
+      let base = id;
+      for (let i = 2; dirs.includes(id) && i < 100; i++) id = base + "_" + i;
+      await post("mkdir", ROOT + "/" + id);
+      const d = parseDoc("", "campaign");
+      d.title = t;
+      await putText(`${ROOT}/${id}/campaign.txt`, docText(d));
+      go("campaign", id);
+    } }, h("div", { class: "grow" }, name), h("button", { class: "primary" }, "Create")));
+}
+
+async function newSession(id, title, sessions) {
+  const number = sessions.length ? sessions[sessions.length - 1].number + 1 : 1;
+  const d = parseDoc("", "session");
+  d.number = number;
+  d.title = title || "Session " + number;
+  if (sessions.length) {
+    const prev = parseDoc(await getText(`${ROOT}/${id}/${sessions[sessions.length - 1].file}`), "session");
+    const sec = n => d.sections.find(s => s.name === n), from = n => (prev.sections.find(s => s.name === n) || { items: [] }).items;
+    sec("Secrets & clues").items = from("Secrets & clues").filter(i => !i.done).map(i => ({ text: i.text, done: false }));
+    sec("Recap").items = from("Notes").map(i => ({ text: i.text, done: false }));
+  }
+  const file = `session_${String(number).padStart(3, "0")}.txt`;
+  await putText(`${ROOT}/${id}/${file}`, docText(d));
+  await putText(ROOT + "/current.txt", `${id}\n${ROOT}/${id}/${file}\n`);
+  return file;
+}
+
+async function sessionPage(main, id, file) {
+  const path = `${ROOT}/${id}/${file}`;
+  const title = h("input", { type: "text", style: "font-size:1.2rem" });
+  const status = h("span", { class: "st" });
+  const played = h("input", { type: "checkbox" });
+  const cur = await currentPlan();
+  const makeCur = h("button", { title: "Encounters, loot and other Cardputer apps add to the current session", onclick: async () => {
+    await putText(ROOT + "/current.txt", `${id}\n${path}\n`);
+    makeCur.disabled = true; makeCur.textContent = "Current session";
+  } }, cur.path === path ? "Current session" : "Make current");
+  makeCur.disabled = cur.path === path;
+  const num = h("b", { style: "font-size:1.2rem;color:var(--gold)" });
+  const body = h("div");
+  main.replaceChildren(
+    h("div", { class: "row", style: "margin-bottom:.4rem" }, h("a", { href: "#campaign/" + enc(id) }, "← Campaign")),
+    h("div", { class: "row toolbar" }, num, h("div", { class: "grow", style: "min-width:200px" }, title), h("label", {}, played, " Played"), makeCur, status),
+    body);
+  const doc = await docEditor(body, path, "session", title, status);
+  num.textContent = "S" + doc.number;
+  played.checked = doc.played;
+  played.addEventListener("change", () => { doc.played = played.checked; saver.touch(); });
+}
+
+// Outline editor for campaign.txt / session_NNN.txt (same format the Cardputer writes).
+async function docEditor(box, path, kind, titleInput, status) {
+  const doc = parseDoc(await getText(path), kind);
+  const s = makeSaver(() => putText(path, docText(doc)), status);
+  titleInput.value = doc.title;
+  titleInput.addEventListener("input", () => { doc.title = titleInput.value; s.touch(); });
+  const closed = new Set(JSON.parse(localStorage.getItem("closed") || "[]"));
+  function itemRow(sec, it, i) {
+    const ta = h("textarea", { rows: 1, value: it.text, oninput: () => { it.text = ta.value; autosize(ta); s.touch(); } });
+    const move = d => { const j = i + d; if (j < 0 || j >= sec.items.length) return; [sec.items[i], sec.items[j]] = [sec.items[j], sec.items[i]]; s.touch(); render(); };
+    return h("div", { class: "item" + (it.done ? " done" : "") },
+      h("input", { type: "checkbox", checked: it.done, title: (HINTS[sec.name] || [, "done"])[1],
+        onchange: ev => { it.done = ev.target.checked; s.touch(); render(); } }),
+      ta,
+      h("span", { class: "btns" },
+        h("button", { class: "icon", title: "Move up", onclick: () => move(-1) }, "↑"),
+        h("button", { class: "icon", title: "Move down", onclick: () => move(1) }, "↓"),
+        h("button", { class: "icon danger", title: "Delete", onclick: () => { sec.items.splice(i, 1); s.touch(); render(); } }, "✕")));
+  }
+  function render() {
+    const focus = document.activeElement && document.activeElement.dataset.sec;
+    box.replaceChildren(...doc.sections.map(sec => {
+      const add = h("textarea", { rows: 1, placeholder: "Add…", "data-sec": sec.name });
+      const addIt = () => { const t = add.value.trim(); if (!t) return; sec.items.push({ text: t, done: false }); s.touch(); render(); };
+      add.addEventListener("input", () => autosize(add));
+      add.addEventListener("keydown", ev => { if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); addIt(); } });
+      const key = kind + ":" + sec.name;
+      const el = h("section", { class: "sec" + (closed.has(key) ? " closed" : "") },
+        h("div", { class: "head", onclick: () => {
+          el.classList.toggle("closed");
+          el.classList.contains("closed") ? closed.add(key) : closed.delete(key);
+          localStorage.setItem("closed", JSON.stringify([...closed]));
+        } }, h("h3", {}, sec.name), h("span", { class: "hint" }, (HINTS[sec.name] || ["A custom section"])[0]),
+          h("span", { class: "muted small" }, sec.items.length ? sec.items.filter(i => i.done).length + "/" + sec.items.length : "")),
+        h("div", { class: "body" }, sec.items.map((it, i) => itemRow(sec, it, i)),
+          h("div", { class: "add" }, add, h("button", { onclick: addIt }, "Add"))));
+      return el;
+    }), h("form", { class: "row", style: "margin-top:1rem", onsubmit: ev => {
+      ev.preventDefault();
+      const n = ev.target.elements.n.value.trim();
+      if (n && !doc.sections.some(x => x.name.toLowerCase() === n.toLowerCase())) { doc.sections.push({ name: n, items: [] }); s.touch(); render(); }
+    } }, h("input", { type: "text", name: "n", placeholder: "New section name", style: "max-width:260px" }), h("button", {}, "Add section")));
+    box.querySelectorAll("textarea").forEach(autosize);
+    if (focus) { const t = box.querySelector(`textarea[data-sec="${CSS.escape(focus)}"]`); if (t) t.focus(); }
+  }
+  render();
+  requestAnimationFrame(() => box.querySelectorAll("textarea").forEach(autosize));
+  return doc;
+}
+
+// ------------------------------------------------------------------ notes
+const NOTES = "/gmtools/notes";
+async function viewNotes(main, [file]) {
+  if (file) return noteEditor(main, file);
+  const files = (await ls(NOTES)).filter(f => !f.d && f.n.endsWith(".txt")).sort((a, b) => a.n.localeCompare(b.n));
+  const notes = await Promise.all(files.map(async f => ({ ...f, title: (await header(NOTES + "/" + f.n, 80)).split("\n")[0].trim() || "(untitled)" })));
+  main.replaceChildren(
+    h("div", { class: "row", style: "margin-bottom:.6rem" }, h("h2", { class: "grow", style: "margin:0" }, "Notes"),
+      h("button", { class: "primary", onclick: async () => {
+        const names = new Set(files.map(f => f.n));
+        for (let i = 1; i < 1000; i++) { const n = `note${String(i).padStart(3, "0")}.txt`; if (!names.has(n)) { await putText(NOTES + "/" + n, ""); return go("notes", n); } }
+      } }, "New note")),
+    h("div", { class: "list" }, notes.length ? notes.map(n => h("a", { class: "card", href: "#notes/" + enc(n.n) },
+      h("div", { class: "row" }, h("b", { class: "grow" }, n.title), h("span", { class: "muted small" }, kb(n.s)))))
+      : h("div", { class: "muted" }, "No notes yet.")));
+}
+async function noteEditor(main, file) {
+  const path = NOTES + "/" + file;
+  const ta = h("textarea", { class: "note", placeholder: "First line is the title" });
+  ta.value = await getText(path);
+  const status = h("span", { class: "st" }), count = h("span", { class: "muted small" });
+  const s = makeSaver(() => putText(path, ta.value), status);
+  const upd = () => { count.textContent = ta.value.length + " chars" + (ta.value.length > 8000 ? " - over 8000, opens read-only on the Cardputer" : ""); count.style.color = ta.value.length > 8000 ? "var(--gold)" : ""; };
+  ta.addEventListener("input", () => { upd(); s.touch(); });
+  upd();
+  main.replaceChildren(
+    h("div", { class: "row toolbar" }, h("a", { href: "#notes" }, "← Notes"), h("span", { class: "grow" }), count, status,
+      h("button", { class: "danger", onclick: async () => {
+        if (!confirm("Delete this note?")) return;
+        s.cancel();
+        await post("rm", path);
+        go("notes");
+      } }, "Delete")),
+    ta);
+  ta.focus();
+}
+
+// ------------------------------------------------------------------ reference
+const SRD = "/gmtools/srd";
+const REF_META = {
+  spells: c => [c[0] === "0" ? "Cantrip" : "Level " + c[0], c[1], c[2], c[3] ? "ritual" : "", c[4] ? "concentration" : ""],
+  monsters: c => ["CR " + c[0], c[6], c[1], "AC " + c[4], "HP " + c[3]],
+};
+const LABELS = { skills_n: "Skill choices", hitdie: "Hit die", spell_ability: "Spellcasting ability", creature: "Stat block", higher: "At higher levels", ac: "AC", hp: "HP", cr: "CR", xp: "XP", pb: "Prof. bonus", hpdice: "Hit dice", dtype: "Damage type", typeline: "Type", conc: "Concentration" };
+const label = k => LABELS[k] || (/^trait\d+$/.test(k) ? "Trait" : k.replace(/_/g, " "));
+// SRD text: one paragraph per line; runs of "a | b" lines are tables, the first row the header.
+// SRD text: one paragraph per line, "* " lines are bullets, and runs of "a | b" lines
+// are tables (first row the heading; a row with only its first cell is a section row).
+const isRow = l => l.includes(" | ") || l.endsWith(" |");
+function richText(v) {
+  const out = [], lines = v.split("\n");
+  for (let i = 0; i < lines.length;) {
+    if (lines[i].startsWith("* ")) {
+      const items = [];
+      while (i < lines.length && lines[i].startsWith("* ")) items.push(h("li", {}, lines[i++].slice(2)));
+      out.push(h("ul", {}, items));
+      continue;
+    }
+    if (!isRow(lines[i])) { out.push(h("p", {}, lines[i++])); continue; }
+    // a short line without a full stop right above is the table's title
+    const prev = out[out.length - 1];
+    if (prev && prev.tagName === "P" && prev.textContent.length < 40 && !/[.:]$/.test(prev.textContent)) prev.className = "tcap";
+    const rows = [];
+    while (i < lines.length && isRow(lines[i])) {
+      const r = lines[i++].replace(/ \|$/, " | ").split(" | ").map(c => c.trim());
+      if (!rows.length || r.join("|") !== rows[0].join("|")) rows.push(r);   // heading repeated at a column break
+    }
+    out.push(tableEl(rows));
+  }
+  return out;
+}
+function tableEl(rows) {
+  const cols = Math.max(...rows.map(r => r.length));
+  rows = rows.map(r => r.concat(Array(cols - r.length).fill("")));
+  const cell = c => c === "-" ? "\u2014" : c;
+  return h("div", { class: "tbl" }, h("table", {}, rows.map((r, j) => {
+    if (j && r[0] && r.slice(1).every(c => !c) && cols > 1)   // section row
+      return h("tr", { class: "sect" }, h("td", { colspan: cols }, r[0]));
+    return h("tr", {}, r.map(c => h(j ? "td" : "th", {}, cell(c))));
+  })));
+}
+let refCache = {};
+async function viewRef(main, [src, off]) {
+  const sources = (await ls(SRD)).filter(f => f.n.endsWith(".idx")).map(f => f.n.slice(0, -4)).sort();
+  if (!sources.length) { main.replaceChildren(h("div", { class: "card muted" }, "No SRD data on the SD card (" + SRD + ").")); return; }
+  src = sources.includes(src) ? src : sources.includes("spells") ? "spells" : sources[0];
+  if (!refCache[src]) {
+    const txt = await getText(`${SRD}/${src}.idx`);
+    refCache[src] = txt.split("\n").filter(Boolean).map(l => { const f = l.split("\t"); return { off: f[0], name: f[1] || "", cols: f.slice(2) }; })
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+  const rows = refCache[src];
+  const meta = r => (REF_META[src] ? REF_META[src](r.cols) : r.cols).filter(Boolean).join(" · ");
+  const sel = h("select", { onchange: () => go("ref", sel.value) }, sources.map(s => h("option", { value: s, selected: s === src }, s[0].toUpperCase() + s.slice(1))));
+  const q = h("input", { type: "search", placeholder: "Search " + src + "…", value: sessionStorage.getItem("q:" + src) || "" });
+  const results = h("div", { class: "results" }), entry = h("div", { class: "entry card" }, h("div", { class: "muted" }, "Pick an entry."));
+  const draw = () => {
+    sessionStorage.setItem("q:" + src, q.value);
+    const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = rows.filter(r => { const t = (r.name + " " + r.cols.join(" ")).toLowerCase(); return words.every(w => t.includes(w)); });
+    results.replaceChildren(...hits.slice(0, 300).map(r => h("a", { class: "res" + (r.off === off ? " on" : ""), href: `#ref/${src}/${r.off}` },
+      r.name, h("span", { class: "meta" }, meta(r)))),
+      hits.length > 300 ? h("div", { class: "muted small" }, `${hits.length - 300} more - refine the search`) : "",
+      !hits.length ? h("div", { class: "muted small" }, "Nothing matches.") : "");
+  };
+  q.addEventListener("input", draw);
+  draw();
+  main.replaceChildren(h("div", { class: "cols" }, h("div", {}, h("div", { class: "list" }, sel, q), h("div", { style: "margin-top:.5rem" }, results)), entry));
+  if (off != null) {
+    const txt = await api(`/api/rec?path=${enc(SRD + "/" + src + ".txt")}&off=${enc(off)}`).then(r => r.text());
+    const kv = txt.split("\n").map(l => { const i = l.indexOf(": "); return i > 0 ? [l.slice(0, i), unesc(l.slice(i + 2))] : null; }).filter(Boolean);
+    const ABIL = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+    for (const p of kv) if ((p[0] === "scores" || p[0] === "saves") && p[1].split(",").length === 6) p[1] = p[1].split(",").map((v, i) => ABIL[i] + " " + v).join("  ");
+    for (let i = kv.length - 1; i >= 0; i--) if (/^roll\d+$/.test(kv[i][0])) kv.splice(i, 1);   // the Cardputer's quick-roll data
+    for (const p of kv) if ((p[0] === "conc" || p[0] === "ritual") && p[1] === "1") p[1] = "Yes";
+    // a class's level table is stored as cols + L1..L20 ("1".."9" are spell slot columns)
+    const colsKv = kv.find(([k]) => k === "cols");
+    let classTable = null;
+    if (colsKv) {
+      const head = colsKv[1].split("|").map(c => /^\d$/.test(c.trim()) ? "Slot " + c.trim() : c.trim());
+      const rows = [head];
+      for (let lv = 1; lv <= 20; lv++) { const r = kv.find(([k]) => k === "L" + lv); if (r) rows.push(r[1].split("|").map(c => c.trim())); }
+      classTable = tableEl(rows);
+      for (let i = kv.length - 1; i >= 0; i--) if (/^(cols|L\d+|equip_[a-z])$/.test(kv[i][0])) kv.splice(i, 1);
+    }
+    const name = (kv.find(([k]) => k === "name") || [, ""])[1];
+    const short = kv.filter(([k, v]) => k !== "name" && v.length <= 70 && !v.includes("\n"));
+    const long = kv.filter(([k, v]) => k !== "name" && (v.length > 70 || v.includes("\n")));
+    entry.replaceChildren(h("div", {}, h("h2", {}, name),
+      short.length ? h("dl", {}, short.map(([k, v]) => [h("dt", {}, label(k)), h("dd", {}, v)])) : null,
+      classTable ? [h("h4", {}, "Class table"), classTable] : null,
+      long.map(([k, v]) => [k === "text" ? null : h("h4", {}, label(k)), richText(v)])));
+    if (innerWidth <= 760) entry.scrollIntoView();
+  }
+}
+
+// ------------------------------------------------------------------ files
+const TEXT_EXT = /\.(txt|idx|md|csv|json|ini|cfg|log)$/i;
+async function viewFiles(main, parts) {
+  const path = "/gmtools" + (parts.length ? "/" + parts.join("/") : "");
+  const listing = await api("/api/ls?path=" + enc(path)).then(r => r.json());
+  listing.sort((a, b) => b.d - a.d || a.n.localeCompare(b.n, undefined, { numeric: true }));
+  const rel = p => p.replace(/^\/gmtools\/?/, "");
+  const link = p => "#files/" + rel(p).split("/").filter(Boolean).map(enc).join("/");
+  const crumbs = h("div", { class: "crumbs" });
+  let acc = "";
+  path.split("/").filter(Boolean).forEach((seg, i, all) => {
+    acc += "/" + seg;
+    crumbs.append(i < all.length - 1 ? h("a", { href: link(acc) }, seg) : h("b", {}, seg), i < all.length - 1 ? h("span", { class: "muted" }, "/") : "");
+  });
+  const prog = h("div");
+  const fileInput = h("input", { type: "file", multiple: true, style: "display:none", onchange: () => upload([...fileInput.files]) });
+  const drop = h("div", { class: "drop" }, "Drop files here to upload into this folder");
+  drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+  drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); upload([...e.dataTransfer.files]); });
+  async function upload(files) {
+    for (const f of files) {
+      const bar = h("progress", { max: 1, value: 0 }), label = h("div", { class: "small" }, `${f.name} (${kb(f.size)})`);
+      prog.append(label, bar);
+      const ok = await new Promise(res => {
+        const x = new XMLHttpRequest(), fd = new FormData();
+        fd.append("f", f, f.name);
+        x.open("POST", "/api/upload?dir=" + enc(path));
+        x.setRequestHeader("X-Token", token);
+        x.upload.onprogress = e => { if (e.lengthComputable) bar.value = e.loaded / e.total; };
+        x.onload = () => res(x.status === 200 ? "" : (x.status === 401 ? "PIN needed - reload" : x.responseText || "failed"));
+        x.onerror = () => res("connection lost");
+        x.send(fd);
+      });
+      label.textContent += ok ? " - " + ok : " - done";
+      label.className = "small " + (ok ? "st err" : "st ok");
+    }
+    route();
+  }
+  const ask = (msg, def) => { const v = prompt(msg, def); return v && v.trim() && !v.includes("/") ? v.trim() : null; };
+  main.replaceChildren(
+    h("div", { class: "row", style: "margin-bottom:.4rem" }, h("h2", { style: "margin:0" }, "Files"), h("span", { class: "grow" }),
+      h("button", { onclick: async () => { const n = ask("New folder name"); if (n) { await post("mkdir", path + "/" + n); route(); } } }, "New folder"),
+      h("button", { onclick: async () => { const n = ask("New file name", "new.txt"); if (n) { await putText(path + "/" + n, ""); go("edit", ...rel(path + "/" + n).split("/")); } } }, "New file"),
+      h("button", { class: "primary", onclick: () => fileInput.click() }, "Upload"), fileInput),
+    crumbs, drop, prog,
+    h("table", { class: "files" }, h("tbody", {},
+      path !== "/gmtools" ? h("tr", {}, h("td", { colspan: 3 }, h("a", { href: link(path.slice(0, path.lastIndexOf("/"))) }, "← up"))) : null,
+      listing.map(f => {
+        const full = path + "/" + f.n;
+        const editable = !f.d && TEXT_EXT.test(f.n);
+        return h("tr", {},
+          h("td", {}, f.d ? h("a", { href: link(full) }, "📁 " + f.n)
+            : editable ? h("a", { href: "#edit/" + rel(full).split("/").map(enc).join("/") }, f.n) : f.n),
+          h("td", { class: "sz" }, f.d ? "" : kb(f.s)),
+          h("td", { class: "act" },
+            f.d ? null : h("a", { class: "icon", href: `/api/file?path=${enc(full)}&dl=1&t=${token}`, title: "Download" }, h("button", { class: "icon" }, "⬇")),
+            h("button", { class: "icon", title: "Rename", onclick: async () => {
+              const n = ask("Rename to", f.n);
+              if (n && n !== f.n) { try { await post("mv", full, "&to=" + enc(path + "/" + n)); } catch (e) { alert(e.message); } route(); }
+            } }, "✎"),
+            h("button", { class: "icon danger", title: "Delete", onclick: async () => {
+              if (!confirm(`Delete ${f.n}${f.d ? " and everything in it" : ""}?`)) return;
+              await post("rm", full); route();
+            } }, "✕")));
+      }),
+      !listing.length ? h("tr", {}, h("td", { class: "muted" }, "Empty folder")) : null)));
+}
+
+async function viewEdit(main, parts) {
+  const path = "/gmtools/" + parts.join("/");
+  const dir = parts.slice(0, -1);
+  const size = ((await ls("/gmtools" + (dir.length ? "/" + dir.join("/") : ""))).find(f => f.n === parts[parts.length - 1]) || {}).s || 0;
+  const back = h("a", { href: "#files/" + dir.map(enc).join("/") }, "← " + (dir.length ? dir[dir.length - 1] : "gmtools"));
+  if (size > 64 * 1024) {
+    main.replaceChildren(h("div", { class: "row" }, back), h("div", { class: "card", style: "margin-top:.6rem" },
+      `${parts[parts.length - 1]} is ${kb(size)} - too big to edit here. `, h("a", { href: `/api/file?path=${enc(path)}&dl=1&t=${token}` }, "Download it"), " instead."));
+    return;
+  }
+  const ta = h("textarea", { class: "code", spellcheck: "false" });
+  ta.value = await getText(path);
+  const status = h("span", { class: "st" });
+  const s = makeSaver(() => putText(path, ta.value), status);
+  ta.addEventListener("input", () => s.touch());
+  ta.addEventListener("keydown", e => {
+    if (e.key === "Tab") { e.preventDefault(); ta.setRangeText("\t", ta.selectionStart, ta.selectionEnd, "end"); s.touch(); }
+  });
+  main.replaceChildren(h("div", { class: "row toolbar" }, back, h("b", { class: "grow" }, parts[parts.length - 1]), status,
+    h("button", { onclick: () => s.flush() }, "Save")), ta);
+  if (/\.(txt|idx)$/.test(path) && parts[0] === "srd")
+    main.insertBefore(h("div", { class: "card small", style: "margin-bottom:.5rem;border-color:var(--gold-dk)" },
+      "SRD data files are indexed by byte offset (the .idx file). Editing a .txt here shifts later records - regenerate both with tools/srd_extract.py instead."), ta);
+}
+
+// ------------------------------------------------------------------ device / WiFi
+async function viewDevice(main) {
+  const st = await api("/api/status").then(r => r.json());
+  const ssid = h("input", { type: "text", value: st.saved, placeholder: "Network name (empty = hotspot only)" });
+  const pass = h("input", { type: "password", placeholder: "Password" });
+  const msg = h("span", { class: "st" });
+  main.replaceChildren(h("h2", {}, "WiFi"),
+    h("div", { class: "card", style: "margin-bottom:1rem" },
+      h("dl", { class: "entry", style: "display:grid;grid-template-columns:max-content 1fr;gap:.2rem 1rem;margin:0" },
+        h("dt", { class: "muted" }, "Connected via"), h("dd", {}, st.mode === "hotspot" ? `its own hotspot "${st.network}"` : `"${st.network}"`),
+        h("dt", { class: "muted" }, "Address"), h("dd", {}, st.ip + (st.mode === "hotspot" ? "" : "  (or http://dnd.local)")),
+        h("dt", { class: "muted" }, "SD card"), h("dd", {}, st.sd ? "OK" : "missing"),
+        h("dt", { class: "muted" }, "Free memory"), h("dd", {}, kb(st.heap)))),
+    h("h3", {}, "Home network"),
+    h("p", { class: "muted small" }, "Web access joins this network when started, and falls back to its own hotspot if it can't. Changes apply the next time you start web access on the Cardputer."),
+    h("form", { class: "list", style: "max-width:420px", onsubmit: async ev => {
+      ev.preventDefault();
+      try { await api("/api/wifi", { method: "POST", body: ssid.value.trim() + "\n" + pass.value }); msg.textContent = "Saved"; msg.className = "st ok"; }
+      catch (e) { msg.textContent = e.message; msg.className = "st err"; }
+    } }, ssid, pass, h("div", { class: "row" }, h("button", { class: "primary" }, "Save"), msg)));
+}
+
+route();
+</script>
+</body>
+</html>

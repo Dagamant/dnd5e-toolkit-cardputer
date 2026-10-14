@@ -3,3 +3,4 @@
 tools/.venv/
 SRD_CC_v5.2.1.pdf
 __pycache__/
+src/core/web_page.h

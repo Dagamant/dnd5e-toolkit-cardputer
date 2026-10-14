@@ -1,4 +1,5 @@
 #include "ui.h"
+#include "web.h"
 #include "../board/board.h"
 #include <math.h>
 
@@ -71,6 +72,14 @@ void drawHeader(const char* title, uint16_t accent, int reserve) {
         gfx.fillRect(bx + 18, by + 2, 2, 4, C_DIM);
         uint16_t c = lvl > 50 ? C_EMERALD : (lvl > 20 ? C_GOLD : C_BLOOD);
         gfx.fillRect(bx + 2, by + 2, (14 * lvl) / 100, 4, c);
+    }
+    // web access running: a small WiFi mark left of the battery
+    if (web::state() != web::OFF) {
+        int wx = m.w - 31, wy = m.headerH / 2 + 3;
+        uint16_t c = web::state() == web::RUNNING ? C_ICE : ((millis() / 300) % 2 ? C_DIM : C_EDGE);
+        gfx.fillCircle(wx, wy, 1, c);
+        gfx.drawArc(wx, wy, 4, 4, 225, 315, c);
+        gfx.drawArc(wx, wy, 7, 7, 225, 315, c);
     }
 }
 

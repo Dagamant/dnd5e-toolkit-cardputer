@@ -42,4 +42,5 @@ App* makeTravelApp();
 App* makeShopApp();
 App* makeItemsApp();
 App* makeArchiveApp();
+App* makeWebApp();
 App* makeSettingsApp();

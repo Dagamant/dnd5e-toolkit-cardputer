@@ -9,6 +9,7 @@
 #include "core/sfx.h"
 #include "core/storage.h"
 #include "core/ui.h"
+#include "core/web.h"
 #include <math.h>
 #include <vector>
 
@@ -281,7 +282,7 @@ void setup() {
         {makeCampaignApp(), 1}, {makeEncountersApp(), 1}, {makeMonstersApp(), 1}, {makeDungeonApp(), 1},
         {makeTablesApp(), 1}, {makeTravelApp(), 1}, {makeShopApp(), 1},
         {makeSpellsApp(), 2}, {makeItemsApp(), 2}, {makeRulesApp(), 2}, {makeHazardsApp(), 2},
-        {makeArchiveApp(), 3}, {makeSettingsApp(), 3}};
+        {makeArchiveApp(), 3}, {makeWebApp(), 3}, {makeSettingsApp(), 3}};
     for (auto& a : apps) { g_apps.push_back(a.first); g_group.push_back(a.second); }
     // start on the app used last
     for (int i = 0; i < (int)g_apps.size(); i++)
@@ -305,6 +306,8 @@ void loop() {
     debug_console::update();
     crumb("main", "sfx");
     sfx::update();
+    crumb("main", "web");
+    web::update();
 
     uint32_t now = millis();
     uint32_t dt = now - g_lastFrame;

@@ -5,6 +5,7 @@
 #include "sfx.h"
 #include "storage.h"
 #include "ui.h"
+#include "web.h"
 
 using namespace ui;
 
@@ -57,6 +58,8 @@ static void rollAll() {
         sh.res = dice::roll(e);
         if (k == 0 && sh.res.ok && sh.res.natural == 20) crit = true;
         s_res.push_back(sh);
+        if (sh.res.ok)
+            web::logRoll(s_title, sh.line.label, sh.res.expr, sh.res.total, sh.res.breakdown(), sh.crit, sh.res.natural);
         if (settings::cur.logRolls && storage::ok() && sh.res.ok) {
             String l = String(millis() / 1000) + "s  " + s_title + (sh.line.label.length() ? " " + sh.line.label : String("")) +
                        ": " + sh.res.expr + " = " + sh.res.total + "  " + sh.res.breakdown();

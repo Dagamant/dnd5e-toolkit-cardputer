@@ -23,7 +23,7 @@ The default environment, `cardputer-adv`, uses Arduino core 3.x (the pioarduino 
 | 1-9, 0 on the home screen | Open the 1st-10th app (Dice, Initiative, Characters, Notes, Campaign, Encounters, Monsters, Dungeon, Random Tables, Travel) |
 
 ### Home screen
-Apps are grouped: **At the table** (Dice, Initiative, Characters, Notes), **Prep** (Campaign, Encounters, Monsters, Dungeon, Random Tables, Travel, Magic Shop), **Reference** (Spells, Items, Rules, Hazards) and **System** (Archive, Settings).
+Apps are grouped: **At the table** (Dice, Initiative, Characters, Notes), **Prep** (Campaign, Encounters, Monsters, Dungeon, Random Tables, Travel, Magic Shop), **Reference** (Spells, Items, Rules, Hazards) and **System** (Archive, Web, Settings).
 - **Tab** / **Shift+Tab** jump to the next / previous group.
 - **Letters** jump to the next app starting with that letter (C: Characters, Campaign).
 - **Space** switches between the icon carousel and a list of every app with its description (remembered).
@@ -167,6 +167,17 @@ Text prompts now have a cursor: **Fn+</>** move it (Fn+Up/Down by a line), Del e
 
 ### Archive
 Everything you've saved on the card: your own pages (`.txt` files in `/gmtools/ref/`, where `# ` lines are headings and `- ` lines are bullets), saved 5-Room Dungeons, and roll logs. **Enter** opens a file, **Fn+X** twice deletes it, and **Delete all roll logs** clears every log. Rules text lives in the **Rules** app.
+
+### Web
+Use the toolkit from a phone, tablet or laptop over WiFi. **Enter** starts web access. It joins your home network if you've saved one (**W**, or the WiFi tab in the browser); otherwise, or if joining fails, it makes its own hotspot. The screen shows the network, its password, the address (`http://dnd.local` also works on a home network) and a QR code: in hotspot mode the QR joins the network, and **Q** switches it to the address. The browser asks for the 4-digit PIN shown on the screen, which is new each time web access starts.
+
+Once started it keeps running while you use other apps, and a WiFi mark shows in the title bar. It stops when you press **Enter** in Web again or power off. It never starts on its own. In the browser:
+
+- **Table** shows initiative and the latest rolls live. Rolls come from Dice and from any roll popup. **Player view** hides monster HP and AC, and **Big** enlarges everything for a TV.
+- **Campaign** edits campaigns and sessions. New sessions carry over secrets and the recap, the same as on the Cardputer.
+- **Notes** edits notes, **Reference** searches the SRD, and **Files** manages everything under `/gmtools` (upload, download, rename, delete, edit text files).
+
+Edits save a moment after you stop typing. Don't edit the same campaign or note in the browser while it's open on the Cardputer: whichever saves last wins. The page lives in `web/index.html` and is built into the firmware (`tools/web_embed.py` runs on every build).
 
 ## SRD data
 

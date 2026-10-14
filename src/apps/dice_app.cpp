@@ -5,6 +5,7 @@
 #include "../core/sfx.h"
 #include "../core/storage.h"
 #include "../core/ui.h"
+#include "../core/web.h"
 #include <math.h>
 
 using namespace ui;
@@ -178,6 +179,9 @@ private:
         else if (fumble) { burst(C_BLOOD, 16); shakeAmt_ = 6; sfx::fumble(); }
         else sfx::land();
 
+        // shown on the web live view once the dice have landed
+        web::logRoll("Dice", cur_.hasTarget ? dice::degreeName(cur_.degree) : "", cur_.expr, cur_.total, cur_.breakdown(),
+                     false, cur_.natural);
         if (settings::cur.logRolls && storage::ok()) {
             String l = String(millis() / 1000) + "s  " + cur_.expr + " = " + cur_.total + "  " + cur_.breakdown();
             if (cur_.hasTarget) l += String("  ") + dice::degreeName(cur_.degree);
