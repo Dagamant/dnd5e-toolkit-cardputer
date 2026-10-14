@@ -35,7 +35,7 @@ name: Bard
 hitdie: d8
 primary: Charisma
 saves: Dexterity, Charisma
-skills_n: 0
+skills_n: 3
 skills: Acrobatics, Animal Handling, Arcana, Athletics, Deception, History, Insight, Intimidation, Investigation, Medicine, Nature, Perception, Performance, Persuasion, Religion, Sleight of Hand, Stealth, Survival
 weapons: Simple weapons
 tools: Choose 3 Musical Instruments (see "Equipment")
@@ -43,7 +43,7 @@ armor: Light armor
 equipment: (A) Leather Armor, 2 Daggers, Musical Instrument of your choice, Entertainer's Pack, and 19 GP; or (B) 90 GP
 equip_a: Leather Armor|2 Daggers|Musical Instrument of your choice|Entertainer's Pack|19 GP
 equip_b: 90 GP
-cols: Level|Proficiency Bonus|Class Features|Bardic Die|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+cols: Level|Proficiency Bonus|Class Features|Bardic Die|Cantrips|Prepared Spells|1|2|3|4|5|6|7|8|9
 L1: 1|+2|Bardic Inspiration, Spellcasting|D6|2|4|2| - | - | - | - | - | - | - | - 
 L2: 2|+2|Expertise, Jack of All Trades|D6|2|5|3| - | - | - | - | - | - | - | - 
 L3: 3|+2|Bard Subclass|D6|2|6|4|2| - | - | - | - | - | - | - 
@@ -77,7 +77,7 @@ armor: Light and Medium armor and Shields
 equipment: (A) Chain Shirt, Shield, Mace, Holy Symbol, Priest's Pack, and 7 GP; or (B) 110 GP
 equip_a: Chain Shirt|Shield|Mace|Holy Symbol|Priest's Pack|7 GP
 equip_b: 110 GP
-cols: Level|Proficiency Bonus|Class Features|Channel Divinity|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+cols: Level|Proficiency Bonus|Class Features|Channel Divinity|Cantrips|Prepared Spells|1|2|3|4|5|6|7|8|9
 L1: 1|+2|Spellcasting, Divine Order| - |3|4|2| - | - | - | - | - | - | - | - 
 L2: 2|+2|Channel Divinity|2|3|5|3| - | - | - | - | - | - | - | - 
 L3: 3|+2|Cleric Subclass|2|3|6|4|2| - | - | - | - | - | - | - 
@@ -112,7 +112,7 @@ armor: Light armor and Shields
 equipment: (A) Leather Armor, Shield, Sickle, Druidic Focus (Quarterstaff), Explorer's Pack, Herbalism Kit, and 9 GP; or (B) 50 GP
 equip_a: Leather Armor|Shield|Sickle|Druidic Focus (Quarterstaff)|Explorer's Pack|Herbalism Kit|9 GP
 equip_b: 50 GP
-cols: Level|Proficiency Bonus|Class Features|Wild Shape|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+cols: Level|Proficiency Bonus|Class Features|Wild Shape|Cantrips|Prepared Spells|1|2|3|4|5|6|7|8|9
 L1: 1|+2|Spellcasting, Druidic, Primal Order| - |2|4|2| - | - | - | - | - | - | - | - 
 L2: 2|+2|Wild Shape, Wild Companion|2|2|5|3| - | - | - | - | - | - | - | - 
 L3: 3|+2|Druid Subclass|2|2|6|4|2| - | - | - | - | - | - | - 
@@ -316,7 +316,7 @@ armor: None
 equipment: (A) Spear, 2 Daggers, Arcane Focus (crystal), Dungeoneer's Pack, and 28 GP; or (B) 50 GP
 equip_a: Spear|2 Daggers|Arcane Focus (crystal)|Dungeoneer's Pack|28 GP
 equip_b: 50 GP
-cols: Level|Proficiency Bonus|Class Features|Sorcery Points|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+cols: Level|Proficiency Bonus|Class Features|Sorcery Points|Cantrips|Prepared Spells|1|2|3|4|5|6|7|8|9
 L1: 1|+2|Spellcasting, Innate Sorcery| - |4|2|2| - | - | - | - | - | - | - | - 
 L2: 2|+2|Font of Magic, Metamagic|2|4|4|3| - | - | - | - | - | - | - | - 
 L3: 3|+2|Sorcerer Subclass|3|4|6|4|2| - | - | - | - | - | - | - 
@@ -383,7 +383,7 @@ armor: None
 equipment: (A) 2 Daggers, Arcane Focus (Quarterstaff), Robe, Spellbook, Scholar's Pack, and 5 GP; or (B) 55 GP
 equip_a: 2 Daggers|Arcane Focus (Quarterstaff)|Robe|Spellbook|Scholar's Pack|5 GP
 equip_b: 55 GP
-cols: Level|Proficiency Bonus|Class Features|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+cols: Level|Proficiency Bonus|Class Features|Cantrips|Prepared Spells|1|2|3|4|5|6|7|8|9
 L1: 1|+2|Spellcasting, Ritual Adept, Arcane Recovery|3|4|2| - | - | - | - | - | - | - | - 
 L2: 2|+2|Scholar|3|5|3| - | - | - | - | - | - | - | - 
 L3: 3|+2|Wizard Subclass|3|6|4|2| - | - | - | - | - | - | - 

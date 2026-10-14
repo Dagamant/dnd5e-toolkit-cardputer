@@ -19,14 +19,16 @@ from pathlib import Path
 
 import pymupdf  # pip install pymupdf  (see tools/.venv)
 from srd_habitats import habitat
+import srd_tables
 
 DOC = None
 
 class Run:
     """A piece of text in one font. kind: name|head|label|body|bold|bolditalic|italic|table|para"""
-    __slots__ = ("kind", "text", "font", "size", "x", "y", "page")
-    def __init__(self, kind, text, font="", size=0, x=0, y=0, page=0):
+    __slots__ = ("kind", "text", "font", "size", "x", "y", "page", "x1")
+    def __init__(self, kind, text, font="", size=0, x=0, y=0, page=0, x1=0):
         self.kind, self.text, self.font, self.size, self.x, self.y, self.page = kind, text, font, size, x, y, page
+        self.x1 = x1   # right edge
     def __repr__(self):
         return f"{self.kind}:{self.text!r}"
 
@@ -40,16 +42,38 @@ def classify(font, size):
     if "Italic" in font: return "italic"
     return "body"
 
-def runs(first, last):
-    """Font-tagged text for a page range in reading order (left column, then right)."""
+def runs(first, last, tables=True):
+    """Font-tagged text for a page range in reading order (left column, then right).
+    With tables, each table is rebuilt from its layout (srd_tables) and comes back
+    as one "tbl" run holding its text form."""
     out = []
     for pno in range(first - 1, last):
         page = DOC[pno]
         mid = page.rect.width / 2
         blocks = [b for b in page.get_text("dict")["blocks"] if b.get("lines") and b["bbox"][1] < 735]
-        blocks.sort(key=lambda b: (b["bbox"][0] >= mid - 10, b["bbox"][1]))
+        if tables:
+            done, extra = set(), []
+            for ids in srd_tables.group_tables(blocks, mid):
+                title, rows, head = srd_tables.build_table(blocks, ids)
+                if not rows: continue
+                done.update(ids)
+                x0 = min(blocks[i]["bbox"][0] for i in ids); y0 = min(blocks[i]["bbox"][1] for i in ids)
+                x1 = max(blocks[i]["bbox"][2] for i in ids)
+                # a table spanning both columns reads with the left one
+                extra.append({"bbox": (x0 if x1 > mid + 5 or x0 < mid - 10 else x0, y0, x1, y0),
+                              "tbl": srd_tables.serialize(title, rows, head), "lines": []})
+            blocks = [b for i, b in enumerate(blocks) if i not in done] + extra
+        # a paragraph's box can start a few px above the table row printed before it
+        # (Confusion, Augury); nudge body text down so the row comes first
+        def body(b):
+            return "tbl" not in b and not any("GillSans" in sp["font"] for ln in b["lines"] for sp in ln["spans"] if sp["text"].strip())
+        blocks.sort(key=lambda b: (b["bbox"][0] >= mid - 10, b["bbox"][1] + (5 if body(b) else 0)))
         for b in blocks:
             out.append(Run("para", "", page=pno + 1))
+            if "tbl" in b:
+                out.append(Run("tbl", b["tbl"], x=b["bbox"][0], y=b["bbox"][1], page=pno + 1))
+                out.append(Run("para", "", page=pno + 1))
+                continue
             for line in b["lines"]:
                 first_span = True
                 for sp in line["spans"]:
@@ -57,8 +81,16 @@ def runs(first, last):
                     if t.strip() == "" and "\t" in t:
                         out.append(Run("para", "", page=pno + 1)); continue
                     if not t: continue
+                    # small-caps headings ("Acid Splash") come as alternating large/small
+                    # pieces; join them into one run at the large size
+                    if "SC700" in sp["font"] and not first_span and out[-1].font == sp["font"]:
+                        out[-1].text += t
+                        out[-1].x1 = sp["bbox"][2]
+                        if sp["size"] > out[-1].size:
+                            out[-1].size = sp["size"]; out[-1].kind = classify(sp["font"], sp["size"])
+                        continue
                     k = classify(sp["font"], sp["size"])
-                    out.append(Run(k, t, sp["font"], sp["size"], sp["bbox"][0], sp["bbox"][1], pno + 1))
+                    out.append(Run(k, t, sp["font"], sp["size"], sp["bbox"][0], sp["bbox"][1], pno + 1, sp["bbox"][2]))
                     if first_span:
                         out[-1].x = sp["bbox"][0]
                     first_span = False
@@ -69,8 +101,11 @@ def flatten(rs):
     """Join runs into text: 'eol' joins lines (removing soft hyphens), 'para' -> newline.
     Table cells (GillSans runs) are separated by ' | ', table rows by newlines."""
     txt = ""
+    held = []       # rebuilt tables, put back after the whitespace clean-up
     prev_kind = None
     prev_y = -1
+    prev_x1 = 0
+    row_x = 0       # left edge of the current table row
     saw_eol = False
     for r in rs:
         if r.kind == "eol":
@@ -80,11 +115,29 @@ def flatten(rs):
             if txt and not txt.endswith("\n"): txt += "\n"
             prev_kind = None
             continue
+        if r.kind == "tbl":
+            if txt and not txt.endswith("\n"): txt += "\n"
+            txt += f"\x00{len(held)}\x00\n"
+            held.append(r.text)
+            prev_kind = None
+            continue
         t = r.text
         tab = r.kind in ("table", "label")
         if tab and prev_kind == "tab" and txt and not txt.endswith("\n"):
-            same_row = abs(r.y - prev_y) < 3
-            txt += " | " if same_row else "\n"
+            if abs(r.y - prev_y) < 3:
+                # pieces of one cell (a bold label and its text) touch; cells have a gap
+                if r.x - prev_x1 < 6 and r.x1 > 0:
+                    if r.x - prev_x1 > 1.5 and not txt.endswith(" ") and not t.startswith(" "): txt += " "
+                else:
+                    txt += " | "
+            elif r.x > row_x + 12 and r.x1 > 0 and r.y - prev_y < 16:
+                # a cell that wraps onto the next line (indented past the row's first column)
+                if not (txt.endswith("-") and t[:1].islower()) and not txt.endswith(" "): txt += " "
+            else:
+                txt += "\n"
+                row_x = r.x
+        elif tab and r.x1 > 0 and not (prev_kind == "tab" and not txt.endswith("\n")):
+            row_x = r.x
         elif not tab and prev_kind == "tab" and txt and not txt.endswith("\n"):
             txt += "\n"
         if txt.endswith("-") and t[:1].islower() and not txt.endswith(" -"):
@@ -92,11 +145,61 @@ def flatten(rs):
         txt += t
         prev_kind = "tab" if tab else "text"
         prev_y = r.y
+        prev_x1 = r.x1
         saw_eol = False
     txt = re.sub(r"[ \t]+", " ", txt)
     txt = re.sub(r" *\n *", "\n", txt)
     txt = re.sub(r"( \| )+", " | ", txt)
-    return txt.strip()
+    txt = re.sub(r"(?<=\S) *\u2022\s*", "\n\u2022 ", txt)   # each bullet on its own line
+    txt = re.sub(r"\u2022[ \t]+", "\u2022 ", txt)
+    txt = re.sub("\x00(\\d+)\x00", lambda m: held[int(m.group(1))], txt)
+    return fix_charge_tables(fix_abilities(txt.strip()))
+
+CHARGE_HEAD = re.compile(r"Spell(?: \| |\n+)Charge(?:\n+Spell\n+Charge)?(?: |\n+)Cost(?:\n+Cost)?\n")
+
+def fix_charge_tables(txt):
+    """Staffs' and wands' Spell / Charge Cost tables: the heading comes out split over several
+    lines, and some print two spell/cost pairs per row. One header, one spell per row."""
+    pos, last_end = 0, -1
+    while True:
+        m = CHARGE_HEAD.search(txt, pos)
+        if not m: return txt
+        lines = txt[m.end():].split("\n")
+        rows, i = [], 0
+        while i < len(lines) and " | " in lines[i]:
+            line = lines[i]; i += 1
+            while line.count("(") > line.count(")") and i < len(lines):   # a cell that wrapped
+                line += " " + lines[i]; i += 1
+            cells = [c.strip() for c in line.split(" | ")]
+            rows += [" | ".join(cells[k:k + 2]) for k in range(0, len(cells), 2)]
+        if not rows: pos = m.end(); continue
+        before = txt[:m.start()]
+        if last_end >= 0 and not before[last_end:].strip():   # the table continues in the next column
+            before, head = before[:last_end], "\n"
+        else:
+            head = "Spell | Charge Cost\n"
+        body = head + "\n".join(rows)
+        txt = before + body + ("\n" + "\n".join(lines[i:]) if i < len(lines) else "")
+        last_end = pos = len(before) + len(body)
+
+ABIL_ROW = re.compile(r"\b(Str|Dex|Con|Int|Wis|Cha)\b[\s|]*(\d+)[\s|]*([+\-\u2212]\d+)[\s|]*([+\-\u2212]\d+)")
+
+def fix_abilities(txt):
+    """A stat block's six-column ability grid ('MOD | | SAVE | MOD ... Str | 16 | | +3 | +3 | | Dex ...')
+    becomes one table row per ability."""
+    while True:
+        h = re.search(r"MOD[\s|]*SAVE(?:[\s|]*MOD[\s|]*SAVE){2}", txt)
+        if not h: return txt
+        pos, rows = h.end(), []
+        for want in ("Str", "Dex", "Con", "Int", "Wis", "Cha"):
+            m = ABIL_ROW.search(txt, pos)
+            if not m or m.group(1) != want or txt[pos:m.start()].strip(" |\n"): break
+            rows.append(" | ".join(m.groups()))
+            pos = m.end()
+        if len(rows) != 6: return txt
+        rest = txt[pos:].lstrip(" |")
+        txt = txt[:h.start()].rstrip(" ") + ("\n" if txt[:h.start()].strip() and not txt[:h.start()].endswith("\n") else "") + \
+            "Ability | Score | Mod | Save\n" + "\n".join(rows) + "\n" + rest.lstrip("\n ")
 
 SPELL_HEAD = re.compile(r"^(?:Level (\d) ([A-Z][a-z]+)|([A-Z][a-z]+) Cantrip) \((.*)$")
 SCHOOLS = {"Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation",
@@ -169,7 +272,7 @@ def ascii(s):
     # the device fonts are ASCII; normalise typography
     s = (s.replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
           .replace("\u2013", "-").replace("\u2014", " - ").replace("\u00d7", "x").replace("\u2022", "*")
-          .replace("\u00a0", " ").replace("\u00bd", "1/2").replace("\u00bc", "1/4").replace("\u2212", "-").replace("\u00ad", ""))
+          .replace("\u2026", "...").replace("\u00a0", " ").replace("\u00bd", "1/2").replace("\u00bc", "1/4").replace("\u2212", "-").replace("\u00ad", ""))
     return s.encode("ascii", "replace").decode().replace("?", "?")
 
 def split_entries(rs, is_start):
@@ -181,6 +284,67 @@ def split_entries(rs, is_start):
         elif cur is not None:
             cur.append(r)
     return entries
+
+STAT_LABELS = ("AC", "HP", "Speed", "Skills", "Resistances", "Vulnerabilities", "Immunities", "Gear", "Senses",
+               "Languages", "CR")
+
+def stat_lines(txt):
+    """Put each stat block entry (AC, HP, Speed, Senses, ...) on its own line; the PDF runs
+    them together ("AC 15HP 10", "PoisonedSenses"). Only the part before the first section."""
+    m = re.search(r"\n(TRAITS|ACTIONS|BONUS ACTIONS|REACTIONS)\n", txt)
+    head, tail = (txt[:m.start()], txt[m.start():]) if m else (txt, "")
+    head = re.sub(r"(?<=[^\n])(?<!\| )\s*\b(" + "|".join(STAT_LABELS) + r") (?=[\dA-Z+(-])", r"\n\1 ", head)
+    head = re.sub(r"(?<=[a-z0-9).])(" + "|".join(STAT_LABELS) + r") (?=[\dA-Z+(-])", r"\n\1 ", head)
+    # rejoin values that wrapped: a line that doesn't start an entry continues the one above
+    starts = re.compile(r"^(" + "|".join(STAT_LABELS) + r"|Ability \||(Str|Dex|Con|Int|Wis|Cha) \|) ")
+    lines = []
+    for i, l in enumerate(head.split("\n")):
+        if i >= 3 and lines and l.strip() and not starts.match(l) and starts.match(lines[-1]) and \
+                not lines[-1].startswith(("Ability", "Str", "Dex", "Con", "Int", "Wis", "Cha")):
+            lines[-1] += " " + l.strip()
+        else:
+            lines.append(l)
+    head = "\n".join(lines)
+    return head + tail
+
+# Tables whose PDF layout (headings over two lines) can't be rebuilt by flatten().
+TELEPORT_TABLE = """Teleportation Outcome
+Familiarity | Mishap | Similar Area | Off Target | On Target
+Permanent circle | - | - | - | 01-00
+Linked object | - | - | - | 01-00
+Very familiar | 01-05 | 06-13 | 14-24 | 25-00
+Seen casually | 01-33 | 34-43 | 44-53 | 54-00
+Viewed once or described | 01-43 | 44-53 | 54-73 | 74-00
+False destination | 01-50 | 51-00 | - | -"""
+
+CONTROL_WEATHER_TABLES = """Temperature
+Stage | Condition
+1 | Heat wave
+2 | Hot
+3 | Warm
+4 | Cool
+5 | Cold
+6 | Freezing
+Wind
+Stage | Condition
+1 | Calm
+2 | Moderate wind
+3 | Strong wind
+4 | Gale
+5 | Storm"""
+
+def fix_spell_tables(name, desc):
+    if name == "Control Weather":   # the Temperature and Wind tables are printed side by side
+        new = re.sub(r"(?:Wind\n)?Temperature\n(?:Wind\n)?Stage \| Condition[^\n]*\n(?:\d \|[^\n]*(?:\n|$))+",
+                     CONTROL_WEATHER_TABLES + "\n", desc).rstrip("\n")
+        if new == desc: print("  warning: Control Weather tables not replaced", file=sys.stderr)
+        return new
+    if name == "Teleport":
+        new = re.sub(r"Teleportation Outcome\n.*?False destination[^\n]*", TELEPORT_TABLE, desc, flags=re.S)
+        if new == desc or "Similar\nOff" in desc and "Similar\nOff" in new:
+            print("  warning: Teleport table not replaced", file=sys.stderr)
+        return new
+    return desc
 
 def extract_spells():
     rs = runs(107, 175)
@@ -215,12 +379,13 @@ def extract_spells():
         classes = m.group(4)
         fields, key = {}, None
         FIELD = ("Casting Time", "Range", "Components", "Component", "Duration")
-        body, higher = [], []
+        body, higher, creature = [], [], []
         target = body
         in_fields = True
         for r in e[i:]:
             t = r.text.strip()
             if in_fields:
+                if r.kind not in ("eol", "para") and not t: continue   # stray blank piece
                 if r.kind in ("label", "bold") and t.rstrip(":") in FIELD:
                     key = "Components" if t.startswith("Component") else t.rstrip(":")
                     fields[key] = ""; continue
@@ -232,11 +397,15 @@ def extract_spells():
                     if key == "Duration" and fields[key] and r.kind == "body" and fields[key].strip():
                         in_fields = False
                     else:
-                        fields[key] += r.text; continue
+                        v = fields[key]
+                        if v.endswith("-") and r.text[:1].islower(): fields[key] = v[:-1] + r.text
+                        else: fields[key] = v + ("" if v.endswith(" ") or r.text.startswith(" ") or not v else " ") + r.text
+                        continue
                 else:
                     in_fields = False
             if r.kind == "name":   # a stat block inside the spell (e.g. a summoned creature)
-                target.append(Run("para", "")); target.append(Run("body", r.text.strip().upper())); continue
+                target = creature
+                target.append(Run("para", "")); target.append(Run("body", r.text.strip().upper())); target.append(Run("para", "")); continue
             if r.kind == "bolditalic" and t.startswith(("Using a Higher-Level Spell Slot", "Cantrip Upgrade")):
                 target = higher
             target.append(r)
@@ -250,9 +419,11 @@ def extract_spells():
             "components": ascii(re.sub(r"\s+", " ", fields.get("Components", "")).strip()),
             "duration": ascii(dur), "conc": 1 if dur.startswith("Concentration") else "",
         }
+        desc = fix_spell_tables(rec["name"], desc)
         rec.update(spell_rolls(desc.replace("\n", " ")))
         rec["text"] = ascii(desc).replace("\n", "\\n")
-        if higher: rec["higher"] = ascii(flatten(higher)).replace("\n", " ")
+        if higher: rec["higher"] = ascii(flatten(higher)).replace("\n", "\\n")
+        if creature: rec["creature"] = ascii(stat_lines(flatten(creature))).replace("\n", "\\n")
         spells.append(rec)
     return spells
 
@@ -478,7 +649,7 @@ def split_variants(r, txt):
         return res
     if r["name"] == "Potions of Healing":
         res = []
-        for label, dice, rar in re.findall(r"Potion of Healing \|\s*(?:\((\w+)\))?\s*\|?\s*(\d+d\d+ \+ \d+) \| (" + "|".join(RARITIES) + ")", txt.replace("\n", " ")):
+        for label, dice, rar in re.findall(r"Potion of Healing[\s|]*(?:\((\w+)\))?[\s|]*(\d+d\d+ \+ \d+)[\s|]*(" + "|".join(RARITIES) + ")", txt.replace("\n", " ")):
             v = dict(r)
             v["name"] = f"Potion of {label.capitalize()} Healing" if label else "Potion of Healing"
             v["rarity"] = rar
@@ -550,7 +721,8 @@ def features_table(cls):
             rows[lv] = [ascii(c).replace("—", "-") for c in cells]
         heads = [re.sub(r"\s*\u2014?\s*Spell Slots per Spell Level\s*\u2014?\s*", " ", h).strip() for h in heads]
         heads = [re.sub(r"^[\u2014-]+\s*|\s*[\u2014-]+$", "", h).strip() for h in heads]
-        return [ascii(h) for h in heads], rows, pno
+        heads = [re.sub(r"^[\s-]+(?=\d+$)", "", ascii(h)) for h in heads]   # "-  5" -> "5"
+        return heads, rows, pno
     return None, None, None
 
 def parse_equipment(txt):
@@ -563,6 +735,12 @@ def parse_equipment(txt):
 
 def extract_classes():
     rs = runs(28, 82)
+    raw = runs(28, 82, tables=False)   # the Core Traits label/value pairs
+    raw_groups, cur = {}, None
+    for r in raw:
+        if r.kind == "name" and r.size >= 17 and r.text.strip() in CLASS_NAMES:
+            cur = r.text.strip(); raw_groups[cur] = []; continue
+        if cur: raw_groups[cur].append(r)
     # split at 18pt class headings
     groups, cur = {}, None
     for r in rs:
@@ -574,7 +752,7 @@ def extract_classes():
         g = groups[cls]
         # ---- core traits: label run followed by table text until next label
         traits, key = {}, None
-        for r in g:
+        for r in raw_groups[cls]:
             t = r.text.strip()
             if r.kind == "label" and r.size < 10 and t:
                 if key is not None and not traits[key].strip():
@@ -593,11 +771,11 @@ def extract_classes():
                     if k.startswith(n): return v
             return ""
         skills_txt = tv("Skill Proficiencies")
-        m = re.search(r"Choose (\d+):?\s*(.*)", skills_txt)
+        m = re.search(r"Choose (?:any )?(\d+)(?: skills)?:?\s*(.*)", skills_txt)
         n_sk = m.group(1) if m else "0"
         sk_list = m.group(2) if m else skills_txt
         sk_list = re.sub(r"([a-z])- ([a-z])", r"\1\2", sk_list)
-        if "any" in sk_list.lower() and "skill" in sk_list.lower():
+        if re.search(r"\bany\b", skills_txt.lower()) and "skill" in skills_txt.lower():
             sk = SKILLS
         else:
             sk = [x for x in SKILLS if x in sk_list]
@@ -648,6 +826,10 @@ def extract_classes():
                     cur_feat["_body"].append(Run("para", "")); cur_feat["_body"].append(Run("body", t + ":"))
                 else:
                     cur_feat["name"] += " " + ascii(t)
+                continue
+            if r.kind == "tbl" and re.search(r"(^|\n)Level \| Proficiency Bonus \| Class Features", r.text):
+                continue   # the class table (kept in classes.txt as cols/L1..L20)
+            if r.kind == "tbl" and re.match(r"Core \w+ Traits\n", r.text):
                 continue
             if cur_feat is not None and not in_spell_list:
                 cur_feat["_body"].append(r)

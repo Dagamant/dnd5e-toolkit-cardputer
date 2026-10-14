@@ -50,20 +50,9 @@ protected:
     }
     void buildDetail() override {
         if (cur_.get("tag") != "Rule") tv_.add(cur_.get("tag"), TextView::ACCENT);
-        for (auto& para : splitParas(db::unescape(cur_.get("text")))) tv_.add(para);
+        tv_.add(db::unescape(cur_.get("text")));   // whole, so tables stay together
     }
     void rollCurrent() override { tv_.page(1); }
-    static std::vector<String> splitParas(const String& s) {
-        std::vector<String> v;
-        int start = 0;
-        while (start <= (int)s.length()) {
-            int nl = s.indexOf('\n', start);
-            v.push_back(nl < 0 ? s.substring(start) : s.substring(start, nl));
-            if (nl < 0) break;
-            start = nl + 1;
-        }
-        return v;
-    }
 };
 
 const char* const HAZ_CATS[] = {"All hazards", "Trap", "Poison", "Contagion", "Hazard"};

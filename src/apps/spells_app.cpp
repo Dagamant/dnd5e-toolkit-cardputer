@@ -126,7 +126,9 @@ protected:
         if (roll.length()) tv_.add(roll, TextView::GOOD);
         tv_.gap();
         tv_.add(db::unescape(cur_.get("text")));
-        if (cur_.has("higher")) { tv_.gap(); tv_.add(cur_.get("higher"), TextView::DIM); }
+        if (cur_.has("higher")) { tv_.gap(); tv_.add(db::unescape(cur_.get("higher")), TextView::DIM); }
+        // a summoned creature's stat block (Animate Objects, Find Steed, ...)
+        if (cur_.has("creature")) { tv_.gap(); tv_.add(db::unescape(cur_.get("creature"))); }
     }
 
     bool canUpcast() const {
