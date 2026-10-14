@@ -1,0 +1,5 @@
+.pio/
+.vscode/
+tools/.venv/
+SRD_CC_v5.2.1.pdf
+__pycache__/

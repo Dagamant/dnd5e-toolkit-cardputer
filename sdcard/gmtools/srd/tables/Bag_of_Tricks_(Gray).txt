@@ -1,0 +1,10 @@
+# Gray Bag of Tricks (SRD 5.2.1)
+# die: d8
+1	Weasel
+1	Giant Rat
+1	Badger
+1	Boar
+1	Panther
+1	Giant Badger
+1	Dire Wolf
+1	Giant Elk

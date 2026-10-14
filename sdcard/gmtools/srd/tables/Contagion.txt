@@ -1,0 +1,5 @@
+# Contagions (SRD 5.2.1)
+# die: pick
+1	Cackle Fever - Magical Contagion - DC 13 Constitution save - [1d10] Psychic damage
+1	Sewer Plague - Magical Contagion - DC 11 Constitution save
+1	Sight Rot - Magical Contagion - DC 15 Constitution save

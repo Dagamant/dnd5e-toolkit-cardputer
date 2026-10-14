@@ -1,0 +1,11 @@
+# Sentient Item's Alignment (SRD 5.2.1)
+# die: d100
+15	Lawful Good
+20	Neutral Good
+15	Chaotic Good
+13	Lawful Neutral
+10	Neutral
+12	Chaotic Neutral
+4	Lawful Evil
+7	Neutral Evil
+4	Chaotic Evil

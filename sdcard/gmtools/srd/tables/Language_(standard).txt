@@ -1,0 +1,11 @@
+# Standard Languages (SRD 5.2.1) - everyone also knows Common
+# die: d12
+1	Common Sign Language
+1	Draconic
+2	Dwarvish
+2	Elvish
+1	Giant
+1	Gnomish
+1	Goblin
+2	Halfling
+1	Orc

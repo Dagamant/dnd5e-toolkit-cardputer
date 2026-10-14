@@ -1,0 +1,155 @@
+0	Ability Check	Rule
+252	Ability Score and Modifier	Rule
+612	Action	Rule
+969	Advantage	Rule
+1242	Adventure	Rule
+1375	Alignment	Rule
+1801	Ally	Rule
+1999	Area of Effect	Rule
+2882	Armor Class	Rule
+3230	Armor Training	Rule
+3660	Attack	Action
+4411	Attack Roll	Rule
+4597	Attitude	Rule
+4789	Attunement	Rule
+5080	Blinded	Condition
+5381	Blindsight	Rule
+5720	Bloodied	Rule
+5828	Bonus Action	Rule
+6124	Breaking Objects	Rule
+7911	Bright Light	Rule
+8029	Burning	Hazard
+8330	Burrow Speed	Rule
+8582	Campaign	Rule
+8674	Cantrip	Rule
+8790	Carrying Capacity	Rule
+9427	Challenge Rating	Rule
+9998	Character Sheet	Rule
+10167	Charmed	Condition
+10496	Climbing	Rule
+10839	Climb Speed	Rule
+11054	Concentration	Rule
+12037	Condition	Rule
+12566	Cone	Area of Effect
+13095	Cover	Rule
+13582	Crawling	Rule
+13733	Creature	Rule
+13861	Creature Type	Rule
+14344	Critical Hit	Rule
+14757	Cube	Area of Effect
+15103	Curses	Rule
+15360	Cylinder	Area of Effect
+15728	D20 Test	Rule
+16066	Damage	Rule
+16175	Damage Roll	Rule
+16360	Damage Threshold	Rule
+16983	Damage Types	Rule
+17765	Darkness	Rule
+17906	Darkvision	Rule
+18205	Dash	Action
+18770	Dead	Rule
+19614	Deafened	Condition
+19819	Death Saving Throw	Rule
+20034	Dehydration	Hazard
+20602	Difficult Terrain	Rule
+21291	Difficulty Class	Rule
+21459	Dim Light	Rule
+21604	Disadvantage	Rule
+21884	Disengage	Action
+22037	Dodge	Action
+22386	Emanation	Area of Effect
+22854	Encounter	Rule
+23110	Enemy	Rule
+23279	Exhaustion	Condition
+23886	Experience Points	Rule
+24177	Expertise	Rule
+24659	Falling	Hazard
+25167	Flying	Rule
+25446	Fly Speed	Rule
+25638	Friendly	Attitude
+25810	Frightened	Condition
+26145	Grappled	Condition
+26573	Grappling	Rule
+27789	Hazard	Rule
+27937	Healing	Rule
+28058	Heavily Obscured	Rule
+28260	Help	Action
+28982	Heroic Inspiration	Rule
+29292	Hide	Action
+30009	High Jump	Rule
+30534	Hit Point Dice	Rule
+30833	Hit Points	Rule
+31185	Hostile	Attitude
+31359	Hover	Rule
+31600	Illusions	Rule
+32187	Immunity	Rule
+32307	Improvised Weapons	Rule
+33271	Incapacitated	Condition
+33636	Indifferent	Attitude
+33808	Influence	Action
+35482	Initiative	Rule
+35989	Invisible	Condition
+36573	Jumping	Rule
+36725	Knocking Out a Creature	Rule
+37155	Lightly Obscured	Rule
+37354	Line	Area of Effect
+37697	Long Jump	Rule
+38460	Long Rest	Rule
+39945	Magic	Action
+40432	Magical Effect	Rule
+40581	Malnutrition	Hazard
+41387	Monster	Rule
+41531	Nonplayer Character	Rule
+41688	Object	Rule
+41854	Occupied Space	Rule
+41977	Opportunity Attacks	Rule
+42421	Paralyzed	Condition
+42898	Passive Perception	Rule
+43616	Per Day	Rule
+43801	Petrified	Condition
+44507	Player Character	Rule
+44636	Poisoned	Condition
+44845	Possession	Rule
+45129	Proficiency	Rule
+45414	Prone	Condition
+45937	Reach	Rule
+46029	Reaction	Rule
+46539	Ready	Action
+47666	Resistance	Rule
+47907	Restrained	Condition
+48247	Ritual	Rule
+48574	Round Down	Rule
+48804	Save	Rule
+48898	Saving Throw	Rule
+49365	Search	Action
+49807	Shape-Shifting	Rule
+50163	Short Rest	Rule
+51168	Simultaneous Effects	Rule
+51512	Size	Rule
+51822	Skill	Rule
+52097	Speed	Rule
+53344	Spell	Rule
+53453	Spell Attack	Rule
+53611	Spellcasting Focus	Rule
+53956	Sphere	Area of Effect
+54275	Stable	Rule
+54449	Stat Block	Rule
+57946	Study	Action
+58881	Stunned	Condition
+59193	Suffocation	Hazard
+59588	Surprise	Rule
+59806	Swimming	Rule
+60127	Swim Speed	Rule
+60299	Target	Rule
+60505	Telepathy	Rule
+61614	Teleportation	Rule
+62464	Temporary Hit Points	Rule
+62664	Tremorsense	Rule
+63088	Truesight	Rule
+63677	Unarmed Strike	Rule
+65018	Unconscious	Condition
+65631	Unoccupied Space	Rule
+65762	Utilize	Action
+65996	Vulnerability	Rule
+66234	Weapon	Rule
+66370	Weapon Attack	Rule

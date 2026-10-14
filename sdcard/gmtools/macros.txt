@@ -1,0 +1,7 @@
+# Saved rolls for the Dice app (Fn+M). Format: Name=expression
+# Replaces the built-in list when present.
+Longsword=1d8+3
+Longsword (crit)=2d8+3
+Advantage attack=adv+5
+Fireball=8d6
+Stealth check=d20+6 vs 15

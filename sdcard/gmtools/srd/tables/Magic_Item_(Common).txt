@@ -1,0 +1,5 @@
+# Common magic items (SRD 5.2.1)
+# die: pick
+1	Bead of Nourishment (~100 GP)
+1	Potion of Climbing (~100 GP)
+1	Potion of Healing (~100 GP)

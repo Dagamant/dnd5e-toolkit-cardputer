@@ -1,0 +1,36 @@
+name: Path of the Berserker
+class: Barbarian
+
+name: College of Lore
+class: Bard
+
+name: Life Domain
+class: Cleric
+
+name: Circle of the Land
+class: Druid
+
+name: Champion
+class: Fighter
+
+name: Warrior of the Open Hand
+class: Monk
+
+name: Oath of Devotion
+class: Paladin
+
+name: Hunter
+class: Ranger
+
+name: Thief
+class: Rogue
+
+name: Draconic Sorcery
+class: Sorcerer
+
+name: Fiend Patron
+class: Warlock
+
+name: Evoker
+class: Wizard
+

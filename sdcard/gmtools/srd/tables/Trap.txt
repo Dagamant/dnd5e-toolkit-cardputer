@@ -1,0 +1,10 @@
+# Traps (SRD 5.2.1)
+# die: pick
+1	Collapsing Roof - Deadly Trap (Levels 1-4) - DC 13 Dexterity save - [2d10] Bludgeoning damage
+1	Falling Net - Nuisance Trap (Levels 1-4) - DC 10 Dexterity save
+1	Fire-Casting Statue - Deadly Trap (Levels 1-4) - DC 15 Dexterity save - [2d10] Fire damage
+1	Hidden Pit - Nuisance Trap (Levels 1-4) - DC 15 Intelligence check - [1d6] Bludgeoning damage
+1	Poisoned Darts - Deadly Trap (Levels 1-4) - DC 13 Dexterity save - [1d6] Poison damage
+1	Poisoned Needle - Nuisance Trap (Levels 1-4) - DC 11 Constitution save - [1d10] Poison damage
+1	Rolling Stone - Deadly Trap (Levels 11-16) or Nuisance Trap (Levels 17-20) - DC 15 Dexterity save - [10d10] Bludgeoning damage
+1	Spiked Pit - Deadly Trap (Levels 1-4) - DC 15 Intelligence check - [1d6] Bludgeoning damage

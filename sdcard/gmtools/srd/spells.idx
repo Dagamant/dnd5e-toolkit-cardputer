@@ -1,0 +1,338 @@
+0	Acid Arrow	2	Evocation	Wizard		
+1086	Aid	2	Abjuration	Bard, Cleric, Druid, Paladin, Ranger		
+1513	Alarm	1	Abjuration	Ranger, Wizard	1	
+2290	Alter Self	2	Transmutation	Sorcerer, Wizard		1
+3793	Animal Friendship	1	Enchantment	Bard, Druid, Ranger		
+4311	Animal Messenger	2	Enchantment	Bard, Druid, Ranger	1	
+5491	Animal Shapes	8	Transmutation	Druid		
+6646	Animate Dead	3	Necromancy	Cleric, Wizard		
+8307	Animate Objects	5	Transmutation	Bard, Sorcerer, Wizard		1
+10672	Antilife Shell	5	Abjuration	Druid		1
+11196	Antimagic Field	8	Abjuration	Cleric, Wizard		1
+12213	Antipathy/Sympathy	8	Enchantment	Bard, Druid, Wizard		
+13760	Arcane Eye	4	Divination	Wizard		1
+14350	Arcane Hand	5	Evocation	Sorcerer, Wizard		1
+16404	Arcane Lock	2	Abjuration	Wizard		
+16956	Arcane Sword	7	Evocation	Bard, Wizard		1
+17651	Arcanist's Magic Aura	2	Illusion	Wizard		
+18635	Astral Projection	9	Necromancy	Cleric, Warlock, Wizard		
+20268	Augury	2	Divination	Cleric, Druid, Wizard	1	
+21089	Aura of Life	4	Abjuration	Cleric, Paladin		1
+21534	Awaken	5	Transmutation	Bard, Druid		
+22563	Bane	1	Enchantment	Bard, Cleric, Warlock		1
+23152	Banishment	4	Abjuration	Cleric, Paladin, Sorcerer, Warlock, Wizard		1
+24073	Barkskin	2	Transmutation	Druid, Ranger		
+24410	Beacon of Hope	3	Abjuration	Cleric		1
+24797	Befuddlement	8	Enchantment	Bard, Druid, Warlock, Wizard		
+25487	Bestow Curse	3	Necromancy	Bard, Cleric, Wizard		1
+26693	Black Tentacles	4	Conjuration	Wizard		1
+27543	Blade Barrier	6	Evocation	Cleric		1
+28383	Bless	1	Enchantment	Cleric, Paladin		1
+28869	Blight	4	Necromancy	Druid, Sorcerer, Warlock, Wizard		
+29532	Blindness/Deafness	2	Transmutation	Bard, Cleric, Sorcerer, Wizard		
+30098	Blink	3	Transmutation	Sorcerer, Wizard		
+31154	Blur	2	Illusion	Sorcerer, Wizard		1
+31502	Burning Hands	1	Evocation	Sorcerer, Wizard		
+32066	Call Lightning	3	Conjuration	Druid		1
+33160	Calm Emotions	2	Enchantment	Bard, Cleric		1
+33983	Chain Lightning	6	Evocation	Sorcerer, Wizard		
+34784	Charm Monster	4	Enchantment	Bard, Druid, Sorcerer, Warlock, Wizard		
+35427	Charm Person	1	Enchantment	Bard, Druid, Sorcerer, Warlock, Wizard		
+36069	Chill Touch	0	Necromancy	Sorcerer, Warlock, Wizard		
+36584	Chromatic Orb	1	Evocation	Sorcerer, Wizard		
+37604	Circle of Death	6	Necromancy	Sorcerer, Warlock, Wizard		
+38215	Clairvoyance	3	Divination	Bard, Cleric, Sorcerer, Wizard		1
+39140	Clone	8	Necromancy	Wizard		
+40185	Cloudkill	5	Conjuration	Sorcerer, Wizard		1
+41153	Color Spray	1	Illusion	Bard, Sorcerer, Wizard		
+41568	Command	1	Enchantment	Bard, Cleric, Paladin		
+42472	Commune	5	Divination	Cleric	1	
+43308	Commune with Nature	5	Divination	Druid, Ranger	1	
+44384	Comprehend Languages	1	Divination	Bard, Sorcerer, Warlock, Wizard	1	
+44912	Compulsion	4	Enchantment	Bard		1
+45561	Cone of Cold	5	Evocation	Druid, Sorcerer, Wizard		
+46173	Confusion	4	Enchantment	Bard, Druid, Sorcerer, Wizard		1
+47375	Conjure Animals	3	Conjuration	Druid, Ranger		1
+48478	Conjure Celestial	7	Conjuration	Cleric		1
+49689	Conjure Elemental	5	Conjuration	Druid, Wizard		1
+50841	Conjure Fey	6	Conjuration	Druid		1
+51866	Conjure Minor Elementals	4	Conjuration	Druid, Wizard		1
+52562	Conjure Woodland Beings	4	Conjuration	Druid, Ranger		1
+53417	Contact Other Plane	5	Divination	Warlock, Wizard	1	
+54421	Contagion	5	Necromancy	Cleric, Druid		
+55359	Contingency	6	Abjuration	Wizard		
+56561	Continual Flame	2	Evocation	Cleric, Druid, Wizard		
+57051	Control Water	4	Transmutation	Cleric, Druid, Wizard		1
+59748	Control Weather	8	Transmutation	Cleric, Druid, Wizard		1
+60980	Counterspell	3	Abjuration	Sorcerer, Warlock, Wizard		
+61594	Create Food and Water	3	Conjuration	Cleric, Paladin		
+62067	Create or Destroy Water	1	Transmutation	Cleric, Druid		
+62812	Create Undead	6	Necromancy	Cleric, Warlock, Wizard		
+64611	Creation	5	Illusion	Sorcerer, Wizard		
+65657	Cure Wounds	1	Abjuration	Bard, Cleric, Druid, Paladin, Ranger		
+66048	Dancing Lights	0	Illusion	Bard, Sorcerer, Wizard		1
+66774	Darkness	2	Evocation	Sorcerer, Warlock, Wizard		1
+67563	Darkvision	2	Transmutation	Druid, Ranger, Sorcerer, Wizard		
+67828	Daylight	3	Evocation	Cleric, Druid, Paladin, Ranger, Sorcerer		
+68553	Death Ward	4	Abjuration	Cleric, Paladin		
+69089	Delayed Blast Fireball	7	Evocation	Sorcerer, Wizard		1
+70434	Demiplane	8	Conjuration	Sorcerer, Warlock, Wizard		
+71438	Detect Evil and Good	1	Divination	Cleric, Paladin		1
+71923	Detect Magic	1	Divination	Bard, Cleric, Druid, Paladin, Ranger, Sorcerer, Warlock, Wizard	1	1
+72568	Detect Poison and Disease	1	Divination	Cleric, Druid, Paladin, Ranger	1	1
+73097	Detect Thoughts	2	Divination	Bard, Sorcerer, Wizard		1
+74665	Dimension Door	4	Conjuration	Bard, Sorcerer, Warlock, Wizard		
+75547	Disguise Self	1	Illusion	Bard, Sorcerer, Wizard		
+76429	Disintegrate	6	Transmutation	Sorcerer, Wizard		
+77473	Dispel Evil and Good	5	Abjuration	Cleric, Paladin		1
+78482	Dispel Magic	3	Abjuration	Bard, Cleric, Druid, Paladin, Ranger, Sorcerer, Warlock, Wizard		
+79151	Dissonant Whispers	1	Enchantment	Bard		
+79801	Divination	4	Divination	Cleric, Druid, Wizard	1	
+80518	Divine Favor	1	Transmutation	Paladin		
+80777	Divine Smite	1	Evocation	Paladin		
+81269	Divine Word	7	Evocation	Cleric		
+82249	Dominate Beast	4	Enchantment	Druid, Ranger, Sorcerer		1
+83448	Dominate Monster	8	Enchantment	Bard, Sorcerer, Warlock, Wizard		1
+84611	Dominate Person	5	Enchantment	Bard, Sorcerer, Wizard		1
+85813	Dragon's Breath	2	Transmutation	Sorcerer, Wizard		1
+86483	Dream	5	Illusion	Bard, Warlock, Wizard		
+87791	Druidcraft	0	Transmutation	Druid		
+88675	Earthquake	8	Transmutation	Cleric, Druid, Sorcerer		1
+90497	Eldritch Blast	0	Evocation	Warlock		
+91058	Elementalism	0	Transmutation	Druid, Sorcerer, Wizard		
+92356	Enhance Ability	2	Transmutation	Bard, Cleric, Druid, Ranger, Sorcerer, Wizard		1
+92924	Enlarge/Reduce	2	Transmutation	Bard, Druid, Sorcerer, Wizard		1
+94313	Ensnaring Strike	1	Conjuration	Ranger		1
+95236	Entangle	1	Conjuration	Druid, Ranger		1
+95972	Enthrall	2	Enchantment	Bard, Warlock		1
+96493	Etherealness	7	Conjuration	Bard, Cleric, Sorcerer, Warlock, Wizard		
+97923	Expeditious Retreat	1	Transmutation	Sorcerer, Warlock, Wizard		1
+98222	Eyebite	6	Necromancy	Bard, Sorcerer, Warlock, Wizard		1
+99335	Fabricate	4	Transmutation	Wizard		
+100371	Faerie Fire	1	Evocation	Bard, Druid		1
+100958	Faithful Hound	4	Conjuration	Wizard		
+101897	False Life	1	Necromancy	Sorcerer, Wizard		
+102222	Fear	3	Illusion	Bard, Sorcerer, Warlock, Wizard		1
+102909	Feather Fall	1	Transmutation	Bard, Sorcerer, Wizard		
+103439	Find Familiar	1	Conjuration	Wizard	1	
+105512	Find Steed	2	Conjuration	Paladin		
+108360	Find the Path	6	Divination	Bard, Cleric, Druid		1
+109152	Find Traps	2	Divination	Cleric, Druid, Ranger		
+109816	Finger of Death	7	Necromancy	Sorcerer, Warlock, Wizard		
+110370	Fireball	3	Evocation	Sorcerer, Wizard		
+111081	Fire Bolt	0	Evocation	Sorcerer, Wizard		
+111623	Fire Shield	4	Evocation	Druid, Sorcerer, Wizard		
+112369	Fire Storm	7	Evocation	Cleric, Druid, Sorcerer		
+112974	Flame Blade	2	Evocation	Druid, Sorcerer		1
+113798	Flame Strike	5	Evocation	Cleric		
+114417	Flaming Sphere	2	Conjuration	Druid, Sorcerer, Wizard		1
+115588	Flesh to Stone	6	Transmutation	Druid, Sorcerer, Wizard		1
+116690	Floating Disk	1	Conjuration	Wizard	1	
+117770	Fly	3	Transmutation	Sorcerer, Warlock, Wizard		1
+118267	Fog Cloud	1	Conjuration	Druid, Ranger, Sorcerer, Wizard		1
+118775	Forbiddance	6	Abjuration	Cleric	1	
+120237	Forcecage	7	Evocation	Bard, Warlock, Wizard		1
+121705	Foresight	9	Divination	Bard, Druid, Warlock, Wizard		
+122142	Freedom of Movement	4	Abjuration	Bard, Cleric, Druid, Ranger		
+122916	Freezing Sphere	6	Evocation	Sorcerer, Wizard		
+124414	Gaseous Form	3	Transmutation	Sorcerer, Warlock, Wizard		1
+125644	Gate	9	Conjuration	Cleric, Sorcerer, Warlock, Wizard		1
+127055	Geas	5	Enchantment	Bard, Cleric, Druid, Paladin, Wizard		
+128182	Gentle Repose	2	Necromancy	Cleric, Paladin, Wizard	1	
+128707	Giant Insect	4	Conjuration	Druid		1
+130942	Glibness	8	Enchantment	Bard, Warlock		
+131306	Globe of Invulnerability	6	Abjuration	Sorcerer, Wizard		1
+132022	Glyph of Warding	3	Abjuration	Bard, Cleric, Wizard		
+134923	Goodberry	1	Conjuration	Druid, Ranger		
+135377	Grease	1	Conjuration	Sorcerer, Wizard		
+135942	Greater Invisibility	4	Illusion	Bard, Sorcerer, Wizard		1
+136196	Greater Restoration	5	Abjuration	Bard, Cleric, Druid, Paladin, Ranger		
+136735	Guardian of Faith	4	Conjuration	Cleric		
+137420	Guards and Wards	6	Abjuration	Bard, Wizard		
+139643	Guidance	0	Divination	Cleric, Druid		1
+139945	Guiding Bolt	1	Evocation	Cleric		
+140457	Gust of Wind	2	Evocation	Druid, Ranger, Sorcerer, Wizard		1
+141428	Hallow	5	Abjuration	Cleric		
+143437	Hallucinatory Terrain	4	Illusion	Bard, Druid, Warlock, Wizard		
+144512	Harm	6	Necromancy	Cleric		
+145061	Haste	3	Transmutation	Sorcerer, Wizard		1
+145775	Heal	6	Abjuration	Cleric, Druid		
+146217	Healing Word	1	Abjuration	Bard, Cleric, Druid		
+146620	Heat Metal	2	Transmutation	Bard, Druid		1
+147656	Hellish Rebuke	1	Evocation	Warlock		
+148243	Heroes' Feast	6	Conjuration	Bard, Cleric, Druid		
+149017	Heroism	1	Enchantment	Bard, Paladin		1
+149532	Hex	1	Enchantment	Warlock		1
+150348	Hideous Laughter	1	Enchantment	Bard, Warlock, Wizard		1
+151187	Hold Monster	5	Enchantment	Bard, Sorcerer, Warlock, Wizard		1
+151785	Hold Person	2	Enchantment	Bard, Cleric, Druid, Sorcerer, Warlock, Wizard		1
+152397	Holy Aura	8	Abjuration	Cleric		1
+153024	Hunter's Mark	1	Divination	Ranger		1
+153786	Hypnotic Pattern	3	Illusion	Bard, Sorcerer, Warlock, Wizard		1
+154484	Ice Knife	1	Conjuration	Druid, Sorcerer, Wizard		
+155161	Ice Storm	4	Evocation	Druid, Sorcerer, Wizard		
+155861	Identify	1	Divination	Bard, Wizard	1	
+156535	Illusory Script	1	Illusion	Bard, Warlock, Wizard	1	
+157437	Imprisonment	9	Abjuration	Warlock, Wizard		
+159603	Incendiary Cloud	8	Conjuration	Druid, Sorcerer, Wizard		1
+160505	Inflict Wounds	1	Necromancy	Cleric		
+160942	Insect Plague	5	Conjuration	Cleric, Druid, Sorcerer		1
+161811	Instant Summons	6	Conjuration	Wizard	1	
+162687	Irresistible Dance	6	Enchantment	Bard, Wizard		1
+163518	Invisibility	2	Illusion	Bard, Sorcerer, Warlock, Wizard		1
+164020	Jump	1	Transmutation	Druid, Ranger, Sorcerer, Wizard		
+164471	Knock	2	Transmutation	Bard, Sorcerer, Wizard		
+165232	Legend Lore	5	Divination	Bard, Cleric, Wizard		
+166121	Lesser Restoration	2	Abjuration	Bard, Cleric, Druid, Paladin, Ranger		
+166393	Levitate	2	Transmutation	Sorcerer, Wizard		1
+167420	Light	0	Evocation	Bard, Cleric, Sorcerer, Wizard		
+167938	Lightning Bolt	3	Evocation	Sorcerer, Wizard		
+168528	Locate Animals or Plants	2	Divination	Bard, Druid, Ranger	1	
+168925	Locate Creature	4	Divination	Bard, Cleric, Druid, Paladin, Ranger, Wizard		1
+169854	Locate Object	2	Divination	Bard, Cleric, Druid, Paladin, Ranger, Wizard		1
+170661	Longstrider	1	Transmutation	Bard, Druid, Ranger, Wizard		
+171034	Mage Armor	1	Abjuration	Sorcerer, Wizard		
+171387	Mage Hand	0	Conjuration	Bard, Sorcerer, Warlock, Wizard		
+172151	Magic Circle	3	Abjuration	Cleric, Paladin, Warlock, Wizard		
+173498	Magic Jar	6	Necromancy	Wizard		
+175785	Magic Missile	1	Evocation	Sorcerer, Wizard		
+176336	Magic Mouth	2	Illusion	Bard, Wizard	1	
+177745	Magic Weapon	2	Transmutation	Paladin, Ranger, Sorcerer, Wizard		
+178242	Magnificent Mansion	7	Conjuration	Bard, Wizard		
+179908	Major Image	3	Illusion	Bard, Sorcerer, Warlock, Wizard		1
+181531	Mass Cure Wounds	5	Abjuration	Bard, Cleric, Druid		
+182044	Mass Heal	9	Abjuration	Cleric		
+182472	Mass Healing Word	3	Abjuration	Bard, Cleric		
+182881	Mass Suggestion	6	Enchantment	Bard, Sorcerer, Wizard		
+184118	Maze	8	Conjuration	Wizard		1
+184731	Meld into Stone	3	Transmutation	Cleric, Druid, Ranger	1	
+186013	Mending	0	Transmutation	Bard, Cleric, Druid, Sorcerer, Wizard		
+186579	Message	0	Transmutation	Bard, Druid, Sorcerer, Wizard		
+187126	Meteor Swarm	9	Evocation	Sorcerer, Wizard		
+187867	Mind Blank	8	Abjuration	Bard, Wizard		
+188367	Mind Spike	2	Divination	Sorcerer, Warlock, Wizard		1
+189220	Minor Illusion	0	Illusion	Bard, Sorcerer, Warlock, Wizard		
+190509	Mirage Arcane	7	Illusion	Bard, Druid, Wizard		
+191733	Mirror Image	2	Illusion	Bard, Sorcerer, Warlock, Wizard		
+192551	Mislead	5	Illusion	Bard, Warlock, Wizard		1
+193231	Misty Step	2	Conjuration	Sorcerer, Warlock, Wizard		
+193487	Modify Memory	5	Enchantment	Bard, Wizard		1
+195666	Moonbeam	2	Evocation	Druid		1
+196803	Move Earth	6	Transmutation	Druid, Sorcerer, Wizard		1
+198195	Nondetection	3	Abjuration	Bard, Ranger, Wizard		
+198695	Passwall	5	Transmutation	Wizard		
+199361	Pass without Trace	2	Abjuration	Druid, Ranger		1
+199756	Phantasmal Force	2	Illusion	Bard, Sorcerer, Wizard		1
+201239	Phantasmal Killer	4	Illusion	Bard, Wizard		1
+202132	Phantom Steed	3	Illusion	Wizard	1	
+202942	Planar Ally	6	Conjuration	Cleric		
+205115	Planar Binding	5	Abjuration	Bard, Cleric, Druid, Warlock, Wizard		
+206606	Plane Shift	7	Conjuration	Cleric, Druid, Sorcerer, Warlock, Wizard		
+207489	Plant Growth	3	Transmutation	Bard, Druid, Ranger		
+208380	Poison Spray	0	Necromancy	Druid, Sorcerer, Warlock, Wizard		
+208842	Polymorph	4	Transmutation	Bard, Druid, Sorcerer, Wizard		1
+210137	Power Word Heal	9	Enchantment	Bard, Cleric		
+210584	Power Word Kill	9	Enchantment	Bard, Sorcerer, Warlock, Wizard		
+210929	Power Word Stun	8	Enchantment	Bard, Sorcerer, Warlock, Wizard		
+211444	Prayer of Healing	2	Abjuration	Cleric, Paladin		
+211951	Prestidigitation	0	Transmutation	Bard, Sorcerer, Warlock, Wizard		
+213047	Prismatic Spray	7	Evocation	Bard, Sorcerer, Wizard		
+214777	Prismatic Wall	9	Abjuration	Bard, Wizard		
+218432	Private Sanctum	4	Abjuration	Wizard		
+219586	Produce Flame	0	Conjuration	Druid		
+220317	Programmed Illusion	6	Illusion	Bard, Wizard		
+221815	Project Image	7	Illusion	Bard, Wizard		1
+223008	Protection from Energy	3	Abjuration	Cleric, Druid, Ranger, Sorcerer, Wizard		1
+223350	Protection from Evil and Good	1	Abjuration	Cleric, Druid, Paladin, Warlock, Wizard		1
+224152	Protection from Poison	2	Abjuration	Cleric, Druid, Paladin, Ranger		
+224515	Purify Food and Drink	1	Transmutation	Cleric, Druid, Paladin	1	
+224809	Raise Dead	5	Necromancy	Bard, Cleric, Paladin		
+225660	Ray of Enfeeblement	2	Necromancy	Warlock, Wizard		1
+226354	Ray of Frost	0	Evocation	Sorcerer, Wizard		
+226877	Regenerate	7	Transmutation	Bard, Cleric, Druid		
+227228	Ray of Sickness	1	Necromancy	Sorcerer, Wizard		
+227734	Reincarnate	5	Necromancy	Druid		
+228645	Remove Curse	3	Abjuration	Cleric, Paladin, Warlock, Wizard		
+229022	Resilient Sphere	4	Abjuration	Wizard		1
+230139	Resistance	0	Abjuration	Cleric, Druid		1
+230645	Resurrection	7	Necromancy	Bard, Cleric		
+231575	Reverse Gravity	7	Transmutation	Druid, Sorcerer, Wizard		1
+232487	Revivify	3	Necromancy	Cleric, Druid, Paladin, Ranger		
+232903	Rope Trick	2	Transmutation	Wizard		
+233650	Sacred Flame	0	Evocation	Cleric		
+234176	Sanctuary	1	Abjuration	Cleric		
+234761	Scorching Ray	2	Evocation	Sorcerer, Wizard		
+235228	Scrying	5	Divination	Bard, Cleric, Druid, Warlock, Wizard		1
+236758	Searing Smite	1	Evocation	Paladin		
+237421	Secret Chest	4	Conjuration	Wizard		
+238595	See Invisibility	2	Divination	Bard, Sorcerer, Wizard		
+238957	Seeming	5	Illusion	Bard, Sorcerer, Wizard		
+240097	Sending	3	Divination	Bard, Cleric, Wizard		
+241046	Sequester	7	Transmutation	Wizard		
+241899	Shapechange	9	Transmutation	Druid, Wizard		1
+243095	Shatter	2	Evocation	Bard, Sorcerer, Wizard		
+243801	Shield	1	Abjuration	Sorcerer, Wizard		
+244230	Shield of Faith	1	Abjuration	Cleric, Paladin		1
+244550	Shillelagh	0	Transmutation	Druid		
+245237	Shining Smite	2	Transmutation	Paladin		1
+245877	Shocking Grasp	0	Evocation	Sorcerer, Wizard		
+246408	Silence	2	Illusion	Bard, Cleric, Ranger	1	1
+246945	Silent Image	1	Illusion	Bard, Sorcerer, Wizard		1
+248105	Simulacrum	7	Illusion	Wizard		
+249412	Sleep	1	Enchantment	Bard, Sorcerer, Wizard		1
+250241	Sleet Storm	3	Conjuration	Druid, Sorcerer, Wizard		1
+250893	Slow	3	Transmutation	Bard, Sorcerer, Wizard		1
+251819	Sorcerous Burst	0	Evocation	Sorcerer		
+252571	Spare the Dying	0	Necromancy	Cleric, Druid		
+252929	Speak with Animals	1	Divination	Bard, Druid, Ranger, Warlock	1	
+253483	Speak with Dead	3	Necromancy	Bard, Cleric, Wizard		
+254525	Speak with Plants	3	Transmutation	Bard, Druid, Ranger		
+255506	Spider Climb	2	Transmutation	Sorcerer, Warlock, Wizard		1
+256062	Spike Growth	2	Transmutation	Druid, Ranger		1
+256837	Spirit Guardians	3	Conjuration	Cleric		1
+257909	Spiritual Weapon	2	Evocation	Cleric		1
+258720	Starry Wisp	0	Evocation	Bard, Druid		
+259297	Stinking Cloud	3	Conjuration	Bard, Sorcerer, Wizard		1
+260008	Stone Shape	4	Transmutation	Cleric, Druid, Wizard		
+260646	Stoneskin	4	Transmutation	Druid, Ranger, Sorcerer, Wizard		1
+261003	Storm of Vengeance	9	Conjuration	Druid		1
+262310	Suggestion	2	Enchantment	Bard, Sorcerer, Warlock, Wizard		1
+263379	Summon Dragon	5	Conjuration	Wizard		1
+265469	Sunbeam	6	Evocation	Cleric, Druid, Sorcerer, Wizard		1
+266271	Sunburst	8	Evocation	Cleric, Druid, Sorcerer, Wizard		
+267042	Symbol	7	Abjuration	Bard, Cleric, Druid, Wizard		
+269986	Telekinesis	5	Transmutation	Sorcerer, Wizard		1
+271520	Telepathic Bond	5	Divination	Bard, Wizard	1	
+272152	Teleport	7	Conjuration	Bard, Sorcerer, Wizard		
+275087	Teleportation Circle	5	Conjuration	Bard, Sorcerer, Warlock, Wizard		
+276420	Thaumaturgy	0	Transmutation	Cleric		
+277404	Thunderwave	1	Evocation	Bard, Druid, Sorcerer, Wizard		
+278146	Time Stop	9	Transmutation	Sorcerer, Wizard		
+278792	Tiny Hut	3	Evocation	Bard, Wizard	1	
+279816	Tongues	3	Divination	Bard, Cleric, Sorcerer, Warlock, Wizard		
+280302	Transport via Plants	6	Conjuration	Druid		
+280802	Tree Stride	5	Conjuration	Druid, Ranger		1
+281707	True Polymorph	9	Transmutation	Bard, Warlock, Wizard		1
+284100	True Resurrection	9	Necromancy	Cleric, Druid		
+284937	True Seeing	6	Divination	Bard, Cleric, Sorcerer, Warlock, Wizard		
+285248	True Strike	0	Divination	Bard, Sorcerer, Warlock, Wizard		
+285982	Tsunami	8	Conjuration	Druid		1
+287369	Unseen Servant	1	Conjuration	Bard, Warlock, Wizard	1	
+288461	Vampiric Touch	3	Necromancy	Sorcerer, Warlock, Wizard		1
+289210	Vicious Mockery	0	Enchantment	Bard		
+289773	Vitriolic Sphere	4	Evocation	Sorcerer, Wizard		
+290473	Wall of Fire	4	Evocation	Druid, Sorcerer, Wizard		1
+291569	Wall of Force	5	Evocation	Wizard		1
+292672	Wall of Ice	6	Evocation	Wizard		1
+294233	Wall of Stone	5	Evocation	Druid, Sorcerer, Wizard		1
+296116	Wall of Thorns	6	Conjuration	Druid		1
+297413	Warding Bond	2	Abjuration	Cleric, Paladin		
+298156	Water Breathing	3	Transmutation	Druid, Ranger, Sorcerer, Wizard	1	
+298544	Water Walk	3	Transmutation	Cleric, Druid, Ranger, Sorcerer	1	
+299270	Web	2	Conjuration	Sorcerer, Wizard		1
+300475	Weird	9	Illusion	Warlock, Wizard		1
+301203	Wind Walk	6	Transmutation	Druid		
+302223	Wind Wall	3	Evocation	Druid, Ranger		1
+303380	Wish	9	Conjuration	Sorcerer, Wizard		
+307012	Word of Recall	6	Conjuration	Cleric		
+307601	Zone of Truth	2	Enchantment	Bard, Cleric, Paladin		

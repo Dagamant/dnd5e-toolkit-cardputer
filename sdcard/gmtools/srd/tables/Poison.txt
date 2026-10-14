@@ -1,0 +1,16 @@
+# Poisons (SRD 5.2.1)
+# die: pick
+1	Assassin's Blood - Ingested Poison - DC 10 Constitution save - [1d12] Poison damage - 150 GP
+1	Burnt Othur Fumes - Inhaled Poison - DC 13 Constitution save - [3d6] Poison damage - 500 GP
+1	Crawler Mucus - Contact Poison - DC 13 Constitution save - 200 GP
+1	Essence of Ether - Inhaled Poison - DC 15 Constitution save - 300 GP
+1	Malice - Inhaled Poison - DC 15 Constitution save - 250 GP
+1	Midnight Tears - Ingested Poison - DC 17 Constitution save - [9d6] Poison damage - 1,500 GP
+1	Oil of Taggit - Contact Poison - DC 13 Constitution save - 400 GP
+1	Pale Tincture - Ingested Poison - DC 16 Constitution save - [1d6] Poison damage - 250 GP
+1	Purple Worm Poison - Injury Poison - DC 21 Constitution save - [10d6] Poison damage - 2,000 GP
+1	Serpent Venom - Injury Poison - DC 11 Constitution save - [3d6] Poison damage - 200 GP
+1	Spider's Sting - Injury Poison - DC 13 Constitution save - 200 GP
+1	Torpor - Ingested Poison - DC 15 Constitution save - 600 GP
+1	Truth Serum - Ingested Poison - DC 11 Constitution save - 150 GP
+1	Wyvern Poison - Injury Poison - DC 14 Constitution save - [7d6] Poison damage - 1,200 GP

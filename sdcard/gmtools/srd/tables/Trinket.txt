@@ -1,0 +1,102 @@
+# Trinkets (SRD 5.2.1)
+# die: d100
+1	A mummified goblin hand
+1	A crystal that faintly glows in moonlight
+1	A gold coin minted in an unknown land
+1	A diary written in a language you don't know
+1	A brass ring that never tarnishes
+1	An old chess piece made from glass
+1	A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips
+1	A small idol depicting a nightmarish creature that gives you unsettling dreams when you sleep near it
+1	A lock of someone's hair
+1	The deed for a parcel of land in a realm unknown to you
+1	A 1-ounce block made from an unknown material
+1	A small cloth doll skewered with needles
+1	A tooth from an unknown beast
+1	An enormous scale, perhaps from a dragon
+1	A bright-green feather
+1	An old divination card bearing your likeness
+1	A glass orb filled with moving smoke
+1	A 1-pound egg with a bright-red shell
+1	A pipe that blows bubbles
+1	A glass jar containing a bit of flesh floating in pickling fluid
+1	A gnome-crafted music box that plays a song you dimly remember from your childhood
+1	A wooden statuette of a smug halfling
+1	A brass orb etched with strange runes
+1	A multicolored stone disk
+1	A silver icon of a raven
+1	A bag containing forty-seven teeth, one of which is rotten
+1	A shard of obsidian that always feels warm to the touch
+1	A dragon's talon strung on a leather necklace
+1	A pair of old socks
+1	A blank book whose pages refuse to hold ink, chalk, graphite, or any other marking
+1	A silver badge that is a five-pointed star
+1	A knife that belonged to a relative
+1	A glass vial filled with nail clippings
+1	A rectangular metal device with two tiny metal cups on one end that throws sparks when wet
+1	A white, sequined glove sized for a human
+1	A vest with one hundred tiny pockets
+1	A weightless stone
+1	A sketch of a goblin
+1	An empty glass vial that smells of perfume
+1	A gemstone that looks like a lump of coal when examined by anyone but you
+1	A scrap of cloth from an old banner
+1	A rank insignia from a lost legionnaire
+1	A silver bell without a clapper
+1	A mechanical canary inside a lamp
+1	A miniature chest carved to look like it has numerous feet on the bottom
+1	A dead sprite inside a clear glass bottle
+1	A metal can that has no opening but sounds as if it is filled with liquid, sand, spiders, or broken glass (your choice)
+1	A glass orb filled with water, in which swims a clockwork goldfish
+1	A silver spoon with an M engraved on the handle
+1	A whistle made from gold-colored wood
+1	A dead scarab beetle the size of your hand
+1	Two toy soldiers, one missing a head
+1	A small box filled with different-sized buttons
+1	A candle that can't be lit
+1	A miniature cage with no door
+1	An old key
+1	An indecipherable treasure map
+1	A hilt from a broken sword
+1	A rabbit's foot
+1	A glass eye
+1	A cameo of a hideous person
+1	A silver skull the size of a coin
+1	An alabaster mask
+1	A cone of sticky black incense that stinks
+1	A nightcap that gives you pleasant dreams when you wear it
+1	A single caltrop made from bone
+1	A gold monocle frame without the lens
+1	A 1-inch cube, each side a different color
+1	A crystal doorknob
+1	A packet filled with pink dust
+1	A fragment of a beautiful song, written as musical notes on two pieces of parchment
+1	A silver teardrop earring containing a real teardrop
+1	An eggshell painted with scenes of misery in disturbing detail
+1	A fan that, when unfolded, shows a sleepy cat
+1	A set of bone pipes
+1	A four-leaf clover pressed inside a book discussing manners and etiquette
+1	A sheet of parchment upon which is drawn a mechanical contraption
+1	An ornate scabbard that fits no blade you have found
+1	An invitation to a party where a murder happened
+1	A bronze pentacle with an etching of a rat's head in its center
+1	A purple handkerchief embroidered with the name of an archmage
+1	Half a floor plan for a temple, a castle, or another structure
+1	A bit of folded cloth that, when unfolded, turns into a stylish cap
+1	A receipt of deposit at a bank in a far-off city
+1	A diary with seven missing pages
+1	An empty silver snuffbox bearing the inscription "dreams" on its lid
+1	An iron holy symbol devoted to an unknown god
+1	A book about a legendary hero's rise and fall, with the last chapter missing
+1	A vial of dragon blood
+1	An ancient arrow of elven design
+1	A needle that never bends
+1	An ornate brooch of dwarven design
+1	An empty wine bottle bearing a pretty label that says, "The Wizard of Wines Winery, Red Dragon Crush, 331422-W"
+1	A mosaic tile with a multicolored, glazed surface
+1	A petrified mouse
+1	A black pirate flag adorned with a dragon's skull and crossbones
+1	A tiny mechanical crab or spider that moves about when it's not being observed
+1	A glass jar containing lard with a label that reads, "Griffon Grease"
+1	A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body
+1	A metal urn containing the ashes of a hero

@@ -1,0 +1,10 @@
+# Rust Bag of Tricks (SRD 5.2.1)
+# die: d8
+1	Rat
+1	Owl
+1	Mastiff
+1	Goat
+1	Giant Goat
+1	Giant Boar
+1	Lion
+1	Brown Bear

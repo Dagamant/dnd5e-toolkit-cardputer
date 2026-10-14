@@ -1,0 +1,6 @@
+# Sentient Item's Senses (SRD 5.2.1)
+# die: d4
+1	Hearing and standard vision out to 30 feet
+1	Hearing and standard vision out to 60 feet
+1	Hearing and standard vision out to 120 feet
+1	Hearing and Darkvision out to 120 feet Special Purpose

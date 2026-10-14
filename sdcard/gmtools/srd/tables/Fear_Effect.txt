@@ -1,0 +1,5 @@
+# Sample Fear DCs (SRD 5.2.1)
+# die: pick
+1	When the characters open a sarcophagus, a harmless yet terrifying apparition appears. (DC 10 Wisdom save or Frightened)
+1	A character triggers a magical trap that creates an illusory manifestation of that character's worst fears, visible only to that character. (DC 15 Wisdom save or Frightened)
+1	A portal to the Abyss opens, revealing a nightmarish realm of torment and slaughter. (DC 20 Wisdom save or Frightened)

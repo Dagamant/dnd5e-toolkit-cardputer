@@ -1,0 +1,11 @@
+# Hazards (SRD 5.2.1)
+# die: pick
+1	Deep Water - Environmental hazard - DC 10 Constitution save
+1	Extreme Cold - Environmental hazard - DC 10 Constitution save
+1	Extreme Heat - Environmental hazard
+1	Frigid Water - Environmental hazard - DC 10 Constitution save
+1	High Altitude - Environmental hazard
+1	Heavy Precipitation - Environmental hazard
+1	Slippery Ice - Environmental hazard - DC 10 Dexterity save
+1	Strong Wind - Environmental hazard
+1	Thin Ice - Environmental hazard

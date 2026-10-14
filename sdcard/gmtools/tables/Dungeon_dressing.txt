@@ -1,0 +1,9 @@
+# One entry per line. {Table name} nests another table, [dice] rolls inline.
+Scratch marks on the floor lead to a blank wall
+A puddle that reflects a different ceiling
+[2d6] rat skeletons arranged in a circle
+A dripping sound with no water anywhere
+Graffiti in Common: "DON'T TRUST THE {_tavnoun}"
+A cold draught from a crack too small to see through
+Old campfire, still warm
+A rusted helmet with a name scratched inside

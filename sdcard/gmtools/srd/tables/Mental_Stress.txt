@@ -1,0 +1,5 @@
+# Sample Mental Stress Effects (SRD 5.2.1)
+# die: pick
+1	A character ingests a hallucinogenic substance that distorts the character's perception of reality. (DC 10 Wisdom save, [1d6] Psychic damage)
+1	A character touches a fiendish idol that tears at the character's mind, threatening to shatter it. (DC 15 Wisdom save, [3d6] Psychic damage)
+1	A magical trap flings a character into the Far Realm until the end of that character's next turn. (DC 20 Wisdom save, [9d6] Psychic damage)

@@ -1,0 +1,330 @@
+0	Aboleth	10	Aberration	5900	150	17	+7	Large	Underdark,Underwater
+3328	Air Elemental	5	Elemental	1800	90	15	+5	Large	Planar,Mountain,Desert
+4555	Animated Armor	1	Construct	200	33	18	+2	Medium	Dungeon,Urban
+5127	Animated Flying Sword	1/4	Construct	50	14	17	+4	Small	Dungeon,Urban
+5670	Animated Rug of Smothering	2	Construct	450	27	12	+4	Large	Dungeon,Urban
+6719	Ankheg	2	Monstrosity	450	45	14	+0	Large	Grassland,Forest
+7704	Assassin	8	Humanoid	3900	97	16	+10	Medium	Urban
+9037	Awakened Shrub	0	Plant	10	10	9	-1	Small	Forest
+9467	Awakened Tree	2	Plant	450	59	13	-2	Huge	Forest
+9936	Axe Beak	1/4	Monstrosity	50	19	11	+1	Large	Grassland,Hill
+10333	Azer Sentinel	2	Elemental	450	39	17	+1	Medium	Planar,Underdark
+11172	Balor	19	Fiend	22000	287	19	+14	Huge	Planar
+13177	Bandit	1/8	Humanoid	25	11	12	+1	Medium	Forest,Grassland,Hill,Desert,Urban,Coastal
+13813	Bandit Captain	2	Humanoid	450	52	15	+3	Medium	Forest,Grassland,Hill,Desert,Urban,Coastal
+14747	Barbed Devil	5	Fiend	1800	110	15	+3	Medium	Planar
+16333	Basilisk	3	Monstrosity	700	52	15	-1	Medium	Mountain,Dungeon,Underdark
+17315	Bearded Devil	3	Fiend	700	58	13	+2	Medium	Planar
+18834	Behir	11	Monstrosity	7200	168	17	+3	Huge	Underdark,Mountain
+20908	Berserker	2	Humanoid	450	67	13	+1	Medium	Arctic,Forest,Hill,Mountain
+21464	Black Dragon Wyrmling	2	Dragon	450	33	17	+4	Medium	Swamp
+22352	Young Black Dragon	7	Dragon	2900	127	18	+5	Large	Swamp
+23254	Adult Black Dragon	14	Dragon	11500	195	19	+12	Huge	Swamp
+25506	Ancient Black Dragon	21	Dragon	33000	367	22	+16	Gargantuan	Swamp
+27808	Black Pudding	4	Ooze	1100	68	7	-3	Large	Underdark,Dungeon
+29766	Blink Dog	1/4	Fey	50	22	13	+3	Medium	Forest,Planar
+30369	Blue Dragon Wyrmling	3	Dragon	700	65	17	+2	Medium	Desert,Coastal
+31247	Young Blue Dragon	9	Dragon	5000	152	18	+4	Large	Desert,Coastal
+32140	Adult Blue Dragon	16	Dragon	15000	212	19	+10	Huge	Desert,Coastal
+34092	Ancient Blue Dragon	23	Dragon	50000	481	22	+14	Gargantuan	Desert,Coastal
+36115	Bone Devil	9	Fiend	5000	161	16	+7	Large	Planar
+37384	Brass Dragon Wyrmling	1	Dragon	200	22	15	+2	Medium	Desert
+38562	Young Brass Dragon	6	Dragon	2300	110	17	+3	Large	Desert
+39812	Adult Brass Dragon	13	Dragon	10000	172	18	+10	Huge	Desert
+42449	Ancient Brass Dragon	20	Dragon	25000	332	20	+12	Gargantuan	Desert
+45156	Bronze Dragon Wyrmling	2	Dragon	450	39	15	+2	Medium	Coastal
+46199	Young Bronze Dragon	8	Dragon	3900	142	17	+3	Large	Coastal
+47324	Adult Bronze Dragon	15	Dragon	13000	212	18	+10	Huge	Coastal
+49870	Ancient Bronze Dragon	22	Dragon	41000	444	22	+14	Gargantuan	Coastal
+52458	Bugbear Stalker	3	Fey	700	65	15	+2	Medium	Forest,Underdark,Dungeon
+53597	Bugbear Warrior	1	Fey	200	33	14	+2	Medium	Forest,Underdark,Dungeon
+54522	Bulette	5	Monstrosity	1800	94	17	+0	Large	Grassland,Hill,Mountain
+55583	Centaur Trooper	2	Fey	450	45	16	+2	Large	Grassland,Forest
+56727	Chain Devil	8	Fiend	3900	85	15	+5	Medium	Planar
+58744	Chimera	6	Monstrosity	2300	114	14	+0	Large	Hill,Mountain
+59982	Chuul	4	Aberration	1100	76	16	+0	Large	Swamp,Underwater,Underdark
+61301	Clay Golem	9	Construct	5000	123	14	+3	Large	Dungeon,Urban
+62899	Cloaker	8	Aberration	3900	91	14	+5	Large	Underdark
+64778	Cloud Giant	9	Giant	5000	200	14	+4	Huge	Mountain
+66052	Cockatrice	1/2	Monstrosity	100	22	11	+1	Small	Grassland,Hill
+66917	Commoner	0	Humanoid	10	4	10	+0	Medium	-
+67463	Copper Dragon Wyrmling	1	Dragon	200	22	16	+3	Medium	Hill,Mountain
+68474	Young Copper Dragon	7	Dragon	2900	119	17	+4	Large	Hill,Mountain
+69678	Adult Copper Dragon	14	Dragon	11500	184	18	+11	Huge	Hill,Mountain
+72383	Ancient Copper Dragon	21	Dragon	33000	367	21	+15	Gargantuan	Hill,Mountain
+75122	Couatl	4	Celestial	1100	60	19	+5	Medium	Desert,Forest,Grassland
+76848	Swarm of Crawling Claws	3	Swarm of Tiny Undead	700	49	12	+2	Medium	Dungeon,Urban
+77924	Cultist	1/8	Humanoid	25	9	12	+1	Medium	Urban,Dungeon
+78425	Cultist Fanatic	2	Humanoid	450	44	13	+2	Medium	Urban,Dungeon
+79320	Darkmantle	1/2	Aberration	100	22	11	+3	Small	Underdark
+80706	Death Dog	1	Monstrosity	200	39	12	+2	Medium	Desert
+81717	Deva	10	Celestial	5900	229	17	+4	Medium	Planar
+83209	Djinni	11	Elemental	7200	218	17	+2	Large	Planar,Desert
+86038	Doppelganger	3	Monstrosity	700	52	14	+4	Medium	Urban
+87501	Dragon Turtle	17	Dragon	18000	356	20	+6	Gargantuan	Underwater,Coastal
+88738	Dretch	1/4	Fiend	50	18	11	+0	Small	Planar
+89649	Drider	6	Monstrosity	2300	123	19	+4	Large	Underdark
+90959	Druid	2	Humanoid	450	44	13	+1	Medium	Forest,Grassland,Hill,Arctic,Swamp
+91995	Dryad	1	Fey	200	22	16	+1	Medium	Forest
+93427	Earth Elemental	5	Elemental	1800	147	17	-1	Large	Planar,Mountain,Underdark
+94563	Efreeti	11	Elemental	7200	212	17	+1	Large	Planar,Desert
+96336	Erinyes	12	Fiend	8400	178	18	+7	Medium	Planar
+98344	Ettercap	2	Monstrosity	450	44	13	+2	Medium	Forest
+99919	Ettin	4	Giant	1100	85	12	-1	Large	Hill,Mountain,Underdark
+100847	Fire Elemental	5	Elemental	1800	93	13	+3	Large	Planar,Desert
+102298	Fire Giant	9	Giant	5000	162	18	+3	Huge	Mountain,Underdark
+103229	Flesh Golem	5	Construct	1800	127	9	-1	Medium	Dungeon,Urban
+105053	Frost Giant	8	Giant	3900	149	15	+2	Huge	Arctic,Mountain
+106098	Shrieker Fungus	0	Plant	0	13	5	-5	Medium	Underdark
+106643	Violet Fungus	1/4	Plant	50	18	5	-5	Medium	Underdark
+107162	Gargoyle	2	Elemental	450	67	15	+2	Medium	Dungeon,Mountain,Urban
+107840	Gelatinous Cube	2	Ooze	450	63	6	-4	Large	Dungeon,Underdark
+110092	Ghast	2	Undead	450	36	13	+3	Medium	Dungeon,Swamp,Underdark,Urban
+111249	Ghost	4	Undead	1100	45	11	+1	Medium	Any
+113897	Ghoul	1	Undead	200	22	12	+2	Medium	Dungeon,Swamp,Underdark,Urban
+114780	Gibbering Mouther	2	Aberration	450	52	9	-1	Medium	Underdark
+116481	Glabrezu	9	Fiend	5000	189	17	+6	Large	Planar
+117970	Gladiator	5	Humanoid	1800	112	16	+5	Medium	Urban
+119049	Gnoll Warrior	1/2	Fiend	100	27	15	+1	Medium	Desert,Forest,Grassland,Hill
+119778	Goblin Minion	1/8	Fey	25	7	12	+2	Small	Forest,Hill,Underdark,Dungeon
+120367	Goblin Warrior	1/4	Fey	50	10	15	+2	Small	Forest,Hill,Underdark,Dungeon
+121237	Goblin Boss	1	Fey	200	21	17	+2	Small	Forest,Hill,Underdark,Dungeon
+122464	Gold Dragon Wyrmling	3	Dragon	700	60	17	+4	Medium	Grassland,Forest
+123672	Young Gold Dragon	10	Dragon	5900	178	18	+6	Large	Grassland,Forest
+124981	Adult Gold Dragon	17	Dragon	18000	243	19	+14	Huge	Grassland,Forest
+127851	Ancient Gold Dragon	24	Dragon	62000	546	22	+16	Gargantuan	Grassland,Forest
+130782	Gorgon	5	Construct	1800	114	19	+0	Large	Grassland,Hill
+132066	Gray Ooze	1/2	Ooze	100	22	9	-2	Medium	Underdark,Dungeon,Swamp
+133411	Green Dragon Wyrmling	2	Dragon	450	38	17	+3	Medium	Forest
+134311	Young Green Dragon	8	Dragon	3900	136	18	+4	Large	Forest
+135238	Adult Green Dragon	15	Dragon	13000	207	19	+11	Huge	Forest
+137412	Ancient Green Dragon	22	Dragon	41000	402	21	+15	Gargantuan	Forest
+139626	Green Hag	3	Fey	700	82	17	+1	Medium	Forest,Swamp
+141217	Grick	2	Aberration	450	54	14	+2	Medium	Underdark,Forest
+141975	Griffon	2	Monstrosity	450	59	12	+2	Large	Grassland,Hill,Mountain
+142615	Grimlock	1/4	Aberration	50	11	11	+1	Medium	Underdark
+143147	Guardian Naga	10	Celestial	5900	136	18	+4	Large	Dungeon,Forest
+144621	Guard	1/8	Humanoid	25	11	16	+1	Medium	Urban
+145098	Guard Captain	4	Humanoid	1100	75	18	+4	Medium	Urban
+145838	Half-Dragon	5	Dragon	1800	105	18	+5	Medium	Any
+147082	Harpy	1	Monstrosity	200	38	11	+1	Medium	Coastal,Forest,Hill,Mountain
+148436	Hell Hound	3	Fiend	700	58	15	+1	Medium	Planar,Underdark
+149413	Hezrou	8	Fiend	3900	157	18	+6	Large	Planar
+150617	Hill Giant	5	Giant	1800	105	13	+2	Huge	Hill
+151414	Hippogriff	1	Monstrosity	200	26	11	+1	Large	Grassland,Hill,Mountain
+152015	Hobgoblin Warrior	1/2	Fey	100	11	18	+3	Medium	Forest,Grassland,Hill,Underdark
+152910	Hobgoblin Captain	3	Fey	700	58	17	+4	Medium	Forest,Grassland,Hill,Underdark
+153943	Homunculus	0	Construct	10	4	13	+2	Tiny	Urban,Dungeon
+154957	Horned Devil	11	Fiend	7200	199	18	+7	Large	Planar
+156793	Hydra	8	Monstrosity	3900	184	15	+4	Huge	Swamp,Coastal
+158007	Ice Devil	14	Fiend	11500	228	18	+7	Large	Planar,Arctic
+159627	Imp	1	Fiend	200	21	13	+3	Tiny	Planar,Urban
+160757	Incubus	4	Fiend	1100	66	15	+3	Medium	Planar,Urban
+162393	Invisible Stalker	6	Elemental	2300	97	14	+7	Large	Planar,Urban
+163766	Iron Golem	16	Construct	15000	252	20	+9	Large	Dungeon
+165096	Knight	3	Humanoid	700	52	18	+0	Medium	Urban,Grassland
+166095	Kobold Warrior	1/8	Dragon	25	7	14	+2	Small	Dungeon,Forest,Hill,Mountain,Underdark
+166903	Kraken	23	Monstrosity	50000	481	18	+14	Gargantuan	Underwater
+170285	Lamia	4	Fiend	1100	97	13	+1	Large	Desert
+171537	Lemure	0	Fiend	10	9	9	-3	Medium	Planar
+172306	Lich	21	Undead	33000	315	20	+17	Medium	Dungeon
+175060	Mage	6	Humanoid	2300	81	15	+2	Medium	Urban,Dungeon
+176216	Archmage	12	Humanoid	8000	170	17	+7	Medium	Urban,Dungeon
+177662	Magmin	1/2	Elemental	100	13	14	+2	Small	Planar,Underdark,Mountain
+178666	Manticore	3	Monstrosity	700	68	14	+3	Large	Desert,Hill,Mountain
+179330	Marilith	16	Fiend	15000	220	16	+10	Large	Planar
+180987	Medusa	6	Monstrosity	2300	127	15	+6	Medium	Desert,Dungeon,Hill
+182346	Dust Mephit	1/2	Elemental	100	17	12	+2	Small	Desert,Planar
+183538	Ice Mephit	1/2	Elemental	100	21	11	+1	Small	Arctic,Planar
+184703	Magma Mephit	1/2	Elemental	100	18	11	+1	Small	Mountain,Planar,Underdark
+185736	Steam Mephit	1/4	Elemental	50	17	10	+0	Small	Planar,Swamp
+187028	Merfolk Skirmisher	1/8	Elemental	25	11	11	+1	Medium	Coastal,Underwater
+187789	Merrow	2	Monstrosity	450	45	13	+2	Large	Coastal,Underwater
+188852	Mimic	2	Monstrosity	450	58	12	+3	Medium	Dungeon,Urban
+190241	Minotaur of Baphomet	3	Monstrosity	700	85	14	+0	Large	Dungeon,Underdark
+191126	Mummy	3	Undead	700	58	11	-1	Medium	Desert,Dungeon
+192436	Mummy Lord	15	Undead	13000	187	17	+10	Medium	Desert,Dungeon
+195756	Nalfeshnee	13	Fiend	10000	184	18	+5	Large	Planar
+197473	Night Hag	5	Fiend	1800	112	17	+5	Medium	Planar
+200128	Nightmare	3	Fiend	700	68	13	+2	Large	Planar
+201027	Noble	1/8	Humanoid	25	9	15	+1	Medium	-
+201692	Ochre Jelly	2	Ooze	450	52	8	-2	Large	Dungeon,Underdark
+202861	Ogre	2	Giant	450	68	11	-1	Large	Forest,Hill,Mountain,Swamp,Grassland
+203488	Oni	7	Fiend	2900	119	17	+0	Large	Forest,Hill,Urban
+205114	Otyugh	5	Aberration	1800	104	14	+0	Large	Dungeon,Underdark,Urban
+206582	Owlbear	3	Monstrosity	700	59	13	+1	Large	Forest
+207076	Pegasus	2	Celestial	450	59	12	+2	Large	Grassland,Forest,Hill,Planar
+207630	Phase Spider	3	Monstrosity	700	45	14	+3	Large	Forest,Planar,Underdark
+208875	Pirate	1	Humanoid	200	33	14	+5	Medium	Coastal
+209702	Pirate Captain	6	Humanoid	2300	84	17	+7	Medium	Coastal
+211013	Pit Fiend	20	Fiend	25000	337	21	+14	Large	Planar
+213443	Planetar	16	Celestial	15000	262	19	+10	Large	Planar
+215172	Priest Acolyte	1/4	Humanoid	50	11	13	+0	Medium	Urban
+216090	Priest	2	Humanoid	450	38	13	+0	Medium	Urban
+217198	Pseudodragon	1/4	Dragon	50	10	14	+2	Tiny	Forest,Hill,Urban
+218304	Purple Worm	15	Monstrosity	13000	247	18	+3	Gargantuan	Underdark,Desert
+220228	Quasit	1	Fiend	200	25	13	+3	Tiny	Planar
+221675	Rakshasa	13	Fiend	10000	221	17	+8	Medium	Urban,Planar
+223664	Red Dragon Wyrmling	4	Dragon	1100	75	17	+2	Medium	Mountain,Hill
+224489	Young Red Dragon	10	Dragon	5900	178	18	+4	Large	Mountain,Hill
+225327	Adult Red Dragon	17	Dragon	18000	256	19	+12	Huge	Mountain,Hill
+227257	Ancient Red Dragon	24	Dragon	62000	507	22	+14	Gargantuan	Mountain,Hill
+229289	Remorhaz	11	Monstrosity	7200	195	17	+5	Huge	Arctic
+231093	Roc	11	Monstrosity	7200	248	15	+8	Gargantuan	Mountain,Coastal
+232098	Roper	5	Aberration	1800	93	20	+5	Large	Underdark
+233320	Rust Monster	1/2	Monstrosity	100	33	14	+1	Medium	Underdark,Dungeon
+234748	Sahuagin Warrior	1/2	Fiend	100	22	12	+0	Medium	Coastal,Underwater
+235784	Salamander	5	Elemental	1800	90	15	+2	Large	Planar,Underdark
+237093	Satyr	1/2	Fey	100	31	13	+3	Medium	Forest,Planar
+237949	Scout	1/2	Humanoid	100	16	13	+2	Medium	Any
+238691	Sea Hag	2	Fey	450	52	14	+1	Medium	Coastal,Underwater
+240404	Shadow	1/2	Undead	100	27	12	+2	Medium	Dungeon,Underdark,Urban
+241544	Shambling Mound	5	Plant	1800	110	15	-1	Large	Swamp,Forest
+243083	Shield Guardian	7	Construct	2900	142	17	-1	Large	Dungeon,Urban
+245103	Silver Dragon Wyrmling	2	Dragon	450	45	17	+2	Medium	Mountain,Urban
+246269	Young Silver Dragon	9	Dragon	5000	168	18	+4	Large	Mountain,Urban
+247519	Adult Silver Dragon	16	Dragon	15000	216	19	+10	Huge	Mountain,Urban
+250241	Ancient Silver Dragon	23	Dragon	50000	468	22	+14	Gargantuan	Mountain,Urban
+253044	Skeleton	1/4	Undead	50	13	14	+3	Medium	Dungeon,Urban,Underdark
+253749	Warhorse Skeleton	1/2	Undead	100	22	13	+1	Large	Dungeon,Urban
+254404	Minotaur Skeleton	2	Undead	450	45	12	+0	Large	Dungeon,Underdark
+255248	Solar	21	Celestial	33000	297	21	+20	Large	Planar
+258116	Specter	1	Undead	200	22	12	+2	Medium	Dungeon,Underdark,Urban
+259218	Sphinx of Wonder	1	Celestial	200	24	13	+3	Tiny	Desert,Planar
+260069	Sphinx of Lore	11	Celestial	7200	170	17	+10	Large	Desert,Planar
+262400	Sphinx of Valor	17	Celestial	18000	199	17	+12	Large	Desert,Planar
+265263	Spirit Naga	8	Fiend	3900	135	17	+3	Large	Dungeon,Underdark
+266504	Sprite	1/4	Fey	50	10	15	+4	Tiny	Forest
+267549	Spy	1	Humanoid	200	27	12	+4	Medium	Urban
+268421	Stirge	1/8	Monstrosity	25	5	13	+3	Tiny	Forest,Swamp,Underdark,Dungeon
+269195	Stone Giant	7	Giant	2900	126	17	+5	Huge	Hill,Mountain,Underdark
+270485	Stone Golem	10	Construct	5900	220	18	+3	Large	Dungeon
+271619	Storm Giant	13	Giant	10000	230	16	+7	Huge	Coastal,Mountain,Underwater
+273190	Succubus	4	Fiend	1100	71	15	+3	Medium	Planar,Urban
+274770	Tarrasque	30	Monstrosity	155000	697	25	+18	Gargantuan	Any
+278551	Tough	1/2	Humanoid	100	32	12	+1	Medium	Urban
+279342	Tough Boss	4	Humanoid	1100	82	16	+2	Medium	Urban
+280388	Treant	9	Plant	5000	138	16	+3	Huge	Forest
+281626	Troll	5	Giant	1800	94	15	+1	Large	Arctic,Forest,Hill,Mountain,Swamp,Underdark
+282874	Troll Limb	1/2	Giant	100	14	13	+1	Small	-
+283727	Unicorn	5	Celestial	1800	97	12	+8	Large	Forest
+285809	Vampire Familiar	3	Humanoid	700	65	15	+5	Medium	Urban,Dungeon
+287087	Vampire Spawn	5	Undead	1800	90	16	+3	Medium	Urban,Dungeon
+288951	Vampire	13	Undead	10000	195	16	+14	Medium	Urban,Dungeon
+293391	Vrock	6	Fiend	2300	152	15	+2	Large	Planar
+295079	Warrior Infantry	1/8	Humanoid	25	9	13	+0	Medium	Urban,Grassland,Hill
+295760	Warrior Veteran	3	Humanoid	700	65	17	+3	Medium	Urban,Grassland,Hill
+296695	Water Elemental	5	Elemental	1800	114	14	+2	Large	Planar,Coastal,Underwater
+298449	Werebear	5	Monstrosity	1800	135	15	+3	Medium	Arctic,Forest,Hill
+300197	Wereboar	4	Monstrosity	1100	97	15	+2	Medium	Forest,Grassland,Hill
+302096	Wererat	2	Monstrosity	450	60	13	+3	Medium	Urban,Underdark
+303740	Weretiger	4	Monstrosity	1100	120	12	+2	Medium	Forest,Grassland
+305575	Werewolf	3	Monstrosity	700	71	15	+4	Medium	Forest,Hill
+307433	White Dragon Wyrmling	2	Dragon	450	32	16	+2	Medium	Arctic
+308463	Young White Dragon	6	Dragon	2300	123	17	+3	Large	Arctic
+309504	Adult White Dragon	13	Dragon	10000	200	18	+10	Huge	Arctic
+311594	Ancient White Dragon	20	Dragon	25000	333	20	+12	Gargantuan	Arctic
+313701	Wight	3	Undead	700	82	14	+4	Medium	Dungeon,Swamp,Urban,Underdark
+315258	Will-o'-Wisp	2	Undead	450	27	19	+9	Tiny	Swamp,Forest
+316692	Winter Wolf	3	Monstrosity	700	75	13	+1	Large	Arctic
+317639	Worg	1/2	Fey	100	26	13	+1	Large	Forest,Grassland,Hill
+318181	Wraith	5	Undead	1800	67	13	+3	Medium	Dungeon,Underdark,Urban
+319601	Wyvern	6	Dragon	2300	127	14	+0	Large	Hill,Mountain
+320350	Xorn	5	Elemental	1800	84	19	+0	Medium	Underdark,Planar
+321457	Zombie	1/4	Undead	50	15	8	-2	Medium	Dungeon,Swamp,Urban,Underdark
+322231	Ogre Zombie	2	Undead	450	85	8	-2	Large	Dungeon,Swamp,Urban,Underdark
+322996	Allosaurus	2	Beast	450	51	13	+1	Large	Grassland,Forest
+323753	Ankylosaurus	3	Beast	700	68	15	+0	Huge	Grassland,Forest
+324290	Ape	1/2	Beast	100	19	12	+2	Medium	Forest
+324916	Archelon	4	Beast	1100	90	17	+3	Huge	Coastal,Underwater
+325460	Baboon	0	Beast	10	3	12	+2	Small	Forest,Grassland
+326063	Badger	0	Beast	10	5	11	+0	Tiny	Forest,Grassland
+326503	Bat	0	Beast	10	1	12	+2	Tiny	Forest,Underdark,Urban
+326899	Black Bear	1/2	Beast	100	19	11	+1	Medium	Forest,Mountain
+327404	Blood Hawk	1/8	Beast	25	7	12	+2	Small	Coastal,Grassland,Mountain
+328097	Boar	1/4	Beast	50	13	11	+0	Medium	Forest,Grassland
+328758	Brown Bear	1	Beast	200	22	11	+1	Large	Forest,Hill,Arctic
+329424	Camel	1/8	Beast	25	17	10	-1	Large	-
+329817	Cat	0	Beast	10	2	12	+2	Tiny	-
+330334	Constrictor Snake	1/4	Beast	50	13	13	+2	Large	Forest,Swamp
+331043	Crab	0	Beast	10	3	11	+0	Tiny	Coastal
+331507	Crocodile	1/2	Beast	100	13	12	+0	Large	Swamp
+332134	Deer	0	Beast	10	4	13	+3	Medium	-
+332638	Dire Wolf	1	Beast	200	22	14	+2	Large	Forest,Hill
+333356	Draft Horse	1/4	Beast	50	15	10	+0	Large	-
+333741	Eagle	0	Beast	10	4	12	+2	Small	Mountain,Grassland
+334162	Elephant	4	Beast	1100	76	12	-1	Huge	Grassland
+334985	Elk	1/4	Beast	50	11	10	+0	Large	Forest,Grassland
+335611	Flying Snake	1/8	Monstrosity	25	5	14	+2	Tiny	Desert,Forest
+336172	Frog	0	Beast	10	1	11	+1	Tiny	-
+336760	Giant Ape	7	Beast	2900	168	12	+5	Huge	Forest
+337730	Giant Badger	1/4	Beast	50	15	13	+0	Medium	Forest,Grassland
+338198	Giant Bat	1/4	Beast	50	22	13	+3	Large	Forest,Underdark
+338616	Giant Boar	2	Beast	450	42	13	+0	Large	Forest,Grassland
+339293	Giant Centipede	1/4	Beast	50	9	14	+2	Small	Underdark,Forest,Dungeon
+339811	Giant Constrictor Snake	2	Beast	450	60	12	+2	Huge	Forest,Swamp
+340586	Giant Crab	1/8	Beast	25	13	15	+1	Medium	Coastal
+341191	Giant Crocodile	5	Beast	1800	85	14	-1	Huge	Swamp
+342134	Giant Eagle	1	Celestial	200	26	13	+3	Large	Mountain,Hill,Grassland
+342762	Giant Elk	2	Celestial	450	42	14	+6	Huge	Forest,Grassland,Hill
+343547	Giant Fire Beetle	0	Beast	10	4	13	+0	Small	Underdark,Dungeon
+344079	Giant Frog	1/4	Beast	50	18	11	+1	Medium	Swamp
+345406	Giant Goat	1/2	Beast	100	19	11	+1	Large	Mountain,Hill
+346054	Giant Hyena	1	Beast	200	45	12	+2	Large	Grassland,Desert
+346663	Giant Lizard	1/4	Beast	50	19	12	+1	Large	Desert,Underdark,Forest
+347225	Giant Octopus	1	Beast	200	45	11	+1	Large	Underwater
+348296	Giant Owl	1/4	Celestial	50	19	12	+2	Large	Forest,Arctic
+349154	Giant Rat	1/8	Beast	25	7	13	+3	Small	Dungeon,Urban,Underdark,Swamp
+349812	Giant Scorpion	3	Beast	700	52	15	+1	Large	Desert
+350557	Giant Seahorse	1/2	Beast	100	16	14	+1	Large	Underwater
+351277	Giant Shark	5	Beast	1800	92	13	+3	Huge	Underwater
+351891	Giant Spider	1	Beast	200	26	14	+3	Large	Forest,Underdark,Dungeon
+352976	Giant Toad	1	Beast	200	39	11	+1	Large	Swamp,Forest
+354291	Giant Venomous Snake	1/4	Beast	50	11	14	+4	Medium	Forest,Swamp,Desert
+354785	Giant Vulture	1	Monstrosity	200	25	10	+0	Large	Desert,Grassland
+355585	Giant Wasp	1/2	Beast	100	22	13	+2	Medium	Forest,Grassland
+356125	Giant Weasel	1/8	Beast	25	9	13	+3	Medium	Forest,Hill
+356591	Giant Wolf Spider	1/4	Beast	50	11	13	+3	Medium	Forest,Desert,Underdark
+357248	Goat	0	Beast	10	4	10	+0	Medium	-
+357769	Hawk	0	Beast	10	1	13	+3	Tiny	Forest,Grassland,Mountain
+358177	Hippopotamus	4	Beast	1100	82	14	-2	Large	Swamp,Grassland
+358735	Hunter Shark	2	Beast	450	45	12	+2	Large	Underwater
+359301	Hyena	0	Beast	10	5	11	+1	Medium	Grassland,Desert
+359927	Jackal	0	Beast	10	3	12	+2	Small	Desert,Grassland
+360358	Killer Whale	3	Beast	700	90	12	+2	Huge	Underwater,Arctic
+360883	Lion	1	Beast	200	22	12	+2	Large	Grassland,Desert
+361884	Lizard	0	Beast	10	2	10	+0	Tiny	-
+362393	Mammoth	6	Beast	2300	126	13	+2	Huge	Arctic
+363212	Mastiff	1/8	Beast	25	5	12	+2	Medium	Urban,Grassland
+363713	Mule	1/8	Beast	25	11	10	+0	Medium	-
+364206	Octopus	0	Beast	10	3	12	+2	Small	Coastal,Underwater
+365174	Owl	0	Beast	10	1	11	+1	Tiny	Forest
+365693	Panther	1/4	Beast	50	13	13	+3	Medium	Forest,Grassland
+366223	Piranha	0	Beast	10	1	13	+3	Tiny	Underwater,Swamp
+366745	Plesiosaurus	2	Beast	450	68	13	+2	Large	Underwater,Coastal
+367268	Polar Bear	2	Beast	450	42	12	+2	Large	Arctic
+367778	Pony	1/8	Beast	25	11	10	+0	Medium	-
+368157	Pteranodon	1/4	Beast	50	13	13	+2	Medium	Coastal,Grassland
+368697	Rat	0	Beast	10	1	10	+0	Tiny	Urban,Dungeon
+369209	Raven	0	Beast	10	2	12	+2	Tiny	Forest,Urban,Hill
+369795	Reef Shark	1/2	Beast	100	22	12	+2	Medium	Coastal,Underwater
+370507	Rhinoceros	2	Beast	450	45	13	-1	Large	Grassland
+371090	Riding Horse	1/4	Beast	50	13	11	+1	Large	-
+371476	Saber-Toothed Tiger	2	Beast	450	52	13	+3	Large	Arctic,Mountain,Forest
+372149	Scorpion	0	Beast	10	1	11	+0	Tiny	Desert
+372559	Seahorse	0	Beast	0	1	12	+1	Tiny	-
+373034	Spider	0	Beast	10	1	12	+2	Tiny	Forest,Dungeon,Urban
+373776	Swarm of Bats	1/4	Swarm of Tiny Beasts	50	11	12	+2	Large	Underdark,Forest,Dungeon
+374632	Swarm of Insects	1/2	Swarm of Tiny Beasts	100	19	11	+1	Medium	Forest,Swamp,Grassland,Dungeon
+375685	Swarm of Piranhas	1	Swarm of Tiny Beasts	200	28	13	+3	Medium	Underwater,Swamp
+376672	Swarm of Rats	1/4	Swarm of Tiny Beasts	50	14	10	+0	Medium	Urban,Dungeon
+377522	Swarm of Ravens	1/4	Swarm of Tiny Beasts	50	11	12	+2	Medium	Forest,Hill,Urban
+378699	Swarm of Venomous Snakes	2	Swarm of Tiny Beasts	450	36	14	+4	Medium	Swamp,Forest,Desert
+379615	Tiger	1	Beast	200	30	13	+3	Large	Forest,Grassland
+380202	Triceratops	5	Beast	1800	114	14	-1	Huge	Grassland,Forest
+380854	Tyrannosaurus Rex	8	Beast	3900	136	13	+3	Huge	Grassland,Forest
+381760	Venomous Snake	1/8	Beast	25	5	12	+2	Tiny	Swamp,Forest,Desert
+382217	Vulture	0	Beast	10	5	10	+0	Medium	Desert,Grassland
+382841	Warhorse	1/2	Beast	100	19	11	+1	Large	Grassland,Urban
+383441	Weasel	0	Beast	10	1	13	+3	Tiny	Forest
+383876	Wolf	1/4	Beast	50	11	12	+2	Medium	Forest,Grassland,Hill,Arctic

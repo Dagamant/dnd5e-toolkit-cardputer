@@ -1,0 +1,10 @@
+# Tan Bag of Tricks (SRD 5.2.1)
+# die: d8
+1	Jackal
+1	Ape
+1	Baboon
+1	Axe Beak
+1	Black Bear
+1	Giant Weasel
+1	Giant Hyena
+1	Tiger

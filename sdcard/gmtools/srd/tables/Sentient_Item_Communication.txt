@@ -1,0 +1,5 @@
+# Sentient Item's Communication (SRD 5.2.1)
+# die: d10
+6	The item communicates by transmitting emotion to the creature carrying or wielding it.
+3	The item speaks one or more languages.
+1	The item speaks one or more languages. In addition, the item can communicate telepathically with any creature that carries or wields it.

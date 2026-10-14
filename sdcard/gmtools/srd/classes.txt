@@ -1,0 +1,408 @@
+name: Barbarian
+hitdie: d12
+primary: Strength
+saves: Strength, Constitution
+skills_n: 2
+skills: Animal Handling, Athletics, Intimidation, Nature, Perception, Survival
+weapons: Simple and Martial weapons
+armor: Light and Medium armor and Shields
+equipment: (A) Greataxe, 4 Handaxes, Explorer's Pack, and 15 GP; or (B) 75 GP
+equip_a: Greataxe|4 Handaxes|Explorer's Pack|15 GP
+equip_b: 75 GP
+cols: Level|Proficiency Bonus|Class Features|Rages|Rage Damage|Weapon Mastery
+L1: 1|+2|Rage, Unarmored Defense, Weapon Mastery|2|+2|2
+L2: 2|+2|Danger Sense, Reckless Attack|2|+2|2
+L3: 3|+2|Barbarian Subclass, Primal Knowledge|3|+2|2
+L4: 4|+2|Ability Score Improvement|3|+2|3
+L5: 5|+3|Extra Attack, Fast Movement|3|+2|3
+L6: 6|+3|Subclass feature|4|+2|3
+L7: 7|+3|Feral Instinct, Instinctive Pounce|4|+2|3
+L8: 8|+3|Ability Score Improvement|4|+2|3
+L9: 9|+4|Brutal Strike|4|+3|3
+L10: 10|+4|Subclass feature|4|+3|4
+L11: 11|+4|Relentless Rage|4|+3|4
+L12: 12|+4|Ability Score Improvement|5|+3|4
+L13: 13|+5|Improved Brutal Strike|5|+3|4
+L14: 14|+5|Subclass feature|5|+3|4
+L15: 15|+5|Persistent Rage|5|+3|4
+L16: 16|+5|Ability Score Improvement|5|+4|4
+L17: 17|+6|Improved Brutal Strike|6|+4|4
+L18: 18|+6|Indomitable Might|6|+4|4
+L19: 19|+6|Epic Boon|6|+4|4
+L20: 20|+6|Primal Champion|6|+4|4
+
+name: Bard
+hitdie: d8
+primary: Charisma
+saves: Dexterity, Charisma
+skills_n: 0
+skills: Acrobatics, Animal Handling, Arcana, Athletics, Deception, History, Insight, Intimidation, Investigation, Medicine, Nature, Perception, Performance, Persuasion, Religion, Sleight of Hand, Stealth, Survival
+weapons: Simple weapons
+tools: Choose 3 Musical Instruments (see "Equipment")
+armor: Light armor
+equipment: (A) Leather Armor, 2 Daggers, Musical Instrument of your choice, Entertainer's Pack, and 19 GP; or (B) 90 GP
+equip_a: Leather Armor|2 Daggers|Musical Instrument of your choice|Entertainer's Pack|19 GP
+equip_b: 90 GP
+cols: Level|Proficiency Bonus|Class Features|Bardic Die|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+L1: 1|+2|Bardic Inspiration, Spellcasting|D6|2|4|2| - | - | - | - | - | - | - | - 
+L2: 2|+2|Expertise, Jack of All Trades|D6|2|5|3| - | - | - | - | - | - | - | - 
+L3: 3|+2|Bard Subclass|D6|2|6|4|2| - | - | - | - | - | - | - 
+L4: 4|+2|Ability Score Improvement|D6|3|7|4|3| - | - | - | - | - | - | - 
+L5: 5|+3|Font of Inspiration|D8|3|9|4|3|2| - | - | - | - | - | - 
+L6: 6|+3|Subclass feature|D8|3|10|4|3|3| - | - | - | - | - | - 
+L7: 7|+3|Countercharm|D8|3|11|4|3|3|1| - | - | - | - | - 
+L8: 8|+3|Ability Score Improvement|D8|3|12|4|3|3|2| - | - | - | - | - 
+L9: 9|+4|Expertise|D8|3|14|4|3|3|3|1| - | - | - | - 
+L10: 10|+4|Magical Secrets|D10|4|15|4|3|3|3|2| - | - | - | - 
+L11: 11|+4| - |D10|4|16|4|3|3|3|2|1| - | - | - 
+L12: 12|+4|Ability Score Improvement|D10|4|16|4|3|3|3|2|1| - | - | - 
+L13: 13|+5| - |D10|4|17|4|3|3|3|2|1|1| - | - 
+L14: 14|+5|Subclass feature|D10|4|17|4|3|3|3|2|1|1| - | - 
+L15: 15|+5| - |D12|4|18|4|3|3|3|2|1|1|1| - 
+L16: 16|+5|Ability Score Improvement|D12|4|18|4|3|3|3|2|1|1|1| - 
+L17: 17|+6| - |D12|4|19|4|3|3|3|2|1|1|1|1
+L18: 18|+6|Superior Inspiration|D12|4|20|4|3|3|3|3|1|1|1|1
+L19: 19|+6|Epic Boon|D12|4|21|4|3|3|3|3|2|1|1|1
+L20: 20|+6|Words of Creation|D12|4|22|4|3|3|3|3|2|2|1|1
+spell_ability: Charisma
+
+name: Cleric
+hitdie: d8
+primary: Wisdom
+saves: Wisdom, Charisma
+skills_n: 2
+skills: History, Insight, Medicine, Persuasion, Religion
+weapons: Simple weapons
+armor: Light and Medium armor and Shields
+equipment: (A) Chain Shirt, Shield, Mace, Holy Symbol, Priest's Pack, and 7 GP; or (B) 110 GP
+equip_a: Chain Shirt|Shield|Mace|Holy Symbol|Priest's Pack|7 GP
+equip_b: 110 GP
+cols: Level|Proficiency Bonus|Class Features|Channel Divinity|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+L1: 1|+2|Spellcasting, Divine Order| - |3|4|2| - | - | - | - | - | - | - | - 
+L2: 2|+2|Channel Divinity|2|3|5|3| - | - | - | - | - | - | - | - 
+L3: 3|+2|Cleric Subclass|2|3|6|4|2| - | - | - | - | - | - | - 
+L4: 4|+2|Ability Score Improvement|2|4|7|4|3| - | - | - | - | - | - | - 
+L5: 5|+3|Sear Undead|2|4|9|4|3|2| - | - | - | - | - | - 
+L6: 6|+3|Subclass feature|3|4|10|4|3|3| - | - | - | - | - | - 
+L7: 7|+3|Blessed Strikes|3|4|11|4|3|3|1| - | - | - | - | - 
+L8: 8|+3|Ability Score Improvement|3|4|12|4|3|3|2| - | - | - | - | - 
+L9: 9|+4| - |3|4|14|4|3|3|3|1| - | - | - | - 
+L10: 10|+4|Divine Intervention|3|5|15|4|3|3|3|2| - | - | - | - 
+L11: 11|+4| - |3|5|16|4|3|3|3|2|1| - | - | - 
+L12: 12|+4|Ability Score Improvement|3|5|16|4|3|3|3|2|1| - | - | - 
+L13: 13|+5| - |3|5|17|4|3|3|3|2|1|1| - | - 
+L14: 14|+5|Improved Blessed Strikes|3|5|17|4|3|3|3|2|1|1| - | - 
+L15: 15|+5| - |3|5|18|4|3|3|3|2|1|1|1| - 
+L16: 16|+5|Ability Score Improvement|3|5|18|4|3|3|3|2|1|1|1| - 
+L17: 17|+6|Subclass feature|3|5|19|4|3|3|3|2|1|1|1|1
+L18: 18|+6| - |4|5|20|4|3|3|3|3|1|1|1|1
+L19: 19|+6|Epic Boon|4|5|21|4|3|3|3|3|2|1|1|1
+L20: 20|+6|Greater Divine Intervention|4|5|22|4|3|3|3|3|2|2|1|1
+spell_ability: Wisdom
+
+name: Druid
+hitdie: d8
+primary: Wisdom
+saves: Intelligence, Wisdom
+skills_n: 2
+skills: Animal Handling, Arcana, Insight, Medicine, Nature, Perception, Religion, Survival
+weapons: Simple weapons
+tools: Herbalism Kit
+armor: Light armor and Shields
+equipment: (A) Leather Armor, Shield, Sickle, Druidic Focus (Quarterstaff), Explorer's Pack, Herbalism Kit, and 9 GP; or (B) 50 GP
+equip_a: Leather Armor|Shield|Sickle|Druidic Focus (Quarterstaff)|Explorer's Pack|Herbalism Kit|9 GP
+equip_b: 50 GP
+cols: Level|Proficiency Bonus|Class Features|Wild Shape|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+L1: 1|+2|Spellcasting, Druidic, Primal Order| - |2|4|2| - | - | - | - | - | - | - | - 
+L2: 2|+2|Wild Shape, Wild Companion|2|2|5|3| - | - | - | - | - | - | - | - 
+L3: 3|+2|Druid Subclass|2|2|6|4|2| - | - | - | - | - | - | - 
+L4: 4|+2|Ability Score Improvement|2|3|7|4|3| - | - | - | - | - | - | - 
+L5: 5|+3|Wild Resurgence|2|3|9|4|3|2| - | - | - | - | - | - 
+L6: 6|+3|Subclass feature|3|3|10|4|3|3| - | - | - | - | - | - 
+L7: 7|+3|Elemental Fury|3|3|11|4|3|3|1| - | - | - | - | - 
+L8: 8|+3|Ability Score Improvement|3|3|12|4|3|3|2| - | - | - | - | - 
+L9: 9|+4| - |3|3|14|4|3|3|3|1| - | - | - | - 
+L10: 10|+4|Subclass feature|3|4|15|4|3|3|3|2| - | - | - | - 
+L11: 11|+4| - |3|4|16|4|3|3|3|2|1| - | - | - 
+L12: 12|+4|Ability Score Improvement|3|4|16|4|3|3|3|2|1| - | - | - 
+L13: 13|+5| - |3|4|17|4|3|3|3|2|1|1| - | - 
+L14: 14|+5|Subclass feature|3|4|17|4|3|3|3|2|1|1| - | - 
+L15: 15|+5|Improved Elemental Fury|3|4|18|4|3|3|3|2|1|1|1| - 
+L16: 16|+5|Ability Score Improvement|3|4|18|4|3|3|3|2|1|1|1| - 
+L17: 17|+6| - |4|4|19|4|3|3|3|2|1|1|1|1
+L18: 18|+6|Beast Spells|4|4|20|4|3|3|3|3|1|1|1|1
+L19: 19|+6|Epic Boon|4|4|21|4|3|3|3|3|2|1|1|1
+L20: 20|+6|Archdruid|4|4|22|4|3|3|3|3|2|2|1|1
+spell_ability: Wisdom
+
+name: Fighter
+hitdie: d10
+primary: Strength or Dexterity
+saves: Strength, Constitution
+skills_n: 2
+skills: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, Persuasion, Survival
+weapons: Simple and Martial weapons
+armor: Light, Medium, and Heavy armor and Shields
+equipment: (A) Chain Mail, Greatsword, Flail, 8 Javelins, Dungeoneer's Pack, and 4 GP; (B) Studded Leather Armor, Scimitar, Shortsword, Longbow, 20 Arrows, Quiver, Dungeoneer's Pack, and 11 GP; or (C) 155 GP
+equip_a: Chain Mail|Greatsword|Flail|8 Javelins|Dungeoneer's Pack|4 GP
+equip_b: Studded Leather Armor|Scimitar|Shortsword|Longbow|20 Arrows|Quiver|Dungeoneer's Pack|11 GP
+equip_c: 155 GP
+cols: Level|Proficiency Bonus|Class Features|Second Wind|Weapon Mastery
+L1: 1|+2|Fighting Style, Second Wind, Weapon Mastery|2|3
+L2: 2|+2|Action Surge (one use), Tactical Mind|2|3
+L3: 3|+2|Fighter Subclass|2|3
+L4: 4|+2|Ability Score Improvement|3|4
+L5: 5|+3|Extra Attack, Tactical Shift|3|4
+L6: 6|+3|Ability Score Improvement|3|4
+L7: 7|+3|Subclass feature|3|4
+L8: 8|+3|Ability Score Improvement|3|4
+L9: 9|+4|Indomitable (one use), Tactical Master|3|4
+L10: 10|+4|Subclass feature|4|5
+L11: 11|+4|Two Extra Attacks|4|5
+L12: 12|+4|Ability Score Improvement|4|5
+L13: 13|+5|Indomitable (two uses), Studied Attacks|4|5
+L14: 14|+5|Ability Score Improvement|4|5
+L15: 15|+5|Subclass feature|4|5
+L16: 16|+5|Ability Score Improvement|4|6
+L17: 17|+6|Action Surge (two uses), Indomitable (three uses)|4|6
+L18: 18|+6|Subclass feature|4|6
+L19: 19|+6|Epic Boon|4|6
+L20: 20|+6|Three Extra Attacks|4|6
+
+name: Monk
+hitdie: d8
+primary: Dexterity and Wisdom
+saves: Strength, Dexterity
+skills_n: 2
+skills: Acrobatics, Athletics, History, Insight, Religion, Stealth
+weapons: Simple weapons and Martial weapons that have the Light property
+tools: Choose one type of Artisan's Tools or Musical Instrument (see "Equipment")
+armor: None
+equipment: (A) Spear, 5 Daggers, Artisan's Tools or Musical Instrument chosen for the tool proficiency above, Explorer's Pack, and 11 GP; or (B) 50 GP
+equip_a: Spear|5 Daggers|Artisan's Tools or Musical Instrument chosen for the tool proficiency above|Explorer's Pack|11 GP
+equip_b: 50 GP
+cols: Level|Proficiency Bonus|Class Features|Martial Arts|Focus Points|Unarmored Movement
+L1: 1|+2|Martial Arts, Unarmored Defense|1d6| - | - 
+L2: 2|+2|Monk's Focus, Unarmored Movement, Uncanny Metabolism|1d6|2|+10 ft.
+L3: 3|+2|Deflect Attacks, Monk Subclass|1d6|3|+10 ft.
+L4: 4|+2|Ability Score Improvement, Slow Fall|1d6|4|+10 ft.
+L5: 5|+3|Extra Attack, Stunning Strike|1d8|5|+10 ft.
+L6: 6|+3|Empowered Strikes, Subclass feature|1d8|6|+15 ft.
+L7: 7|+3|Evasion|1d8|7|+15 ft.
+L8: 8|+3|Ability Score Improvement|1d8|8|+15 ft.
+L9: 9|+4|Acrobatic Movement|1d8|9|+15 ft.
+L10: 10|+4|Heightened Focus, Self-Restoration|1d8|10|+20 ft.
+L11: 11|+4|Subclass feature|1d10|11|+20 ft.
+L12: 12|+4|Ability Score Improvement|1d10|12|+20 ft.
+L13: 13|+5|Deflect Energy|1d10|13|+20 ft.
+L14: 14|+5|Disciplined Survivor|1d10|14|+25 ft.
+L15: 15|+5|Perfect Focus|1d10|15|+25 ft.
+L16: 16|+5|Ability Score Improvement|1d10|16|+25 ft.
+L17: 17|+6|Subclass feature|1d12|17|+25 ft.
+L18: 18|+6|Superior Defense|1d12|18|+30 ft.
+L19: 19|+6|Epic Boon|1d12|19|+30 ft.
+L20: 20|+6|Body and Mind|1d12|20|+30 ft.
+
+name: Paladin
+hitdie: d10
+primary: Strength and Charisma
+saves: Wisdom, Charisma
+skills_n: 2
+skills: Athletics, Insight, Intimidation, Medicine, Persuasion, Religion
+weapons: Simple and Martial weapons
+armor: Light, Medium, and Heavy armor and Shields
+equipment: (A) Chain Mail, Shield, Longsword, 6 Javelins, Holy Symbol, Priest's Pack, and 9 GP; or (B) 150 GP
+equip_a: Chain Mail|Shield|Longsword|6 Javelins|Holy Symbol|Priest's Pack|9 GP
+equip_b: 150 GP
+cols: Level|Proficiency Bonus|Class Features|Channel Divinity|Prepared Spells|1|2|3|4|5
+L1: 1|+2|Lay On Hands, Spellcasting, Weapon Mastery| - |2|2| - | - | - | - 
+L2: 2|+2|Fighting Style, Paladin's Smite| - |3|2| - | - | - | - 
+L3: 3|+2|Channel Divinity, Paladin Subclass|2|4|3| - | - | - | - 
+L4: 4|+2|Ability Score Improvement|2|5|3| - | - | - | - 
+L5: 5|+3|Extra Attack, Faithful Steed|2|6|4|2| - | - | - 
+L6: 6|+3|Aura of Protection|2|6|4|2| - | - | - 
+L7: 7|+3|Subclass feature|2|7|4|3| - | - | - 
+L8: 8|+3|Ability Score Improvement|2|7|4|3| - | - | - 
+L9: 9|+4|Abjure Foes|2|9|4|3|2| - | - 
+L10: 10|+4|Aura of Courage|2|9|4|3|2| - | - 
+L11: 11|+4|Radiant Strikes|3|10|4|3|3| - | - 
+L12: 12|+4|Ability Score Improvement|3|10|4|3|3| - | - 
+L13: 13|+5| - |3|11|4|3|3|1| - 
+L14: 14|+5|Restoring Touch|3|11|4|3|3|1| - 
+L15: 15|+5|Subclass feature|3|12|4|3|3|2| - 
+L16: 16|+5|Ability Score Improvement|3|12|4|3|3|2| - 
+L17: 17|+6| - |3|14|4|3|3|3|1
+L18: 18|+6|Aura Expansion|3|14|4|3|3|3|1
+L19: 19|+6|Epic Boon|3|15|4|3|3|3|2
+L20: 20|+6|Subclass feature|3|15|4|3|3|3|2
+spell_ability: Charisma
+
+name: Ranger
+hitdie: d10
+primary: Dexterity and Wisdom
+saves: Strength, Dexterity
+skills_n: 3
+skills: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, Survival
+weapons: Simple and Martial weapons
+armor: Light and Medium armor and Shields
+equipment: (A) Studded Leather Armor, Scimitar, Shortsword, Longbow, 20 Arrows, Quiver, Druidic Focus (sprig of mistletoe), Explorer's Pack, and 7 GP; or (B) 150 GP
+equip_a: Studded Leather Armor|Scimitar|Shortsword|Longbow|20 Arrows|Quiver|Druidic Focus (sprig of mistletoe)|Explorer's Pack|7 GP
+equip_b: 150 GP
+cols: Level|Proficiency Bonus|Class Features|Favored Enemy|Prepared Spells|1|2|3|4|5
+L1: 1|+2|Spellcasting, Favored Enemy, Weapon Mastery|2|2|2| - | - | - | - 
+L2: 2|+2|Deft Explorer, Fighting Style|2|3|2| - | - | - | - 
+L3: 3|+2|Ranger Subclass|2|4|3| - | - | - | - 
+L4: 4|+2|Ability Score Improvement|2|5|3| - | - | - | - 
+L5: 5|+3|Extra Attack|3|6|4|2| - | - | - 
+L6: 6|+3|Roving|3|6|4|2| - | - | - 
+L7: 7|+3|Subclass feature|3|7|4|3| - | - | - 
+L8: 8|+3|Ability Score Improvement|3|7|4|3| - | - | - 
+L9: 9|+4|Expertise|4|9|4|3|2| - | - 
+L10: 10|+4|Tireless|4|9|4|3|2| - | - 
+L11: 11|+4|Subclass feature|4|10|4|3|3| - | - 
+L12: 12|+4|Ability Score Improvement|4|10|4|3|3| - | - 
+L13: 13|+5|Relentless Hunter|5|11|4|3|3|1| - 
+L14: 14|+5|Nature's Veil|5|11|4|3|3|1| - 
+L15: 15|+5|Subclass feature|5|12|4|3|3|2| - 
+L16: 16|+5|Ability Score Improvement|5|12|4|3|3|2| - 
+L17: 17|+6|Precise Hunter|6|14|4|3|3|3|1
+L18: 18|+6|Feral Senses|6|14|4|3|3|3|1
+L19: 19|+6|Epic Boon|6|15|4|3|3|3|2
+L20: 20|+6|Foe Slayer|6|15|4|3|3|3|2
+spell_ability: Wisdom
+
+name: Rogue
+hitdie: d8
+primary: Dexterity
+saves: Dexterity, Intelligence
+skills_n: 4
+skills: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, Stealth
+weapons: Simple weapons and Martial weapons that have the Finesse or Light property
+tools: Thieves' Tools
+armor: Light armor
+equipment: (A) Leather Armor, 2 Daggers, Shortsword, Shortbow, 20 Arrows, Quiver, Thieves' Tools, Burglar's Pack, and 8 GP; or (B) 100 GP
+equip_a: Leather Armor|2 Daggers|Shortsword|Shortbow|20 Arrows|Quiver|Thieves' Tools|Burglar's Pack|8 GP
+equip_b: 100 GP
+cols: Level|Proficiency Bonus|Class Features|Sneak Attack
+L1: 1|+2|Expertise, Sneak Attack, Thieves' Cant, Weapon Mastery|1d6
+L2: 2|+2|Cunning Action|1d6
+L3: 3|+2|Rogue Subclass, Steady Aim|2d6
+L4: 4|+2|Ability Score Improvement|2d6
+L5: 5|+3|Cunning Strike, Uncanny Dodge|3d6
+L6: 6|+3|Expertise|3d6
+L7: 7|+3|Evasion, Reliable Talent|4d6
+L8: 8|+3|Ability Score Improvement|4d6
+L9: 9|+4|Subclass feature|5d6
+L10: 10|+4|Ability Score Improvement|5d6
+L11: 11|+4|Improved Cunning Strike|6d6
+L12: 12|+4|Ability Score Improvement|6d6
+L13: 13|+5|Subclass feature|7d6
+L14: 14|+5|Devious Strikes|7d6
+L15: 15|+5|Slippery Mind|8d6
+L16: 16|+5|Ability Score Improvement|8d6
+L17: 17|+6|Subclass feature|9d6
+L18: 18|+6|Elusive|9d6
+L19: 19|+6|Epic Boon|10d6
+L20: 20|+6|Stroke of Luck|10d6
+
+name: Sorcerer
+hitdie: d6
+primary: Charisma
+saves: Constitution, Charisma
+skills_n: 2
+skills: Arcana, Deception, Insight, Intimidation, Persuasion, Religion
+weapons: Simple weapons
+armor: None
+equipment: (A) Spear, 2 Daggers, Arcane Focus (crystal), Dungeoneer's Pack, and 28 GP; or (B) 50 GP
+equip_a: Spear|2 Daggers|Arcane Focus (crystal)|Dungeoneer's Pack|28 GP
+equip_b: 50 GP
+cols: Level|Proficiency Bonus|Class Features|Sorcery Points|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+L1: 1|+2|Spellcasting, Innate Sorcery| - |4|2|2| - | - | - | - | - | - | - | - 
+L2: 2|+2|Font of Magic, Metamagic|2|4|4|3| - | - | - | - | - | - | - | - 
+L3: 3|+2|Sorcerer Subclass|3|4|6|4|2| - | - | - | - | - | - | - 
+L4: 4|+2|Ability Score Improvement|4|5|7|4|3| - | - | - | - | - | - | - 
+L5: 5|+3|Sorcerous Restoration|5|5|9|4|3|2| - | - | - | - | - | - 
+L6: 6|+3|Subclass feature|6|5|10|4|3|3| - | - | - | - | - | - 
+L7: 7|+3|Sorcery Incarnate|7|5|11|4|3|3|1| - | - | - | - | - 
+L8: 8|+3|Ability Score Improvement|8|5|12|4|3|3|2| - | - | - | - | - 
+L9: 9|+4| - |9|5|14|4|3|3|3|1| - | - | - | - 
+L10: 10|+4|Metamagic|10|6|15|4|3|3|3|2| - | - | - | - 
+L11: 11|+4| - |11|6|16|4|3|3|3|2|1| - | - | - 
+L12: 12|+4|Ability Score Improvement|12|6|16|4|3|3|3|2|1| - | - | - 
+L13: 13|+5| - |13|6|17|4|3|3|3|2|1|1| - | - 
+L14: 14|+5|Subclass feature|14|6|17|4|3|3|3|2|1|1| - | - 
+L15: 15|+5| - |15|6|18|4|3|3|3|2|1|1|1| - 
+L16: 16|+5|Ability Score Improvement|16|6|18|4|3|3|3|2|1|1|1| - 
+L17: 17|+6|Metamagic|17|6|19|4|3|3|3|2|1|1|1|1
+L18: 18|+6|Subclass feature|18|6|20|4|3|3|3|3|1|1|1|1
+L19: 19|+6|Epic Boon|19|6|21|4|3|3|3|3|2|1|1|1
+L20: 20|+6|Arcane Apotheosis|20|6|22|4|3|3|3|3|2|2|1|1
+spell_ability: Charisma
+
+name: Warlock
+hitdie: d8
+primary: Charisma
+saves: Wisdom, Charisma
+skills_n: 2
+skills: Arcana, Deception, History, Intimidation, Investigation, Nature, Religion
+weapons: Simple weapons
+armor: Light armor
+equipment: (A) Leather Armor, Sickle, 2 Daggers, Arcane Focus (orb), Book (occult lore), Scholar's Pack, and 15 GP; or (B) 100 GP
+equip_a: Leather Armor|Sickle|2 Daggers|Arcane Focus (orb)|Book (occult lore)|Scholar's Pack|15 GP
+equip_b: 100 GP
+cols: Level|Proficiency Bonus|Class Features|Eldritch Invocations|Cantrips|Prepared Spells|Spell Slots|Slot Level
+L1: 1|+2|Eldritch Invocations, Pact Magic|1|2|2|1|1
+L2: 2|+2|Magical Cunning|3|2|3|2|1
+L3: 3|+2|Warlock Subclass|3|2|4|2|2
+L4: 4|+2|Ability Score Improvement|3|3|5|2|2
+L5: 5|+3| - |5|3|6|2|3
+L6: 6|+3|Subclass feature|5|3|7|2|3
+L7: 7|+3| - |6|3|8|2|4
+L8: 8|+3|Ability Score Improvement|6|3|9|2|4
+L9: 9|+4|Contact Patron|7|3|10|2|5
+L10: 10|+4|Subclass feature|7|4|10|2|5
+L11: 11|+4|Mystic Arcanum (level 6 spell)|7|4|11|3|5
+L12: 12|+4|Ability Score Improvement|8|4|11|3|5
+L13: 13|+5|Mystic Arcanum (level 7 spell)|8|4|12|3|5
+L14: 14|+5|Subclass feature|8|4|12|3|5
+L15: 15|+5|Mystic Arcanum (level 8 spell)|9|4|13|3|5
+L16: 16|+5|Ability Score Improvement|9|4|13|3|5
+L17: 17|+6|Mystic Arcanum (level 9 spell)|9|4|14|4|5
+L18: 18|+6| - |10|4|14|4|5
+L19: 19|+6|Epic Boon|10|4|15|4|5
+L20: 20|+6|Eldritch Master|10|4|15|4|5
+
+name: Wizard
+hitdie: d6
+primary: Intelligence
+saves: Intelligence, Wisdom
+skills_n: 2
+skills: Arcana, History, Insight, Investigation, Medicine, Nature, Religion
+weapons: Simple weapons
+armor: None
+equipment: (A) 2 Daggers, Arcane Focus (Quarterstaff), Robe, Spellbook, Scholar's Pack, and 5 GP; or (B) 55 GP
+equip_a: 2 Daggers|Arcane Focus (Quarterstaff)|Robe|Spellbook|Scholar's Pack|5 GP
+equip_b: 55 GP
+cols: Level|Proficiency Bonus|Class Features|Cantrips|Prepared Spells|1|2|3|4| -  5|6|7|8|9
+L1: 1|+2|Spellcasting, Ritual Adept, Arcane Recovery|3|4|2| - | - | - | - | - | - | - | - 
+L2: 2|+2|Scholar|3|5|3| - | - | - | - | - | - | - | - 
+L3: 3|+2|Wizard Subclass|3|6|4|2| - | - | - | - | - | - | - 
+L4: 4|+2|Ability Score Improvement|4|7|4|3| - | - | - | - | - | - | - 
+L5: 5|+3|Memorize Spell|4|9|4|3|2| - | - | - | - | - | - 
+L6: 6|+3|Subclass feature|4|10|4|3|3| - | - | - | - | - | - 
+L7: 7|+3| - |4|11|4|3|3|1| - | - | - | - | - 
+L8: 8|+3|Ability Score Improvement|4|12|4|3|3|2| - | - | - | - | - 
+L9: 9|+4| - |4|14|4|3|3|3|1| - | - | - | - 
+L10: 10|+4|Subclass feature|5|15|4|3|3|3|2| - | - | - | - 
+L11: 11|+4| - |5|16|4|3|3|3|2|1| - | - | - 
+L12: 12|+4|Ability Score Improvement|5|16|4|3|3|3|2|1| - | - | - 
+L13: 13|+5| - |5|17|4|3|3|3|2|1|1| - | - 
+L14: 14|+5|Subclass feature|5|18|4|3|3|3|2|1|1| - | - 
+L15: 15|+5| - |5|19|4|3|3|3|2|1|1|1| - 
+L16: 16|+5|Ability Score Improvement|5|21|4|3|3|3|2|1|1|1| - 
+L17: 17|+6| - |5|22|4|3|3|3|2|1|1|1|1
+L18: 18|+6|Spell Mastery|5|23|4|3|3|3|3|1|1|1|1
+L19: 19|+6|Epic Boon|5|24|4|3|3|3|3|2|1|1|1
+L20: 20|+6|Signature Spells|5|25|4|3|3|3|3|2|2|1|1
+spell_ability: Intelligence
+

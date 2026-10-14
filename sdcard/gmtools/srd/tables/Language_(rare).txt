@@ -1,0 +1,11 @@
+# Rare Languages (SRD 5.2.1)
+# die: pick
+1	Abyssal
+1	Celestial
+1	Deep Speech
+1	Druidic
+1	Infernal
+1	Primordial (Aquan, Auran, Ignan or Terran)
+1	Sylvan
+1	Thieves' Cant
+1	Undercommon

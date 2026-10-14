@@ -1,0 +1,158 @@
+0	Club	weapon	Simple Melee	1 SP	2 lb.
+131	Dagger	weapon	Simple Melee	2 GP	1 lb.
+305	Greatclub	weapon	Simple Melee	2 SP	10 lb.
+447	Handaxe	weapon	Simple Melee	5 GP	2 lb.
+612	Javelin	weapon	Simple Melee	5 SP	2 lb.
+773	Light Hammer	weapon	Simple Melee	2 GP	2 lb.
+947	Mace	weapon	Simple Melee	5 GP	4 lb.
+1064	Quarterstaff	weapon	Simple Melee	2 SP	4 lb.
+1230	Sickle	weapon	Simple Melee	1 GP	2 lb.
+1360	Spear	weapon	Simple Melee	1 GP	3 lb.
+1548	Dart	weapon	Simple Ranged	5 CP	1/4 lb.
+1715	Light Crossbow	weapon	Simple Ranged	25 GP	5 lb.
+1916	Shortbow	weapon	Simple Ranged	25 GP	2 lb.
+2102	Sling	weapon	Simple Ranged	1 SP	
+2263	Battleaxe	weapon	Martial Melee	10 GP	4 lb.
+2427	Flail	weapon	Martial Melee	10 GP	2 lb.
+2547	Glaive	weapon	Martial Melee	20 GP	6 lb.
+2700	Greataxe	weapon	Martial Melee	30 GP	7 lb.
+2849	Greatsword	weapon	Martial Melee	50 GP	6 lb.
+2998	Halberd	weapon	Martial Melee	20 GP	6 lb.
+3153	Lance	weapon	Martial Melee	10 GP	6 lb.
+3323	Longsword	weapon	Martial Melee	15 GP	3 lb.
+3484	Maul	weapon	Martial Melee	10 GP	10 lb.
+3632	Morningstar	weapon	Martial Melee	15 GP	4 lb.
+3755	Pike	weapon	Martial Melee	5 GP	18 lb.
+3905	Rapier	weapon	Martial Melee	25 GP	2 lb.
+4038	Scimitar	weapon	Martial Melee	25 GP	3 lb.
+4181	Shortsword	weapon	Martial Melee	10 GP	2 lb.
+4325	Trident	weapon	Martial Melee	5 GP	4 lb.
+4521	Warhammer	weapon	Martial Melee	15 GP	5 lb.
+4686	War Pick	weapon	Martial Melee	5 GP	2 lb.
+4845	Whip	weapon	Martial Melee	2 GP	3 lb.
+4983	Blowgun	weapon	Martial Ranged	10 GP	1 lb.
+5165	Hand Crossbow	weapon	Martial Ranged	75 GP	3 lb.
+5360	Heavy Crossbow	weapon	Martial Ranged	50 GP	18 lb.
+5573	Longbow	weapon	Martial Ranged	50 GP	2 lb.
+5769	Musket	weapon	Martial Ranged	500 GP	10 lb.
+5968	Pistol	weapon	Martial Ranged	250 GP	3 lb.
+6151	Padded Armor	armor	Light	5 GP	8 lb.
+6289	Leather Armor	armor	Light	10 GP	10 lb.
+6408	Studded Leather Armor	armor	Light	45 GP	13 lb.
+6535	Hide Armor	armor	Medium	10 GP	12 lb.
+6661	Chain Shirt	armor	Medium	50 GP	20 lb.
+6788	Scale Mail	armor	Medium	50 GP	45 lb.
+6936	Breastplate	armor	Medium	400 GP	20 lb.
+7064	Half Plate Armor	armor	Medium	750 GP	40 lb.
+7219	Ring Mail	armor	Heavy	30 GP	40 lb.
+7340	Chain Mail	armor	Heavy	75 GP	55 lb.
+7470	Splint Armor	armor	Heavy	200 GP	60 lb.
+7603	Plate Armor	armor	Heavy	1,500 GP	65 lb.
+7737	Shield	shield	Shield	10 GP	6 lb.
+7833	Acid	gear		25 GP	1 lb.
+8216	Alchemist's Fire	gear		50 GP	1 lb.
+8665	Ammunition	gear		Varies	Varies
+11614	Antitoxin	gear		50 GP	
+11799	Arcane Focus	gear		Varies	Varies
+12232	Backpack	gear		2 GP	5 lb.
+12378	Ball Bearings	gear		1 GP	2 lb.
+12773	Barrel	gear		2 GP	70 lb.
+12908	Basket	gear		4 SP	2 lb.
+13016	Bedroll	gear		1 GP	7 lb.
+13230	Bell	gear		1 GP	
+13363	Blanket	gear		5 SP	3 lb.
+13531	Block and Tackle	gear		1 GP	5 lb.
+13687	Book	gear		25 GP	5 lb.
+13950	Bottle, Glass	gear		2 GP	2 lb.
+14052	Bucket	gear		5 CP	2 lb.
+14160	Burglar's Pack	gear		16 GP	42 lb.
+14409	Caltrops	gear		1 GP	2 lb.
+14830	Candle	gear		1 CP	
+14975	Case, Crossbow Bolt	gear		1 GP	1 lb.
+15087	Case, Map or Scroll	gear		1 GP	1 lb.
+15234	Chain	gear		5 GP	10 lb.
+15796	Chest	gear		5 GP	25 lb.
+15899	Climber's Kit	gear		25 GP	12 lb.
+16265	Clothes, Fine	gear		15 GP	6 lb.
+16482	Clothes, Traveler's	gear		2 GP	4 lb.
+16638	Component Pouch	gear		25 GP	2 lb.
+16824	Costume	gear		5 GP	4 lb.
+17014	Crowbar	gear		2 GP	5 lb.
+17171	Diplomat's Pack	gear		39 GP	39 lb.
+17436	Druidic Focus	gear		Varies	Varies
+17855	Dungeoneer's Pack	gear		12 GP	55 lb.
+18085	Entertainer's Pack	gear		40 GP	581/2 lb.
+18335	Explorer's Pack	gear		10 GP	55 lb.
+18551	Flask	gear		2 CP	1 lb.
+18634	Grappling Hook	gear		2 GP	4 lb.
+18955	Healer's Kit	gear		5 GP	3 lb.
+19208	Holy Symbol	gear		Varies	Varies
+19742	Holy Water	gear		25 GP	1 lb.
+20164	Hunting Trap	gear		5 GP	25 lb.
+21029	Ink	gear		10 GP	
+21152	Ink Pen	gear		2 CP	
+21243	Jug	gear		2 CP	4 lb.
+21324	Ladder	gear		1 SP	25 lb.
+21445	Lamp	gear		5 SP	1 lb.
+21605	Lantern, Bullseye	gear		10 GP	2 lb.
+21790	Lantern, Hooded	gear		5 GP	2 lb.
+22086	Lock	gear		10 GP	1 lb.
+22294	Magnifying Glass	gear		100 GP	
+22606	Manacles	gear		2 GP	6 lb.
+23421	Map	gear		1 GP	
+23598	Mirror	gear		5 GP	1/2 lb.
+23783	Net	gear		1 GP	3 lb.
+24499	Oil	gear		1 SP	1 lb.
+25756	Paper	gear		2 SP	
+25854	Parchment	gear		1 SP	
+25960	Perfume	gear		5 GP	
+26203	Poison, Basic	gear		100 GP	
+26620	Pole	gear		5 CP	7 lb.
+26901	Pot, Iron	gear		2 GP	10 lb.
+26995	Potion of Healing	gear		50 GP	1/2 lb.
+27294	Pouch	gear		5 SP	1 lb.
+27412	Priest's Pack	gear		33 GP	29 lb.
+27600	Quiver	gear		1 GP	1 lb.
+27688	Ram, Portable	gear		4 GP	35 lb.
+27940	Rations	gear		5 SP	2 lb.
+28153	Robe	gear		1 GP	4 lb.
+28351	Rope	gear		1 GP	5 lb.
+28923	Sack	gear		1 CP	1/2 lb.
+29029	Scholar's Pack	gear		40 GP	22 lb.
+29235	Shovel	gear		2 GP	5 lb.
+29403	Signal Whistle	gear		5 CP	
+29558	Spell Scroll (Cantrip)	gear		30 GP	
+29611	Spell Scroll (Level 1)	gear		50 GP	
+29664	Spikes, Iron	gear		1 GP	5 lb.
+29972	Spyglass	gear		1,000 GP	1 lb.
+30103	String	gear		1 SP	
+30215	Tent	gear		2 GP	20 lb.
+30321	Tinderbox	gear		5 SP	1 lb.
+30667	Torch	gear		1 CP	1 lb.
+30971	Vial	gear		1 GP	
+31040	Waterskin	gear		2 SP	5 lb. (full)
+32969	Alchemist's Supplies	tool		50 GP	8 lb.
+33187	Brewer's Supplies	tool		20 GP	9 lb.
+33356	Calligrapher's Supplies	tool		10 GP	5 lb.
+33550	Carpenter's Tools	tool		8 GP	6 lb.
+33770	Cartographer's Tools	tool		15 GP	6 lb.
+33907	Cobbler's Tools	tool		5 GP	5 lb.
+34107	Cook's Utensils	tool		1 GP	8 lb.
+34280	Glassblower's Tools	tool		30 GP	5 lb.
+34491	Jeweler's Tools	tool		25 GP	2 lb.
+34645	Leatherworker's Tools	tool		5 GP	5 lb.
+34933	Mason's Tools	tool		10 GP	8 lb.
+35083	Painter's Supplies	tool		10 GP	5 lb.
+35265	Potter's Tools	tool		10 GP	3 lb.
+35436	Smith's Tools	tool		20 GP	8 lb.
+35792	Tinker's Tools	tool		50 GP	10 lb.
+36100	Weaver's Tools	tool		1 GP	5 lb.
+36365	Woodcarver's Tools	tool		1 GP	5 lb.
+36637	Disguise Kit	tool		25 GP	3 lb.
+36757	Forgery Kit	tool		15 GP	5 lb.
+36936	Gaming Set	tool		Varies	 - 
+37173	Herbalism Kit	tool		5 GP	3 lb.
+37344	Musical Instrument	tool		Varies	Varies
+37722	Navigator's Tools	tool		25 GP	2 lb.
+37876	Poisoner's Kit	tool		50 GP	2 lb.
+38019	Thieves' Tools	tool		25 GP	1 lb.

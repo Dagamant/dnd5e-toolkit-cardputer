@@ -1,0 +1,36 @@
+name: Acolyte
+abilities: Intelligence, Wisdom, Charisma
+feat: Magic Initiate (Cleric)
+skills: Insight, Religion
+tool: Calligrapher's Supplies
+equipment: (A) Calligrapher's Supplies, Book (prayers), Holy Symbol, Parchment (10 sheets), Robe, 8 GP; or (B) 50 GP
+equip_a: Calligrapher's Supplies|Book (prayers)|Holy Symbol|Parchment (10 sheets)|Robe|8 GP
+equip_b: 50 GP
+
+name: Criminal
+abilities: Dexterity, Constitution, Intelligence
+feat: Alert
+skills: Sleight of Hand, Stealth
+tool: Thieves' Tools
+equipment: (A) 2 Daggers, Thieves' Tools, Crowbar, 2 Pouches, Traveler's Clothes, 16 GP; or (B) 50 GP
+equip_a: 2 Daggers|Thieves' Tools|Crowbar|2 Pouches|Traveler's Clothes|16 GP
+equip_b: 50 GP
+
+name: Sage
+abilities: Constitution, Intelligence, Wisdom
+feat: Magic Initiate (Wizard)
+skills: Arcana, History
+tool: Calligrapher's Supplies
+equipment: (A) Quarterstaff, Calligrapher's Supplies, Book (history), Parchment (8 sheets), Robe, 8 GP; or (B) 50 GP
+equip_a: Quarterstaff|Calligrapher's Supplies|Book (history)|Parchment (8 sheets)|Robe|8 GP
+equip_b: 50 GP
+
+name: Soldier
+abilities: Strength, Dexterity, Constitution
+feat: Savage Attacker
+skills: Athletics, Intimidation
+tool: Choose one kind of Gaming Set (see "Equipment")
+equipment: (A) Spear, Shortbow, 20 Arrows, Gaming Set (same as above), Healer's Kit, Quiver, Traveler's Clothes, 14 GP; or (B) 50 GP
+equip_a: Spear|Shortbow|20 Arrows|Gaming Set (same as above)|Healer's Kit|Quiver|Traveler's Clothes|14 GP
+equip_b: 50 GP
+

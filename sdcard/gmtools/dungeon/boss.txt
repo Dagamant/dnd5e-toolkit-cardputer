@@ -1,0 +1,6 @@
+# Example override: this file replaces the built-in "boss" table.
+# Delete it to go back to the built-ins. Any of these names work:
+# adjective place hook entrance guardian puzzle trick boss terrain reward twist
+A beholder that has gone mad with loneliness.
+A lich's apprentice, desperate to finish the master's work.
+A black dragon wyrmling that thinks it is an adult.
