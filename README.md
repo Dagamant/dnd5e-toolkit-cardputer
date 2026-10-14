@@ -4,6 +4,23 @@ Firmware with game-master and player tools for D&D 5e (SRD 5.2.1 / 2024 rules).
 
 A port to the M5Stack Tab5 is planned: see [docs/TAB5_PORT.md](docs/TAB5_PORT.md).
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Home screen](docs/screenshots/home.png) | ![All apps list](docs/screenshots/app-list.png) |
+| ![Dice roll](docs/screenshots/dice.png) | ![Initiative tracker](docs/screenshots/initiative.png) |
+| ![Character sheet](docs/screenshots/character.png) | ![Monster stat block](docs/screenshots/monster.png) |
+| ![Encounter generator](docs/screenshots/encounter.png) | ![Spell list](docs/screenshots/spells.png) |
+| ![Spell with a table](docs/screenshots/spell-table.png) | ![Rules with a table](docs/screenshots/rules-table.png) |
+
+The web interface, from a laptop or phone:
+
+| | |
+|---|---|
+| ![Live initiative and rolls](docs/screenshots/web-table.png) | ![Spell reference](docs/screenshots/web-spell.png) |
+| ![Class table](docs/screenshots/web-class.png) | <img src="docs/screenshots/web-phone.png" alt="Live initiative on a phone" width="260"> |
+
 ## Build and flash
 
 ```sh
