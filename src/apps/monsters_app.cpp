@@ -1,7 +1,9 @@
 #include "db_browser.h"
+#include "../core/touch.h"
 #include "../core/character.h"
 #include "../core/dice_expr.h"
 #include "../core/encounter.h"
+#include "../core/hold_menu.h"
 
 using namespace ui;
 
@@ -23,6 +25,65 @@ float crValue(const char* cr) {
     return atof(cr);
 }
 
+
+}  // namespace
+
+std::vector<MonsterRoll> monsterRolls(const db::Rec& r) {
+    std::vector<MonsterRoll> out;
+    String nm = r.name();
+    for (int i = 1; i <= 12; i++) {
+        String rl = r.get((String("roll") + i).c_str());
+        if (!rl.length()) break;
+        // name|atk|+9|2d6+5|Bludgeoning|extra|xtype   or   name|save|DC 14 DEX|dice|type||
+        int p[7], k = 0, start = 0;
+        String f[7];
+        for (k = 0; k < 7; k++) {
+            int bar = rl.indexOf('|', start);
+            f[k] = bar < 0 ? rl.substring(start) : rl.substring(start, bar);
+            start = bar < 0 ? rl.length() : bar + 1;
+        }
+        (void)p;
+        MonsterRoll it;
+        it.title = nm + ": " + f[0];
+        it.name = f[0];
+        it.detail = f[2] + (f[3].length() ? "  " + f[3] : String(""));
+        if (f[1] == "atk") {
+            it.label = f[0] + "  " + f[2] + "  " + f[3];
+            it.lines.push_back({"Attack", "d20" + f[2], ""});
+            it.lines.push_back({"Damage", f[3], f[4]});
+            if (f[5].length()) it.lines.push_back({"Plus", f[5], f[6]});
+        } else {
+            it.label = f[0] + "  " + f[2] + (f[3].length() ? "  " + f[3] : String(""));
+            it.title = f[0] + " " + f[2];
+            if (f[3].length()) it.lines.push_back({"Damage (half on save)", f[3], f[4]});
+        }
+        it.attack = true;
+        out.push_back(it);
+    }
+    MonsterRoll ini;
+    ini.label = "Initiative " + r.get("init");
+    ini.title = nm + " initiative";
+    ini.lines.push_back({"Initiative", "d20" + r.get("init"), ""});
+    out.push_back(ini);
+    if (r.has("hpdice")) {
+        MonsterRoll hp;
+        hp.label = "Hit points " + r.get("hpdice") + " (avg " + r.get("hp") + ")";
+        hp.title = nm + " HP";
+        hp.lines.push_back({"Hit points", r.get("hpdice"), "HP"});
+        out.push_back(hp);
+    }
+    auto sv = dnd::splitList(r.get("saves"), ',');
+    for (int a = 0; a < 6 && a < (int)sv.size(); a++) {
+        MonsterRoll s;
+        s.label = String(dnd::ABIL_SHORT[a]) + " save " + sv[a];
+        s.title = nm + " " + dnd::ABIL_SHORT[a] + " save";
+        s.lines.push_back({"Save", "d20" + sv[a], ""});
+        out.push_back(s);
+    }
+    return out;
+}
+
+namespace {
 
 class MonstersBrowser : public DbBrowser {
 public:
@@ -104,18 +165,19 @@ protected:
     bool quickFilter(char c) override { int v = c - '0'; crF_ = crF_ == v ? -1 : v; return true; }
 
     void drawRow(int i, int y, bool s) override {
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
         gfx.setTextColor(s ? C_TEXT : rgb(205, 195, 195));
         String n = table_.at(i).name;
-        if (n.length() > 25) n = n.substring(0, 24) + ".";
-        gfx.drawString(n, 8, y + 1);
+        if (wide()) n = fitText(n, rowRight() - u(80));
+        else if (n.length() > 25) n = n.substring(0, 24) + ".";
+        gfx.drawString(n, u(8), y + u(1));
         gfx.setTextDatum(top_right);
         gfx.setTextColor(C_DIM);
         String t = table_.col(i, "type");
-        gfx.drawString(t.substring(0, 6), W - 40, y + 1);
+        gfx.drawString(t.substring(0, 6), rowRight() - u(40), y + u(1));
         gfx.setTextColor(C_GOLD);
-        gfx.drawString(String("CR") + table_.col(i, "cr"), W - 6, y + 1);
+        gfx.drawString(String("CR") + table_.col(i, "cr"), rowRight() - u(6), y + u(1));
     }
 
     void buildDetail() override {
@@ -159,54 +221,7 @@ protected:
 
     void buildRolls() {
         rolls_.clear();
-        const db::Rec& r = cur_;
-        String nm = r.name();
-        for (int i = 1; i <= 12; i++) {
-            String rl = r.get((String("roll") + i).c_str());
-            if (!rl.length()) break;
-            // name|atk|+9|2d6+5|Bludgeoning|extra|xtype   or   name|save|DC 14 DEX|dice|type||
-            int p[7], k = 0, start = 0;
-            String f[7];
-            for (k = 0; k < 7; k++) {
-                int bar = rl.indexOf('|', start);
-                f[k] = bar < 0 ? rl.substring(start) : rl.substring(start, bar);
-                start = bar < 0 ? rl.length() : bar + 1;
-            }
-            (void)p;
-            RollItem it;
-            it.title = nm + ": " + f[0];
-            if (f[1] == "atk") {
-                it.label = f[0] + "  " + f[2] + "  " + f[3];
-                it.lines.push_back({"Attack", "d20" + f[2], ""});
-                it.lines.push_back({"Damage", f[3], f[4]});
-                if (f[5].length()) it.lines.push_back({"Plus", f[5], f[6]});
-            } else {
-                it.label = f[0] + "  " + f[2] + (f[3].length() ? "  " + f[3] : String(""));
-                it.title = f[0] + " " + f[2];
-                if (f[3].length()) it.lines.push_back({"Damage (half on save)", f[3], f[4]});
-            }
-            rolls_.push_back(it);
-        }
-        RollItem ini;
-        ini.label = "Initiative " + r.get("init");
-        ini.title = nm + " initiative";
-        ini.lines.push_back({"Initiative", "d20" + r.get("init"), ""});
-        rolls_.push_back(ini);
-        if (r.has("hpdice")) {
-            RollItem hp;
-            hp.label = "Hit points " + r.get("hpdice") + " (avg " + r.get("hp") + ")";
-            hp.title = nm + " HP";
-            hp.lines.push_back({"Hit points", r.get("hpdice"), "HP"});
-            rolls_.push_back(hp);
-        }
-        auto sv = dnd::splitList(r.get("saves"), ',');
-        for (int a = 0; a < 6 && a < (int)sv.size(); a++) {
-            RollItem s;
-            s.label = String(dnd::ABIL_SHORT[a]) + " save " + sv[a];
-            s.title = nm + " " + dnd::ABIL_SHORT[a] + " save";
-            s.lines.push_back({"Save", "d20" + sv[a], ""});
-            rolls_.push_back(s);
-        }
+        for (auto& m : monsterRolls(cur_)) rolls_.push_back({m.label, m.lines, m.title});
     }
 
     void rollCurrent() override { rollMenu_ = true; rollSel_ = 0; sfx::select(); }
@@ -221,22 +236,26 @@ protected:
     }
 
     void drawRollMenu() {
-        const int w = 220, rows = std::min(8, (int)rolls_.size()), h = 14 + rows * 11, x = (W - w) / 2, y = std::max(18, (H - h) / 2);
-        gfx.fillRoundRect(x + 3, y + 3, w, h, 5, rgb(4, 4, 8));
+        const int rh = touchRow(11), w = u(220), rows = std::min(8, (int)rolls_.size()), h = u(14) + rows * rh, x = (W - w) / 2,
+                  y = std::max(u(18), (H - h) / 2);
+        gfx.fillRoundRect(x + u(3), y + u(3), w, h, u(5), rgb(4, 4, 8));
         drawPanel(x, y, w, h, C_BG2, ACCENT);
-        gfx.setFont(&fonts::Font0);
+        touch::modal(x, y, w, h);   // a tap outside closes it
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
         gfx.setTextColor(ACCENT);
-        gfx.drawString("Roll for " + cur_.name(), x + 6, y + 3);
+        gfx.drawString("Roll for " + cur_.name(), x + u(6), y + u(3));
         int first = std::max(0, std::min(rollSel_ - rows / 2, (int)rolls_.size() - rows));
         for (int i = first; i < (int)rolls_.size() && i < first + rows; i++) {
-            int ry = y + 13 + (i - first) * 11;
+            int ry = y + u(13) + (i - first) * rh;
             bool s = i == rollSel_;
-            if (s) gfx.fillRect(x + 3, ry - 1, w - 6, 10, C_PANEL);
+            if (s) gfx.fillRect(x + u(3), ry - u(1), w - u(6), rh - 2, C_PANEL);
+            touch::row(x, ry - u(1), w, rh, rollSel_, i);
+            ry += touchPad(11);
             String l = rolls_[i].label;
-            while (l.length() > 3 && gfx.textWidth(l) > w - 16) l = l.substring(0, l.length() - 1);
+            while (l.length() > 3 && gfx.textWidth(l) > w - u(16)) l = l.substring(0, l.length() - 1);
             gfx.setTextColor(s ? C_TEXT : rgb(200, 192, 190));
-            gfx.drawString(l, x + 8, ry);
+            gfx.drawString(l, x + u(8), ry);
         }
     }
 
@@ -309,6 +328,29 @@ protected:
         return true;
     }
 
+    // The fight plan's key for row i, as if pressed there.
+    void planKey(int i, input::Key k, char ch = 0) {
+        planSel_ = i;
+        input::Event e;
+        e.key = k;
+        e.ch = e.base = ch;
+        handlePlan(e);
+    }
+
+    // A long press on party size/level or a monster.
+    void holdPlanRow(int i) {
+        planSel_ = i;
+        const int mIdx = i - 2;
+        if (mIdx < 0) {
+            holdmenu::open(i == 0 ? "Party size" : "Party level",
+                           {{"+1", [this, i] { planKey(i, input::K_RIGHT); }}, {"-1", [this, i] { planKey(i, input::K_LEFT); }}});
+            return;
+        }
+        holdmenu::open(plan_.monsters[mIdx].name, {{"One more", [this, i] { planKey(i, input::K_RIGHT); }},
+                                                   {"One fewer", [this, i] { planKey(i, input::K_LEFT); }},
+                                                   {"Remove", [this, i] { planKey(i, input::K_CHAR, 'x'); }, C_BLOOD, true}});
+    }
+
     void sendToInitiative(bool rolledHp) {
         int added = encounter::enqueue(plan_.monsters, rolledHp);
         if (!added) { sfx::error(); toast("Add monsters first (Fn+A)", C_BLOOD); return; }
@@ -324,33 +366,38 @@ protected:
         int b[3];
         for (int d = 0; d < 3; d++) b[d] = encounter::budget(plan_.partyLevel, d) * plan_.partySize;
         // difficulty meter
-        int y = HEADER_H + 3;
-        gfx.setFont(&fonts::Font0);
+        int y = HEADER_H + u(3);
+        gfx.setFont(ui::font(&fonts::Font0));
         int diff = xp == 0 ? -1 : xp <= b[0] ? 0 : xp <= b[1] ? 1 : xp <= b[2] ? 2 : 3;
         const char* label = diff < 0 ? "Empty" : diff == 0 ? "Low" : diff == 1 ? "Moderate" : diff == 2 ? "High" : "Beyond High!";
         uint16_t col = diff <= 0 ? C_EMERALD : diff == 1 ? C_GOLD : diff == 2 ? rgb(240, 130, 60) : C_BLOOD;
         float scale = b[2] * 1.25f;
-        int bx = 6, bw = W - 12;
-        gfx.fillRect(bx, y + 10, bw, 6, C_BG2);
-        gfx.fillRect(bx, y + 10, std::min(bw, (int)(bw * xp / scale)), 6, col);
+        int bx = u(6), bw = W - u(12);
+        gfx.fillRect(bx, y + u(10), bw, u(6), C_BG2);
+        gfx.fillRect(bx, y + u(10), std::min(bw, (int)(bw * xp / scale)), u(6), col);
         for (int d = 0; d < 3; d++) {
             int mx = bx + (int)(bw * b[d] / scale);
-            gfx.drawFastVLine(mx, y + 8, 10, C_TEXT);
+            gfx.fillRect(mx, y + u(8), u(1), u(10), C_TEXT);
         }
         gfx.setTextDatum(top_left);
         gfx.setTextColor(col);
-        gfx.drawString(String(xp) + " XP: " + label, 6, y);
+        gfx.drawString(String(xp) + " XP: " + label, u(6), y);
         gfx.setTextDatum(top_right);
         gfx.setTextColor(C_DIM);
-        gfx.drawString(String("L") + b[0] + " M" + b[1] + " H" + b[2], W - 6, y);
+        gfx.drawString(wide() ? String("Low ") + b[0] + "   Moderate " + b[1] + "   High " + b[2]
+                              : String("L") + b[0] + " M" + b[1] + " H" + b[2], W - u(6), y);
 
-        const int rowH = 11, y0 = y + 21;
+        const int rowH = touchRow(11), pad = touchPad(11), y0 = y + u(21);
         int rows = (H - FOOTER_H - y0) / rowH, n = planRows();
         int first = std::max(0, std::min(planSel_ - rows / 2, n - rows));
         for (int i = first; i < n && i < first + rows; i++) {
             int ry = y0 + (i - first) * rowH;
             bool s = i == planSel_;
-            if (s) gfx.fillRoundRect(2, ry - 1, W - 4, rowH, 2, C_PANEL);
+            if (s) gfx.fillRoundRect(u(2), ry - u(1), W - u(4), rowH, u(2), C_PANEL);
+            touch::field(0, ry - u(1), W, rowH, planSel_, i);
+            if (i - 2 < (int)plan_.monsters.size())
+                touch::onHold(0, ry - u(1), W, rowH, [this, i] { holdPlanRow(i); });
+            ry += pad;
             String l, r;
             uint16_t c = C_TEXT;
             int mIdx = i - 2, action = i - 2 - (int)plan_.monsters.size();
@@ -365,12 +412,12 @@ protected:
             else { l = confirmClear_ ? "Enter again to clear" : "Clear fight"; c = rgb(230, 140, 130); }
             gfx.setTextDatum(top_left);
             gfx.setTextColor(s ? C_TEXT : c);
-            gfx.drawString(l.substring(0, 30), 6, ry + 1);
+            gfx.drawString(wide() ? l : l.substring(0, 30), u(6), ry + u(1));
             gfx.setTextDatum(top_right);
             gfx.setTextColor(C_GOLD);
-            gfx.drawString(r, W - 6, ry + 1);
+            gfx.drawString(r, W - u(6), ry + u(1));
         }
-        drawFooter("-/= or </> change  X remove  Esc back");
+        drawFooter(wide() ? "Tap again to change  hold for more  Esc back" : "-/= or </> change  X remove  Esc back");
     }
 };
 

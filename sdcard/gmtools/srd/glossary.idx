@@ -52,49 +52,49 @@
 19799	Death Saving Throw	Rule
 20014	Dehydration	Hazard
 20568	Difficult Terrain	Rule
-21257	Difficulty Class	Rule
-21425	Dim Light	Rule
-21570	Disadvantage	Rule
-21850	Disengage	Action
-22003	Dodge	Action
-22352	Emanation	Area of Effect
-22820	Encounter	Rule
-23076	Enemy	Rule
-23245	Exhaustion	Condition
-23852	Experience Points	Rule
-24143	Expertise	Rule
-24625	Falling	Hazard
-25133	Flying	Rule
-25412	Fly Speed	Rule
-25604	Friendly	Attitude
-25776	Frightened	Condition
-26111	Grappled	Condition
-26539	Grappling	Rule
-27755	Hazard	Rule
-27903	Healing	Rule
-28024	Heavily Obscured	Rule
-28226	Help	Action
-28948	Heroic Inspiration	Rule
-29258	Hide	Action
-29975	High Jump	Rule
-30500	Hit Point Dice	Rule
-30799	Hit Points	Rule
-31151	Hostile	Attitude
-31325	Hover	Rule
-31566	Illusions	Rule
-32153	Immunity	Rule
-32273	Improvised Weapons	Rule
-33237	Incapacitated	Condition
-33602	Indifferent	Attitude
-33774	Influence	Action
-35445	Initiative	Rule
-35952	Invisible	Condition
-36536	Jumping	Rule
-36688	Knocking Out a Creature	Rule
-37118	Lightly Obscured	Rule
-37317	Line	Area of Effect
-37660	Long Jump	Rule
-38423	Long Rest	Rule
+21255	Difficulty Class	Rule
+21423	Dim Light	Rule
+21568	Disadvantage	Rule
+21848	Disengage	Action
+22001	Dodge	Action
+22350	Emanation	Area of Effect
+22818	Encounter	Rule
+23074	Enemy	Rule
+23243	Exhaustion	Condition
+23850	Experience Points	Rule
+24141	Expertise	Rule
+24623	Falling	Hazard
+25131	Flying	Rule
+25410	Fly Speed	Rule
+25602	Friendly	Attitude
+25774	Frightened	Condition
+26109	Grappled	Condition
+26537	Grappling	Rule
+27753	Hazard	Rule
+27901	Healing	Rule
+28022	Heavily Obscured	Rule
+28224	Help	Action
+28945	Heroic Inspiration	Rule
+29255	Hide	Action
+29972	High Jump	Rule
+30498	Hit Point Dice	Rule
+30797	Hit Points	Rule
+31149	Hostile	Attitude
+31323	Hover	Rule
+31564	Illusions	Rule
+32151	Immunity	Rule
+32271	Improvised Weapons	Rule
+33235	Incapacitated	Condition
+33600	Indifferent	Attitude
+33772	Influence	Action
+35443	Initiative	Rule
+35950	Invisible	Condition
+36534	Jumping	Rule
+36686	Knocking Out a Creature	Rule
+37116	Lightly Obscured	Rule
+37315	Line	Area of Effect
+37658	Long Jump	Rule
+38420	Long Rest	Rule
 39914	Magic	Action
 40401	Magical Effect	Rule
 40550	Malnutrition	Hazard
@@ -115,15 +115,15 @@
 45889	Reach	Rule
 45981	Reaction	Rule
 46491	Ready	Action
-47618	Resistance	Rule
-47859	Restrained	Condition
-48199	Ritual	Rule
-48526	Round Down	Rule
-48756	Save	Rule
-48850	Saving Throw	Rule
-49317	Search	Action
-49759	Shape-Shifting	Rule
-50115	Short Rest	Rule
+47617	Resistance	Rule
+47858	Restrained	Condition
+48198	Ritual	Rule
+48525	Round Down	Rule
+48755	Save	Rule
+48849	Saving Throw	Rule
+49316	Search	Action
+49758	Shape-Shifting	Rule
+50114	Short Rest	Rule
 51124	Simultaneous Effects	Rule
 51468	Size	Rule
 51778	Skill	Rule
@@ -146,10 +146,10 @@
 62408	Temporary Hit Points	Rule
 62608	Tremorsense	Rule
 63032	Truesight	Rule
-63621	Unarmed Strike	Rule
-64962	Unconscious	Condition
-65575	Unoccupied Space	Rule
-65706	Utilize	Action
-65940	Vulnerability	Rule
-66178	Weapon	Rule
-66314	Weapon Attack	Rule
+63624	Unarmed Strike	Rule
+64965	Unconscious	Condition
+65578	Unoccupied Space	Rule
+65709	Utilize	Action
+65943	Vulnerability	Rule
+66181	Weapon	Rule
+66317	Weapon Attack	Rule

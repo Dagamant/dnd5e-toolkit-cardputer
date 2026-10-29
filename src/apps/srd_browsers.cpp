@@ -37,15 +37,15 @@ protected:
     String filterLabel() const override { return tag_ == 0 ? String(RULE_TAGS[0]) : String(RULE_TAGS[tag_]) + "s"; }
     void cycleFilter(int d) override { tag_ = (tag_ + d + 7) % 7; }
     void drawRow(int i, int y, bool s) override {
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
         gfx.setTextColor(s ? C_TEXT : rgb(200, 205, 215));
-        gfx.drawString(table_.at(i).name, 8, y + 1);
+        gfx.drawString(wide() ? fitText(table_.at(i).name, rowRight() - u(70)) : table_.at(i).name, u(8), y + u(1));
         const char* tg = table_.col(i, "tag");
         if (strcmp(tg, "Rule")) {
             gfx.setTextDatum(top_right);
             gfx.setTextColor(!strcmp(tg, "Condition") ? C_GOLD : C_DIM);
-            gfx.drawString(tg, W - 8, y + 1);
+            gfx.drawString(tg, rowRight() - u(8), y + u(1));
         }
     }
     void buildDetail() override {
@@ -88,17 +88,17 @@ protected:
     void cycleFilter(int d) override { cat_ = (cat_ + d + 5) % 5; }
     void drawRow(int i, int y, bool s) override {
         const char* c = table_.col(i, "category");
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
         uint16_t dot = !strcmp(c, "Trap") ? C_BLOOD : !strcmp(c, "Poison") ? rgb(120, 210, 90) : !strcmp(c, "Contagion") ? C_GOLD : C_ICE;
-        gfx.fillCircle(8, y + 4, 2, dot);
+        gfx.fillCircle(u(8), y + u(4), u(2), dot);
         gfx.setTextColor(s ? C_TEXT : rgb(200, 205, 195));
-        gfx.drawString(table_.at(i).name, 14, y + 1);
+        gfx.drawString(wide() ? fitText(table_.at(i).name, rowRight() - u(80)) : table_.at(i).name, u(14), y + u(1));
         gfx.setTextDatum(top_right);
         gfx.setTextColor(C_DIM);
         String sub = table_.col(i, "subtype");
         if (sub.length() > 18) sub = sub.substring(0, 17) + ".";
-        gfx.drawString(sub, W - 8, y + 1);
+        gfx.drawString(sub, rowRight() - u(8), y + u(1));
     }
     void buildDetail() override {
         tv_.add(cur_.get("subtype"), TextView::ACCENT);

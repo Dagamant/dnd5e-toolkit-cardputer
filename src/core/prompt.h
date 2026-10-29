@@ -1,6 +1,8 @@
 #pragma once
 #include "input.h"
+#include "osk.h"
 #include "sfx.h"
+#include "touch.h"
 #include "ui.h"
 #include <Arduino.h>
 #include <vector>
@@ -22,6 +24,7 @@ public:
         done_ = false;
         cancelled_ = false;
         input::setTextMode(true);
+        osk::show(true);   // no keyboard plugged in: type on the screen
     }
     bool active() const { return active_; }
     int tag() const { return tag_; }
@@ -48,13 +51,23 @@ public:
                 break;
             default: break;
         }
-        if (!active_) input::setTextMode(restoreText_);
+        if (!active_) {
+            input::setTextMode(restoreText_);
+            osk::show(false);
+        }
         return true;
     }
     // True exactly once after Enter.
     bool done() { bool d = done_; done_ = false; return d; }
     bool cancelled() { bool c = cancelled_; cancelled_ = false; return c; }
     void restoreTextModeTo(bool t) { restoreText_ = t; }
+    // Close without an answer (e.g. what it was asking about went away).
+    void cancel() {
+        if (!active_) return;
+        active_ = done_ = cancelled_ = false;
+        input::setTextMode(restoreText_);
+        osk::show(false);
+    }
 
     void draw(const char* hint = nullptr) {
         if (!active_) return;
@@ -77,37 +90,39 @@ public:
         const int maxRows = 6;
         int rows = std::min((int)starts.size(), maxRows);
         int first = std::max(0, std::min(row - rows + 1, (int)starts.size() - rows));
-        const int w = boxW(), boxH = 4 + rows * lh, h = 22 + boxH + (hint ? lh : 0), x = (m.w - w) / 2;
-        const int y = std::max(m.headerH + 2, (m.h - h) / 2 - 10);
-        gfx.fillRoundRect(x + 3, y + 3, w, h, 5, rgb(4, 4, 8));
+        const int w = boxW(), boxH = u(4) + rows * lh, h = u(22) + boxH + (hint ? lh : 0), x = (m.w - w) / 2;
+        // centred in what the on-screen keyboard leaves
+        const int y = std::max(m.headerH + u(2), (m.h - osk::height() - h) / 2 - u(10));
+        gfx.fillRoundRect(x + u(3), y + u(3), w, h, u(5), rgb(4, 4, 8));
         drawPanel(x, y, w, h, C_BG2, C_GOLD);
+        touch::modal(x, y, w, h);   // a tap outside cancels
         gfx.setFont(m.body);
         gfx.setTextDatum(top_left);
         gfx.setTextColor(C_GOLD);
-        gfx.drawString(fitText(label_, w - 12), x + 6, y + 5);
+        gfx.drawString(fitText(label_, w - u(12)), x + u(6), y + u(5));
         if (max_ > COLS) {
             gfx.setTextDatum(top_right);
             gfx.setTextColor(C_DIM);
-            gfx.drawString(String(text_.length()) + "/" + max_, x + w - 6, y + 5);
+            gfx.drawString(String(text_.length()) + "/" + max_, x + w - u(6), y + u(5));
             gfx.setTextDatum(top_left);
         }
-        gfx.fillRect(x + 6, y + 16, w - 12, boxH, C_BG);
+        gfx.fillRect(x + u(6), y + u(16), w - u(12), boxH, C_BG);
         gfx.setTextColor(C_TEXT);
         for (int r = first; r < first + rows; r++) {
             int a = starts[r], b = r + 1 < (int)starts.size() ? starts[r + 1] : text_.length();
-            gfx.drawString(text_.substring(a, b), x + 9, y + 18 + (r - first) * lh);
+            gfx.drawString(text_.substring(a, b), x + u(9), y + u(18) + (r - first) * lh);
         }
         if ((millis() / 450) % 2) {
-            int cx = x + 9 + (cursor_ - starts[row]) * m.charW, cy = y + 18 + (row - first) * lh;
-            gfx.fillRect(cx, cy - 1, cursor_ == (int)text_.length() ? m.charW - 1 : 1, lh - 1, C_GOLD);
+            int cx = x + u(9) + (cursor_ - starts[row]) * m.charW, cy = y + u(18) + (row - first) * lh;
+            gfx.fillRect(cx, cy - u(1), cursor_ == (int)text_.length() ? m.charW - 1 : u(1), lh - 1, C_GOLD);
         }
-        if (hint) { gfx.setTextColor(C_DIM); gfx.drawString(hint, x + 6, y + 20 + boxH); }
+        if (hint) { gfx.setTextColor(C_DIM); gfx.drawString(hint, x + u(6), y + u(20) + boxH); }
     }
 
 private:
     // the box is 200 px on the classic layout: 30 characters per line
-    static int boxW() { return ui::metrics().w * 5 / 6; }
-    static int cols() { return (boxW() - 20) / ui::metrics().charW; }
+    static int boxW() { return ui::wide() ? ui::metrics().w * 2 / 3 : ui::metrics().w * 5 / 6; }
+    static int cols() { return (boxW() - ui::u(20)) / ui::metrics().charW; }
     String label_;
     String text_;
     int tag_ = 0, max_ = 24, cursor_ = 0;

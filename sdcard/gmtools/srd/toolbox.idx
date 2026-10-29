@@ -1,34 +1,34 @@
 0	Cackle Fever	Contagion	Magical Contagion
 1518	Sewer Plague	Contagion	Magical Contagion
 2802	Sight Rot	Contagion	Magical Contagion
-9734	Assassin's Blood	Poison	Ingested Poison
-10130	Burnt Othur Fumes	Poison	Inhaled Poison
-10579	Crawler Mucus	Poison	Contact Poison
-11002	Essence of Ether	Poison	Inhaled Poison
-11426	Malice	Poison	Inhaled Poison
-11726	Midnight Tears	Poison	Ingested Poison
-12224	Oil of Taggit	Poison	Contact Poison
-12576	Pale Tincture	Poison	Ingested Poison
-13146	Purple Worm Poison	Poison	Injury Poison
-13466	Serpent Venom	Poison	Injury Poison
-13783	Spider's Sting	Poison	Injury Poison
-14246	Torpor	Poison	Ingested Poison
-14560	Truth Serum	Poison	Ingested Poison
-14856	Wyvern Poison	Poison	Injury Poison
-16797	Collapsing Roof	Trap	Deadly Trap (Levels 1-4)
-18156	Falling Net	Trap	Nuisance Trap (Levels 1-4)
-19862	Fire-Casting Statue	Trap	Deadly Trap (Levels 1-4)
-21668	Hidden Pit	Trap	Nuisance Trap (Levels 1-4)
-23157	Poisoned Darts	Trap	Deadly Trap (Levels 1-4)
-24631	Poisoned Needle	Trap	Nuisance Trap (Levels 1-4)
-25990	Rolling Stone	Trap	Deadly Trap (Levels 11-16) or Nuisance Trap (Levels 17-20)
-27945	Spiked Pit	Trap	Deadly Trap (Levels 1-4)
-29674	Deep Water	Hazard	Environmental hazard
-30070	Extreme Cold	Hazard	Environmental hazard
-30462	Extreme Heat	Hazard	Environmental hazard
-31006	Frigid Water	Hazard	Environmental hazard
-31746	High Altitude	Hazard	Environmental hazard
-31814	Heavy Precipitation	Hazard	Environmental hazard
-32413	Slippery Ice	Hazard	Environmental hazard
-32718	Strong Wind	Hazard	Environmental hazard
-33096	Thin Ice	Hazard	Environmental hazard
+3916	Assassin's Blood	Poison	Ingested Poison
+4312	Burnt Othur Fumes	Poison	Inhaled Poison
+4761	Crawler Mucus	Poison	Contact Poison
+5184	Essence of Ether	Poison	Inhaled Poison
+5608	Malice	Poison	Inhaled Poison
+5908	Midnight Tears	Poison	Ingested Poison
+6405	Oil of Taggit	Poison	Contact Poison
+6757	Pale Tincture	Poison	Ingested Poison
+7327	Purple Worm Poison	Poison	Injury Poison
+7647	Serpent Venom	Poison	Injury Poison
+7964	Spider's Sting	Poison	Injury Poison
+8427	Torpor	Poison	Ingested Poison
+8741	Truth Serum	Poison	Ingested Poison
+9037	Wyvern Poison	Poison	Injury Poison
+9345	Collapsing Roof	Trap	Deadly Trap (Levels 1-4)
+10705	Falling Net	Trap	Nuisance Trap (Levels 1-4)
+12413	Fire-Casting Statue	Trap	Deadly Trap (Levels 1-4)
+14218	Hidden Pit	Trap	Nuisance Trap (Levels 1-4)
+15709	Poisoned Darts	Trap	Deadly Trap (Levels 1-4)
+17184	Poisoned Needle	Trap	Nuisance Trap (Levels 1-4)
+18543	Rolling Stone	Trap	Deadly Trap (Levels 11-16) or Nuisance Trap (Levels 17-20)
+20500	Spiked Pit	Trap	Deadly Trap (Levels 1-4)
+22231	Deep Water	Hazard	Environmental hazard
+22627	Extreme Cold	Hazard	Environmental hazard
+23019	Extreme Heat	Hazard	Environmental hazard
+23563	Frigid Water	Hazard	Environmental hazard
+24303	High Altitude	Hazard	Environmental hazard
+24371	Heavy Precipitation	Hazard	Environmental hazard
+24970	Slippery Ice	Hazard	Environmental hazard
+25275	Strong Wind	Hazard	Environmental hazard
+25653	Thin Ice	Hazard	Environmental hazard

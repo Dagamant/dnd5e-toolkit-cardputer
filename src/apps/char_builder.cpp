@@ -211,6 +211,12 @@ std::vector<Wizard::Step> CharBuilder::creationSteps() {
         steps.push_back(s);
     }
     {
+        // Elf, Gnome and Tiefling cast their lineage's spells with one of these
+        W_::Step s{"species_ability", "Species spellcasting ability", W_::CHOICE, {"Intelligence", "Wisdom", "Charisma"}};
+        s.when = [](const Wizard& w) { return w.is("species", "Elf") || w.is("species", "Gnome") || w.is("species", "Tiefling"); };
+        steps.push_back(s);
+    }
+    {
         W_::Step s{"keen", "Keen Senses skill", W_::CHOICE, {"Insight", "Perception", "Survival"}};
         s.when = [](const Wizard& w) { return w.is("species", "Elf"); };
         steps.push_back(s);
@@ -483,6 +489,7 @@ bool CharBuilder::applyCreation(const Wizard& w, Character& c) {
     c.background = br->name();
     c.species = sr->name();
     c.speciesOpt = w.get("species_opt");
+    c.spAbility = w.get("species_ability");
     c.alignment = w.get("alignment");
     c.level = 1;
     for (int a = 0; a < 6; a++) c.score[a] = w.get(ABIL_KEYS[a]).toInt();

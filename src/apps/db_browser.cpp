@@ -1,4 +1,6 @@
+#include "../core/osk.h"
 #include "db_browser.h"
+#include "../core/touch.h"
 
 using namespace ui;
 
@@ -32,6 +34,8 @@ void DbBrowser::onExit() {
 
 void DbBrowser::refilter() {
     vis_.clear();
+    listPos_ = 0;
+    shownSel_ = -1;
     for (int i = 0; i < table_.size(); i++) {
         if (search_.length()) {
             String n = table_.at(i).name;
@@ -50,7 +54,9 @@ void DbBrowser::openDetail(int v) {
     curIdx_ = vis_[v];
     if (!table_.read(curIdx_, cur_)) { sfx::error(); toast("Read failed", C_BLOOD); return; }
     tv_.clear();
+    tv_.setWidth(wide() ? W - listW() - u(16) : 0);
     buildDetail();
+    shownIdx_ = curIdx_;
     mode_ = Mode::Detail;
     confirmDelete_ = false;
     sfx::select();
@@ -156,16 +162,18 @@ bool DbBrowser::handle(const input::Event& e) {
 
 void DbBrowser::draw() {
     if (mode_ == Mode::Wizard) { wiz_.draw(); return; }
+    if (wide()) { drawWide(); return; }
+    tv_.setWidth(0);
     drawBackground();
     if (mode_ == Mode::Detail) {
         drawHeader(cur_.name().c_str(), accent(), table_.isCustom(curIdx_) ? 40 : 0);
         if (table_.isCustom(curIdx_)) {
-            gfx.setFont(&fonts::Font0);
+            gfx.setFont(ui::font(&fonts::Font0));
             gfx.setTextDatum(middle_right);
             gfx.setTextColor(C_EMERALD);
             gfx.drawString("custom", W - 30, HEADER_H / 2);
         }
-        drawDetailBar(HEADER_H + 2);
+        drawDetailBar(0, HEADER_H + 2, W);
         tv_.draw(6, HEADER_H + 15, H - FOOTER_H - HEADER_H - 17, accent());
         String foot = detailFooter() ? String(detailFooter()) : onPick ? String("Ent ") + pickVerb + "  Esc back" :
                       table_.isCustom(curIdx_) ? "Ent roll  FnE edit  FnX del  Esc" : "Ent roll  FnD copy+edit  Esc";
@@ -174,7 +182,7 @@ void DbBrowser::draw() {
     }
     drawHeader(title(), accent());
     // filter chip + count
-    gfx.setFont(&fonts::Font0);
+    gfx.setFont(ui::font(&fonts::Font0));
     gfx.setTextDatum(middle_right);
     gfx.setTextColor(C_DIM);
     gfx.drawString(String(vis_.size()), W - 30, HEADER_H / 2);
@@ -206,4 +214,118 @@ void DbBrowser::draw() {
     }
     drawFooter(listFooter() ? listFooter() : onPick ? "Ent view  Tab filter  Esc back" :
                canCreate() ? "Ent open  Tab filter  FnN new  Esc back" : "Ent open  Tab filter  Esc back");
+}
+
+// ---- big screen: list on the left, the highlighted entry on the right.
+// Enter moves the focus to the entry (Up/Down scroll it, Esc goes back).
+
+void DbBrowser::preview() {
+    if (vis_.empty() || vis_[sel_] == shownIdx_) return;
+    curIdx_ = vis_[sel_];
+    if (!table_.read(curIdx_, cur_)) return;
+    tv_.clear();
+    tv_.setWidth(W - listW() - u(16));
+    buildDetail();
+    shownIdx_ = curIdx_;
+}
+
+void DbBrowser::drawWide() {
+    const Metrics& m = metrics();
+    bool detail = mode_ == Mode::Detail;
+    if (!detail) preview();
+    drawBackground();
+    drawHeader(title(), accent());
+    gfx.setFont(m.body);
+    gfx.setTextDatum(middle_right);
+    gfx.setTextColor(C_DIM);
+    gfx.drawString(String(vis_.size()) + " entries", W - u(34), HEADER_H / 2);
+
+    // left: search / filter bar and the list
+    const int lw = listW(), by = HEADER_H + u(2), barH = touchRow(12);
+    // the filter is a button: a tap moves to the next one
+    gfx.fillRoundRect(u(2), by, lw / 2, barH - 4, 8, C_PANEL);
+    gfx.drawRoundRect(u(2), by, lw / 2, barH - 4, 8, C_EDGE);
+    gfx.setTextDatum(middle_left);
+    gfx.setTextColor(C_GOLD);
+    gfx.drawString(fitText(filterLabel(), lw / 2 - u(8)), u(6), by + barH / 2 - 2);
+    gfx.setTextDatum(middle_right);
+    gfx.setTextColor(search_.length() ? C_TEXT : C_DIM);
+    gfx.drawString(search_.length() ? String("\"") + search_ + "\"" : String("type to search"), lw - u(4), by + barH / 2 - 2);
+    if (!detail) {
+        touch::key(0, by, lw / 2 + u(4), barH, input::K_TAB);
+        osk::offer();   // typing searches
+    }
+    const int rowH = touchRow(11), pad = touchPad(11), y0 = by + barH + u(1), listH = H - FOOTER_H - y0;
+    const int n = vis_.size();
+    const float maxPos = std::max(0, n * rowH - listH);
+    // the selection moved (keys, a tap, a search): bring it into view
+    if (sel_ != shownSel_) {
+        listPos_ = std::min(listPos_, (float)sel_ * rowH);
+        listPos_ = std::max(listPos_, (float)(sel_ + 1) * rowH - listH);
+        shownSel_ = sel_;
+    }
+    if (!touch::scrolling()) listPos_ = std::max(0.0f, std::min(listPos_, maxPos));
+    touch::scroller(0, y0, lw, listH, &listPos_, maxPos);
+    gfx.setClipRect(0, y0, lw, listH);
+    const int p = (int)listPos_;
+    for (int v = std::max(0, p / rowH); v < n; v++) {
+        int y = y0 + v * rowH - p;
+        if (y >= y0 + listH) break;
+        bool s = v == sel_;
+        if (s) {
+            gfx.fillRoundRect(u(2), y, lw - u(4), rowH - 2, u(2), detail ? C_BG2 : C_PANEL);
+            gfx.drawRoundRect(u(2), y, lw - u(4), rowH - 2, u(2), detail ? C_EDGE : accent());
+        }
+        drawRow(vis_[v], y + pad + u(1), s);
+        // touch: a tap shows the entry on the right; tapping it again opens it
+        // (only the part of the row that shows)
+        const int zy = std::max(y, y0), zh = std::min(y + rowH, y0 + listH) - zy;
+        touch::zone(0, zy, lw, zh, [this, v] {
+            if (mode_ == Mode::Detail) mode_ = Mode::List;
+            else if (sel_ == v) { input::Event e; e.key = input::K_ENTER; input::inject(e); }
+            sel_ = v;
+        });
+    }
+    gfx.clearClipRect();
+    if (maxPos > 0) {
+        int sh = std::max(u(6), listH * listH / (n * rowH));
+        float f = std::max(0.0f, std::min(1.0f, listPos_ / maxPos));
+        gfx.fillRect(lw - u(2), y0 + (int)((listH - sh) * f), u(1), sh, accent());
+    }
+    if (!n) {
+        gfx.setTextDatum(middle_center);
+        gfx.setTextColor(C_DIM);
+        gfx.drawString(table_.size() ? "No matches" : "No data on SD card", lw / 2, u(70));
+    }
+
+    // right: the entry
+    const int px = lw + u(4), pw = W - px - u(4), py = by, ph = H - FOOTER_H - py - u(3);
+    drawPanel(px, py, pw, ph, C_BG2, detail ? accent() : C_EDGE);
+    if (!detail && n) touch::key(px, py, pw, ph, input::K_ENTER);   // tap the entry to read or roll it
+    if (n && shownIdx_ >= 0) {
+        gfx.setFont(m.title);
+        gfx.setTextDatum(top_left);
+        gfx.setTextColor(accent());
+        gfx.drawString(fitText(cur_.name(), pw - u(50)), px + u(6), py + u(4));
+        if (table_.isCustom(shownIdx_)) {
+            gfx.setFont(m.small);
+            gfx.setTextDatum(top_right);
+            gfx.setTextColor(C_EMERALD);
+            gfx.drawString("custom", px + pw - u(6), py + u(6));
+        }
+        int ty = py + u(18);
+        // the subclass's bar (spell slot, ...) is drawn across the pane
+        gfx.setClipRect(px, ty, pw, u(12));
+        gfx.setTextDatum(top_left);
+        drawDetailBar(px, ty - u(1), pw);
+        gfx.clearClipRect();
+        tv_.draw(px + u(6), ty + u(12), py + ph - ty - u(14), accent());
+    }
+    String foot;
+    if (detail) foot = detailFooter() ? String(detailFooter()) : onPick ? String("Ent ") + pickVerb + "  Esc list" :
+                       table_.isCustom(curIdx_) ? "Up/Dn scroll  Ent roll  FnE edit  FnX delete  Esc list" :
+                                                  "Up/Dn scroll  Ent roll  FnD copy+edit  Esc list";
+    else foot = listFooter() ? listFooter() : onPick ? "Ent open  Tab filter  type to search  Esc back" :
+                canCreate() ? "Ent open  Tab filter  type to search  FnN new  Esc back" : "Ent open  Tab filter  type to search  Esc back";
+    drawFooter(foot.c_str());
 }

@@ -4,6 +4,8 @@ Firmware with game-master and player tools for D&D 5e (SRD 5.2.1 / 2024 rules).
 
 A port to the M5Stack Tab5 is planned: see [docs/TAB5_PORT.md](docs/TAB5_PORT.md).
 
+Development notes (tools, data pipeline, testing): [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+
 ## Screenshots
 
 | | |

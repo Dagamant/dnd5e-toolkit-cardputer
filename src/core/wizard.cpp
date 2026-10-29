@@ -1,7 +1,9 @@
+#include "osk.h"
 #include "wizard.h"
 #include "dice_expr.h"
 #include "sfx.h"
 #include "ui.h"
+#include "touch.h"
 
 using namespace ui;
 
@@ -57,6 +59,7 @@ void Wizard::enter(int i) {
     top_ = std::max(0, sel_ - 3);
     bool text = s.type == TEXT || s.type == LONGTEXT || s.type == NUMBER || s.type == DICE;
     input::setTextMode(text);
+    osk::show(text);
 }
 
 void Wizard::next() {
@@ -181,39 +184,49 @@ void Wizard::drawChoice(const Step& s, int y) {
     const Metrics& m = metrics();
     int n = opts_.size();
     bool hasPreview = (bool)s.preview && n;
-    int listW = hasPreview ? 104 : m.w - 12;
-    int rows = (m.h - m.footerH - y - 2) / 11;
+    int listW = hasPreview ? (wide() ? m.w * 2 / 5 : 104) : m.w - u(12);
+    const int rh = m.rowH - (wide() ? 0 : 1);   // 11 on the classic layout
+    int rows = (m.h - m.footerH - y - u(2)) / rh;
     if (sel_ >= top_ + rows) top_ = sel_ - rows + 1;
     if (sel_ < top_) top_ = sel_;
     gfx.setFont(m.body);
     for (int i = top_; i < n && i < top_ + rows; i++) {
-        int ry = y + (i - top_) * 11;
+        int ry = y + (i - top_) * rh;
         bool on = i == sel_;
-        if (on) gfx.fillRoundRect(4, ry - 1, listW, 11, 2, C_PANEL);
-        int tx = 9;
+        if (on) gfx.fillRoundRect(u(4), ry - u(1), listW, rh, u(2), C_PANEL);
+        // touch: a tap ticks a box (Space), or picks an option; tapping it again goes on
+        if (s.type == MULTI) touch::zone(0, ry - u(1), listW + u(8), rh, [this, i] {
+            sel_ = i;
+            input::Event e;
+            e.key = input::K_CHAR;
+            e.ch = e.base = ' ';
+            input::inject(e);
+        });
+        else touch::pick(0, ry - u(1), listW + u(8), rh, sel_, i);
+        int tx = u(9);
         if (s.type == MULTI) {
-            gfx.drawRect(8, ry + 1, 7, 7, on ? accent_ : C_DIM);
-            if (checks_[i]) gfx.fillRect(10, ry + 3, 3, 3, C_EMERALD);
-            tx = 19;
+            gfx.drawRect(u(8), ry + u(1), u(7), u(7), on ? accent_ : C_DIM);
+            if (checks_[i]) gfx.fillRect(u(10), ry + u(3), u(3), u(3), C_EMERALD);
+            tx = u(19);
         }
         gfx.setTextDatum(top_left);
         gfx.setTextColor(on ? C_TEXT : rgb(190, 184, 200));
         String o = opts_[i];
         while (o.length() > 2 && gfx.textWidth(o) > listW - tx) o = o.substring(0, o.length() - 2);
-        gfx.drawString(o, tx, ry + 1);
+        gfx.drawString(o, tx, ry + u(1));
     }
     if (n > rows) {
-        int sh = std::max(5, rows * 11 * rows / n);
-        int sy = y + (rows * 11 - sh) * top_ / std::max(1, n - rows);
-        gfx.fillRect(listW + 5, sy, 2, sh, accent_);
+        int sh = std::max(u(5), rows * rh * rows / n);
+        int sy = y + (rows * rh - sh) * top_ / std::max(1, n - rows);
+        gfx.fillRect(listW + u(5), sy, u(2), sh, accent_);
     }
     if (hasPreview) {
-        int px = listW + 10;
-        drawPanel(px, y - 2, m.w - px - 4, m.h - m.footerH - y, C_BG, C_EDGE);
+        int px = listW + u(10);
+        drawPanel(px, y - u(2), m.w - px - u(4), m.h - m.footerH - y, C_BG, C_EDGE);
         gfx.setTextColor(C_TEXT);
         String p = s.preview(opts_[sel_]);
-        gfx.setClipRect(px + 2, y, m.w - px - 8, m.h - m.footerH - y - 4);
-        textWrapped(p.c_str(), px + 4, y + 2, m.w - px - 12, 9, 12);
+        gfx.setClipRect(px + u(2), y, m.w - px - u(8), m.h - m.footerH - y - u(4));
+        textWrapped(p.c_str(), px + u(4), y + u(2), m.w - px - u(12), u(9), wide() ? 40 : 12);
         gfx.clearClipRect();
     }
 }
@@ -223,23 +236,23 @@ void Wizard::drawReview() {
     gfx.setFont(m.body);
     gfx.setTextDatum(top_left);
     gfx.setTextColor(accent_);
-    gfx.drawString("Review - Enter to save, Esc to go back", 6, m.headerH + 6);
-    int y = m.headerH + 20, row = 0;
+    gfx.drawString("Review - Enter to save, Esc to go back", u(6), m.headerH + u(6));
+    int y = m.headerH + u(20), row = 0;
     for (size_t i = 0; i < steps_.size(); i++) {
         if (!visible(i)) continue;
         if (row++ < reviewTop_) continue;
-        if (y > m.h - m.footerH - 10) break;
+        if (y > m.h - m.footerH - u(10)) break;
         String label = steps_[i].label;
-        if (label.length() > 14) label = label.substring(0, 13) + ".";
+        if (!wide() && label.length() > 14) label = label.substring(0, 13) + ".";
         String v = get(steps_[i].key);
         if (!v.length()) v = "-";
         v.replace("\n", " ");
-        while (v.length() > 2 && gfx.textWidth(v) > m.w - 96) v = v.substring(0, v.length() - 3) + "..";
+        while (v.length() > 2 && gfx.textWidth(v) > m.w - u(wide() ? 120 : 96)) v = v.substring(0, v.length() - 3) + "..";
         gfx.setTextColor(C_DIM);
-        gfx.drawString(label, 6, y);
+        gfx.drawString(label, u(6), y);
         gfx.setTextColor(C_TEXT);
-        gfx.drawString(v, 92, y);
-        y += 10;
+        gfx.drawString(v, u(wide() ? 110 : 92), y);
+        y += m.line;
     }
 }
 
@@ -252,7 +265,7 @@ void Wizard::draw() {
     int total = 0, at = 0;
     for (size_t i = 0; i < steps_.size(); i++) if (visible(i)) { total++; if ((int)i <= idx_) at++; }
     if (review_) at = total;
-    drawBar(0, m.headerH, m.w, 2, total ? (float)at / total : 0, accent_, C_BG2);
+    drawBar(0, m.headerH, m.w, u(2), total ? (float)at / total : 0, accent_, C_BG2);
 
     if (review_) { drawReview(); drawFooter("Enter save  Esc back  Up/Dn scroll"); return; }
 
@@ -260,36 +273,36 @@ void Wizard::draw() {
     gfx.setTextDatum(top_left);
     gfx.setFont(m.title);
     gfx.setTextColor(accent_);
-    gfx.drawString(otherMode_ ? s.label + " (custom)" : s.label, 6, m.headerH + 5);
+    gfx.drawString(otherMode_ ? s.label + " (custom)" : s.label, u(6), m.headerH + u(5));
     gfx.setFont(m.body);
     gfx.setTextColor(C_DIM);
     gfx.setTextDatum(top_right);
-    gfx.drawString(String(at) + "/" + total, m.w - 6, m.headerH + 8);
-    int y = m.headerH + 24;
+    gfx.drawString(String(at) + "/" + total, m.w - u(6), m.headerH + u(8));
+    int y = m.headerH + u(24);
     if (s.hint.length()) {
         gfx.setTextDatum(top_left);
-        y = textWrapped(s.hint.c_str(), 6, y, m.w - 12, 9, 2) + 2;
+        y = textWrapped(s.hint.c_str(), u(6), y, m.w - u(12), u(9), 2) + u(2);
     }
 
     bool textEntry = otherMode_ || s.type == TEXT || s.type == LONGTEXT || s.type == NUMBER || s.type == DICE;
     if (textEntry) {
-        int boxH = (s.type == LONGTEXT && !otherMode_) ? m.h - m.footerH - y - 4 : 14;
-        drawPanel(4, y, m.w - 8, boxH, C_BG, accent_);
+        int boxH = (s.type == LONGTEXT && !otherMode_) ? m.h - m.footerH - y - u(4) : u(14);
+        drawPanel(u(4), y, m.w - u(8), boxH, C_BG, accent_);
         gfx.setTextColor(C_TEXT);
         gfx.setTextDatum(top_left);
-        if (boxH > 14) {
+        if (boxH > u(14)) {
             // show the tail of long text, wrapped
             std::vector<String> lines;
-            wrapLines(edit_ + "_", m.w - 18, lines);
-            int maxL = (boxH - 4) / 9;
+            wrapLines(edit_ + "_", m.w - u(18), lines);
+            int maxL = (boxH - u(4)) / u(9);
             int first = std::max(0, (int)lines.size() - maxL);
-            for (int i = first; i < (int)lines.size(); i++) gfx.drawString(lines[i], 9, y + 3 + (i - first) * 9);
+            for (int i = first; i < (int)lines.size(); i++) gfx.drawString(lines[i], u(9), y + u(3) + (i - first) * u(9));
             gfx.setTextDatum(bottom_right);
             gfx.setTextColor(C_DIM);
-            gfx.drawString(String(edit_.length()), m.w - 8, y + boxH - 2);
+            gfx.drawString(String(edit_.length()), m.w - u(8), y + boxH - u(2));
         } else {
-            gfx.drawString(edit_, 9, y + 3);
-            if ((millis() / 450) % 2) gfx.fillRect(9 + gfx.textWidth(edit_), y + 3, 5, 8, accent_);
+            gfx.drawString(edit_, u(9), y + u(3));
+            if ((millis() / 450) % 2) gfx.fillRect(u(9) + gfx.textWidth(edit_), y + u(3), u(5), u(8), accent_);
         }
         drawFooter(s.optional ? "Ent next (blank = skip)  Esc back" : "Ent next  Esc back");
     } else {

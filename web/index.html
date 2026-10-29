@@ -24,7 +24,7 @@ button.primary { background: var(--gold-dk); border-color: var(--gold); color: #
 button.danger:hover { border-color: var(--blood); color: var(--blood); }
 button.icon { padding: .15rem .45rem; background: none; border-color: transparent; color: var(--dim); }
 button.icon:hover { color: var(--text); border-color: var(--edge); }
-input[type=text], input[type=password], input[type=search], textarea, select {
+input[type=text], input[type=password], input[type=search], input[type=number], textarea, select {
   background: var(--bg); border: 1px solid var(--edge); border-radius: 6px; padding: .4rem .55rem; width: 100%;
 }
 input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold); }
@@ -32,8 +32,8 @@ textarea { resize: vertical; }
 header { position: sticky; top: 0; z-index: 5; background: var(--bg2); border-bottom: 2px solid var(--gold-dk);
   display: flex; align-items: center; gap: 1rem; padding: .5rem 1rem; flex-wrap: wrap; }
 header h1 { font-size: 1.2rem; white-space: nowrap; }
-nav { display: flex; gap: .25rem; flex-wrap: wrap; flex: 1; }
-nav a { color: var(--dim); padding: .3rem .7rem; border-radius: 6px; }
+nav { display: flex; gap: .1rem; flex-wrap: wrap; flex: 1; }
+nav a { color: var(--dim); padding: .3rem .55rem; border-radius: 6px; }
 nav a.on { color: var(--gold); background: var(--panel); }
 nav a:hover { text-decoration: none; color: var(--text); }
 #conn { font-size: .8rem; color: var(--dim); }
@@ -108,6 +108,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 1rem; }
 @media (max-width: 860px) { .live { grid-template-columns: 1fr; } }
 body.tv { font-size: 20px; }
 body.tv main { max-width: none; }
+body.bare header { display: none; }
 
 /* reference + files */
 .results { max-height: 70vh; overflow: auto; }
@@ -140,6 +141,125 @@ textarea.code { font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; min-hei
 textarea.note { min-height: 65vh; font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace; }
 progress { width: 100%; accent-color: var(--gold); }
 
+/* device apps */
+button.on { border-color: var(--gold); color: var(--gold); background: #3a2c14; }
+button.big { font-size: 1.15rem; padding: .45rem 1.4rem; }
+.ctl { grid-column: 2 / 4; display: flex; gap: .35rem; flex-wrap: wrap; align-items: center; margin-top: .2rem; }
+.ctl select { width: auto; padding: .25rem .4rem; }
+.ctl .amt { width: 5rem; padding: .25rem .4rem; }
+.cond.x { cursor: pointer; } .cond.x:hover { text-decoration: line-through; background: #5a2030; }
+.shade { position: fixed; inset: 0; background: #000b; z-index: 30; display: flex; align-items: flex-start; justify-content: center; overflow: auto; padding: 4vh 1rem; }
+.pop { position: relative; width: min(760px, 100%); }
+.pop .close { position: absolute; right: .4rem; top: .4rem; font-size: 1.2rem; z-index: 1; }
+.dice { display: grid; grid-template-columns: repeat(7, 1fr); gap: .4rem; }
+@media (max-width: 560px) { .dice { grid-template-columns: repeat(4, 1fr); } }
+.die { display: flex; flex-direction: column; align-items: center; padding: .7rem .2rem; font-size: 1.15rem; user-select: none; }
+.die .cnt { font-size: .85rem; color: var(--gold); min-height: 1.1em; }
+.die.on { border-color: var(--gold); background: #2e2416; }
+.dmod { font: bold 1.2rem Georgia, serif; min-width: 2.5rem; text-align: center; }
+.dres { text-align: center; margin-top: 1rem; }
+.dtotal { font: bold 4rem Georgia, serif; color: var(--text); line-height: 1.1; }
+.dtotal.crit { color: var(--gold); } .dtotal.fumble { color: var(--blood); }
+.dtotal.spin { animation: tumble .5s ease-out; }
+@keyframes tumble { 0% { transform: rotate(-200deg) scale(.3); opacity: 0; } 70% { transform: rotate(12deg) scale(1.1); } 100% { transform: none; } }
+.macro button.grow { padding: .45rem .7rem; }
+.tres { font-size: 1.1rem; }
+ol.entries { padding-left: 1.4rem; } ol.entries li { margin: .2rem 0; } ol.entries li.on { color: var(--gold); }
+.stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: .5rem; margin-bottom: .6rem; }
+@media (max-width: 700px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+.stat { background: var(--bg2); border: 1px solid var(--edge); border-radius: 8px; padding: .4rem .3rem; text-align: center; }
+.stat .sv { font: bold 1.6rem Georgia, serif; }
+button.stat { color: inherit; } button.stat:hover { border-color: var(--gold); }
+.tgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+.stat.gold .sv { color: var(--gold); } .stat.ice .sv { color: var(--ice); }
+.hpcard { margin-bottom: .8rem; } .hpnum { font: bold 1.8rem Georgia, serif; }
+.sheet { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; align-items: start; }
+@media (max-width: 860px) { .sheet { grid-template-columns: 1fr; } }
+.sheet-sec h3 { margin-bottom: .5rem; }
+.abils { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.abil { text-align: center; background: var(--bg); border: 1px solid var(--edge); border-radius: 8px; padding: .4rem; }
+.abil .am { font: bold 1.8rem Georgia, serif; }
+.abil button { padding: .2rem .45rem; font-size: .85rem; }
+.skills { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; }
+.skill, .atk { display: flex; justify-content: space-between; gap: .5rem; text-align: left; }
+.skill.prof { border-color: var(--gold-dk); } .skill.prof b { color: var(--gold); }
+.atk.dim, .spell.dim { opacity: .6; }
+.res-row, .item-row, .spell { padding: .25rem 0; border-bottom: 1px solid var(--bg); }
+.slots { display: flex; flex-direction: column; gap: .3rem; }
+.uses { flex-wrap: wrap; gap: .3rem; margin: .3rem 0 .2rem; }
+.spell { flex-wrap: wrap; }
+.slot { display: flex; align-items: center; gap: .6rem; }
+.pip-row { display: flex; gap: .25rem; flex: 1; }
+.pip { width: .95rem; height: .95rem; border-radius: 50%; border: 2px solid var(--arcane); }
+.pip.full { background: var(--arcane); }
+.pip.extra { border-color: var(--gold); }
+.pip.extra.full { background: var(--gold); }
+.coins button { padding: .3rem .6rem; } .coins b { color: var(--gold); }
+#rollpop { position: fixed; right: 1rem; bottom: 1rem; z-index: 25; display: flex; flex-direction: column; gap: .4rem; width: min(340px, calc(100vw - 2rem)); }
+#rollpop .roll { display: block; box-shadow: 0 6px 20px #000a; }
+.rp-title { display: flex; justify-content: space-between; align-items: center; }
+.rp-line { display: grid; grid-template-columns: 1fr auto; gap: 0 .6rem; align-items: baseline; }
+.rp-line .rp-tot { font: bold 1.5rem Georgia, serif; text-align: right; }
+.rp-line .small { grid-column: 1 / 3; }
+.xpbar { position: relative; height: 12px; background: var(--bg); border-radius: 6px; margin-top: .5rem; }
+.xpbar > div { height: 100%; border-radius: 6px; }
+.xpbar .tick { position: absolute; top: -3px; width: 2px; height: 18px; background: var(--dim); }
+table.shop tr.sold td { opacity: .45; text-decoration: line-through; }
+.fivemap { width: 100%; max-height: 160px; }
+.fivemap line { stroke: var(--edge); stroke-width: 3; }
+.fivemap circle { fill: var(--panel); stroke: var(--gold); stroke-width: 1.5; } .fivemap circle.boss { stroke: var(--blood); }
+.fivemap text { fill: var(--text); font: bold 8px sans-serif; text-anchor: middle; }
+a.button { display: inline-block; background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: .35rem .75rem; color: var(--text); }
+a.button.primary { background: var(--gold-dk); border-color: var(--gold); color: #fff; }
+a.button:hover { text-decoration: none; border-color: var(--gold); }
+.levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; align-content: start; }
+@media (max-width: 560px) { .levels { grid-template-columns: repeat(2, 1fr); } }
+.lvcard { color: var(--text); } .lvcard:hover { border-color: var(--gold); text-decoration: none; } .lvcard.today { border-color: var(--gold); }
+.wfield { margin: .35rem 0; }
+.wfield .wlabel { color: var(--gold); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+.wfield textarea { resize: none; overflow: hidden; min-height: 2.2rem; }
+.die-btn { font-size: 1.1rem; }
+.tabs { display: flex; gap: .3rem; margin-bottom: .8rem; flex-wrap: wrap; }
+.tabs button { flex: 1; min-width: 6rem; }
+.d23rooms { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .d23rooms { grid-template-columns: 1fr; } }
+.rgrid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .3rem; }
+.rtile { min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; aspect-ratio: 1; padding: .25rem .35rem; color: var(--edge); background: var(--bg); }
+.rtile.w { color: var(--text); background: var(--bg2); } .rtile.on { border-color: var(--gold); background: var(--panel); }
+.rtile.boss b { color: var(--blood); }
+.rtile .dots, .dot { display: inline-flex; gap: 2px; } .rtile i, i.dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.chip { border: 1px solid var(--edge); border-radius: 14px; padding: .15rem .6rem; cursor: pointer; }
+.chip input { display: none; } .chip.on { border-color: var(--gold); color: var(--gold); }
+.encrow { display: flex; gap: .8rem; align-items: flex-start; } .encrow.hit { border-color: var(--gold); }
+.encn { font: bold 1.6rem Georgia, serif; color: var(--gold); width: 1.6rem; text-align: center; }
+.chk { display: flex; gap: .7rem; align-items: center; } .chk.done b { color: var(--emerald); }
+.chk input { width: 1.2rem; height: 1.2rem; accent-color: var(--emerald); } .chk .tick { width: 1.2rem; text-align: center; color: var(--emerald); }
+.d23map { display: grid; grid-template-columns: 1fr 300px; gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .d23map { grid-template-columns: 1fr; } }
+.d23wrap { padding: .4rem; background: #12141e; }
+.d23svg { width: 100%; display: block; }
+.d23svg .cor { stroke: #5a5246; stroke-width: 9; }
+.d23svg .door { fill: #96602f; } .d23svg .door.d3 { fill: var(--arcane); } .d23svg .lock { fill: var(--gold); }
+.d23svg .sec { fill: var(--arcane); font: bold 12px sans-serif; text-anchor: middle; }
+.d23svg .rm { cursor: pointer; } .d23svg .rm rect { fill: #d6c49e; stroke: #3c2c22; stroke-width: 2; }
+.d23svg .rm.dimr rect { fill: #9a8c72; }
+.d23svg .rm text { fill: #3c2c22; font: bold 18px Georgia, serif; text-anchor: middle; }
+.d23svg .rm.boss rect { stroke: var(--blood); stroke-width: 3; } .d23svg .rm.boss text { fill: #8c1c14; }
+.d23svg .rm.fog rect { fill: #12141e; stroke: #76705e; } .d23svg .rm.fog text { fill: #76705e; }
+.d23svg .up { fill: none; stroke: #3c2c22; stroke-width: 2.5; }
+.d23svg .stairs rect { fill: #9a8c72; } .d23svg .stairs text { fill: var(--gold); font: 12px sans-serif; text-anchor: middle; }
+.hexmap { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 1rem; align-items: start; }
+@media (max-width: 900px) { .hexmap { grid-template-columns: 1fr; } }
+.hexwrap { padding: .4rem; background: #12141e; }
+.hexsvg { width: 100%; display: block; }
+.hexsvg .hx { stroke: #1e2428; stroke-width: 1; cursor: pointer; } .hexsvg .hx:hover { stroke: var(--gold); stroke-width: 2; }
+.hexsvg .hx.fog { fill: #12141e; stroke: #222636; } .hexsvg .hx.dim { filter: brightness(.6); }
+.hexsvg text, .hextpl text { text-anchor: middle; pointer-events: none; } .hexsvg .gl { font-size: 13px; opacity: .55; } .hexsvg .ic { font-size: 17px; }
+.hexsvg .rv line { stroke: #4a8cdc; stroke-width: 3.5; stroke-linecap: round; } .hexsvg .rd line { stroke: #96643c; stroke-width: 2.5; stroke-dasharray: 4 3; }
+.hexsvg .sel { fill: none; stroke: var(--gold); stroke-width: 3; pointer-events: none; } .hexsvg .evt { fill: none; stroke: var(--blood); stroke-width: 3; pointer-events: none; }
+.hexsvg .party { fill: var(--blood); stroke: #fff; stroke-width: 2; pointer-events: none; }
+.hextpl { width: 130px; flex: none; } .hextpl polygon { stroke: #1e2428; } .hextpl .gl { font-size: 11px; opacity: .6; }
+a.dicelink { border-bottom: 1px dashed var(--gold); color: var(--gold); }
 #login { position: fixed; inset: 0; background: #000c; display: none; align-items: center; justify-content: center; z-index: 20; }
 #login.show { display: flex; }
 #login .card { width: min(340px, 90vw); text-align: center; }
@@ -250,85 +370,169 @@ document.addEventListener("keydown", e => {
 
 // ------------------------------------------------------------------ routing
 let pollTimer = null;
-const views = { table: viewTable, campaign: viewCampaign, notes: viewNotes, ref: viewRef, files: viewFiles, edit: viewEdit, device: viewDevice };
+const views = { table: viewTable, dice: viewDice, chars: viewChars, enc: viewEnc, shop: viewShop, travel: viewTravel, dungeon: viewDungeon, d23: viewD23, hex: viewHex, tables: viewTables, campaign: viewCampaign, notes: viewNotes, ref: viewRef, files: viewFiles, edit: viewEdit, device: viewDevice };
 async function route() {
   clearInterval(pollTimer);
   pollTimer = null;
   if (saver) { await saver.flush(); saver = null; }
   const [name, ...rest] = (location.hash.slice(1) || "table").split("/");
   const arg = rest.map(decodeURIComponent);
-  document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + (name === "edit" ? "files" : name)));
-  document.body.classList.remove("tv");
-  const main = $("#main");
-  main.replaceChildren(h("div", { class: "muted" }, "Loading…"));
+  markNav();
+  document.body.classList.remove("tv", "bare");
+  // A fresh box per visit: a slow page that finishes after you've moved on
+  // draws into a box that's no longer shown (and its poll never starts).
+  const main = h("div", {}, h("div", { class: "muted" }, "Loading…"));
+  $("#main").replaceChildren(main);
   try { await (views[name] || viewTable)(main, arg); }
   catch (e) { main.replaceChildren(h("div", { class: "card st err" }, e.message)); }
+}
+// Poll while `page` (the view's box) is on screen.
+function every(ms, fn, page) {
+  if (!page.isConnected) return;
+  clearInterval(pollTimer);
+  const t = setInterval(() => { if (page.isConnected) fn(); else clearInterval(t); }, ms);
+  pollTimer = t;
 }
 window.addEventListener("hashchange", route);
 const go = (...parts) => { location.hash = parts.map((p, i) => i ? enc(p) : p).join("/"); };
 
-// ------------------------------------------------------------------ live table
-function parseInit(txt) {
-  const lines = txt.split("\n").map(l => l.trim()).filter(Boolean);
-  if (!lines.length) return null;
-  const [round, turn] = lines[0].split("|").map(Number);
-  const list = lines.slice(1).map(l => {
-    const f = l.split("|");
-    return {
-      name: f[0], init: +f[1], hp: +f[2], max: +f[3], ac: +f[5], pc: f[6] === "1", monster: f[7] || "",
-      conds: (f[4] || "").split(",").filter(Boolean).map(c => { const i = c.lastIndexOf(":"); return { name: c.slice(0, i), rounds: +c.slice(i + 1) }; }),
-    };
-  });
-  return { round: round || 1, turn: turn || 0, list };
+// ------------------------------------------------------------------ device apps
+// Apps answer for themselves (/api/app, App::web on the device), so the page and
+// the device always show the same thing.
+let STATUS = null;
+async function status(fresh) { if (!STATUS || fresh) STATUS = await api("/api/status").then(r => r.json()); return STATUS; }
+const hasApp = n => !!(STATUS && (STATUS.apps || []).includes(n));
+async function app(name, op, args = {}, post = op !== "state" && op !== "list") {
+  const q = Object.entries(args).filter(([, v]) => v != null).map(([k, v]) => "&" + k + "=" + enc(v)).join("");
+  const r = await api(`/api/app?app=${enc(name)}&op=${op}${q}`, post ? { method: "POST" } : {});
+  return (r.headers.get("Content-Type") || "").includes("json") ? r.json() : r.text();
 }
+// Rolls are made on the device: they join its roll log and the Table page.
+async function rollOn(title, lines) {
+  const body = lines.map(l => (l.label || "") + "|" + l.expr).join("\n");
+  return api("/api/roll?title=" + enc(title), { method: "POST", body }).then(r => r.json());
+}
+const NAV = [["table", "Table"], ["dice", "Dice", "Dice"], ["chars", "Characters", "Characters"], ["enc", "Encounters", "Encounters"],
+  ["tables", "Tables", "Random Tables"], ["campaign", "Campaign"], ["notes", "Notes"], ["d23", "Dungeon23", "Dungeon23"], ["hex", "Hex Map", "Hex Map"],
+  ["dungeon", "5-Room", "5-Room Dungeon"], ["shop", "Shop", "Magic Shop"], ["travel", "Travel", "Travel"], ["ref", "Reference"], ["files", "Files"], ["device", "Device"]];
+function buildNav() { $("#nav").replaceChildren(...NAV.filter(n => !n[2] || hasApp(n[2])).map(([k, t]) => h("a", { href: "#" + k }, t))); markNav(); }
+function markNav() {
+  const name = (location.hash.slice(1) || "table").split("/")[0];
+  document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + (name === "edit" ? "files" : name)));
+}
+// A button that asks for a second tap before doing something drastic.
+function sureButton(label, fn, cls = "danger") {
+  let armed = null;
+  const b = h("button", { class: cls, onclick: async () => {
+    if (!armed) { b.textContent = "Sure? " + label; armed = setTimeout(() => { armed = null; b.textContent = label; }, 3000); return; }
+    clearTimeout(armed); armed = null; b.textContent = label; await fn();
+  } }, label);
+  return b;
+}
+function flash(el, msg, ok = true) { el.textContent = msg; el.className = "st " + (ok ? "ok" : "err"); }
 
+// ------------------------------------------------------------------ live table
 async function viewTable(main) {
   const pv = h("input", { type: "checkbox", checked: localStorage.getItem("pv") === "1" });
   const showRolls = h("input", { type: "checkbox", checked: localStorage.getItem("rolls") !== "0" });
   const tv = h("input", { type: "checkbox", checked: localStorage.getItem("tv") === "1" });
   const initBox = h("div", { class: "combat" }), rollBox = h("div", { class: "rolls" }), roundEl = h("span", { class: "muted" });
+  const msg = h("span", { class: "st" });
   const rollCol = h("div", {}, h("h3", { style: "margin-bottom:.5rem" }, "Rolls"), rollBox);
+  const turnBtns = h("span", { class: "row" },
+    h("button", { onclick: () => act("prev") }, "◀ Back"), h("button", { class: "primary", onclick: () => act("next") }, "Next turn ▶"));
+  const addBox = h("div", { class: "card dm", style: "margin-top:1rem" });
   main.replaceChildren(
     h("div", { class: "row", style: "margin-bottom:.8rem" },
-      h("h2", { style: "margin:0" }, "Initiative"), roundEl, h("span", { class: "grow" }),
-      h("label", { title: "Hide monster HP and AC" }, pv, " Player view"),
+      h("h2", { style: "margin:0" }, "Initiative"), roundEl, turnBtns, msg, h("span", { class: "grow" }),
+      h("label", { title: "Hide monster HP and AC, and the DM's controls" }, pv, " Player view"),
       h("label", {}, showRolls, " Rolls"), h("label", { title: "Bigger text for a TV or tablet" }, tv, " Big")),
-    h("div", { class: "live" }, h("div", {}, initBox), rollCol));
-  let lastInit = null, lastRoll = -1, seen = +(sessionStorage.getItem("seenRoll") || 0);
+    h("div", { class: "live" }, h("div", {}, initBox, addBox), rollCol));
+  let state = null, lastJson = "", lastRoll = -1, seen = +(sessionStorage.getItem("seenRoll") || 0), held = false;
+  const dm = () => !pv.checked;
+  async function act(op, args = {}) {
+    try { state = await app("Initiative", op, args); lastJson = JSON.stringify(state); renderInit(true); msg.textContent = ""; }
+    catch (e) { flash(msg, e.message, false); poll(); }
+  }
+  const who = i => ({ i, who: state.list[i].name });
   const apply = () => {
     localStorage.setItem("pv", pv.checked ? "1" : "0");
     localStorage.setItem("rolls", showRolls.checked ? "1" : "0");
     localStorage.setItem("tv", tv.checked ? "1" : "0");
     document.body.classList.toggle("tv", tv.checked);
     rollCol.style.display = showRolls.checked ? "" : "none";
-    lastInit = null;
-    refresh();
+    turnBtns.style.display = addBox.style.display = dm() ? "" : "none";
+    renderInit(true);
   };
   [pv, showRolls, tv].forEach(c => c.addEventListener("change", apply));
-
-  function renderInit(st) {
-    if (!st || !st.list.length) {
-      roundEl.textContent = "";
-      initBox.replaceChildren(h("div", { class: "card muted" }, "No combat yet. Add combatants in Initiative on the Cardputer and they appear here."));
-      return;
-    }
-    roundEl.textContent = "Round " + st.round;
-    initBox.replaceChildren(...st.list.map((c, i) => {
-      const hide = pv.checked && !c.pc, frac = c.max > 0 ? Math.max(0, Math.min(1, c.hp / c.max)) : 0;
-      const color = frac > .5 ? "var(--emerald)" : frac > .25 ? "var(--gold)" : "var(--blood)";
-      const status = c.hp <= 0 ? "Down" : c.hp <= c.max / 2 ? "Bloodied" : c.hp < c.max ? "Hurt" : "Healthy";
-      return h("div", { class: "cmb" + (i === st.turn ? " turn" : "") + (c.hp <= 0 && c.max > 0 ? " down" : "") },
-        h("div", { class: "ini" }, c.init),
-        h("div", { class: "nm" }, (i === st.turn ? "▶ " : "") + c.name, c.pc ? h("span", { class: "tag green" }, "PC") : null),
-        h("div", { class: "ac" }, !hide && c.ac ? "AC " + c.ac : ""),
-        c.max > 0 ? h("div", { class: "hp" },
-          hide ? h("span", { class: "muted" }, status)
-               : [h("div", { class: "bar" }, h("div", { style: `width:${frac * 100}%;background:${color}` })), h("span", {}, `${c.hp} / ${c.max}`)]) : null,
-        c.conds.length ? h("div", { class: "conds" }, c.conds.map(k => h("span", { class: "cond" }, k.name + (k.rounds > 0 ? " " + k.rounds : "")))) : null);
-    }));
+  function card(c, i) {
+    const hide = pv.checked && !c.pc, frac = c.max > 0 ? Math.max(0, Math.min(1, c.hp / c.max)) : 0;
+    const color = frac > .5 ? "var(--emerald)" : frac > .25 ? "var(--gold)" : "var(--blood)";
+    const status = c.hp <= 0 ? "Down" : c.hp <= c.max / 2 ? "Bloodied" : c.hp < c.max ? "Hurt" : "Healthy";
+    const el = h("div", { class: "cmb" + (i === state.turn ? " turn" : "") + (c.hp <= 0 && c.max > 0 ? " down" : "") },
+      h("div", { class: "ini" }, c.init),
+      h("div", { class: "nm" }, (i === state.turn ? "▶ " : "") + c.name, c.pc ? h("span", { class: "tag green" }, "PC") : null,
+        dm() && c.monster ? h("a", { class: "small", style: "margin-left:.5rem", href: "#ref/monsters?" + enc(c.monster), onclick: ev => { ev.preventDefault(); openMonster(c.monster); } }, "stats") : null),
+      h("div", { class: "ac" }, !hide && c.ac ? "AC " + c.ac : ""),
+      c.max > 0 ? h("div", { class: "hp" },
+        hide ? h("span", { class: "muted" }, status)
+             : [h("div", { class: "bar" }, h("div", { style: `width:${frac * 100}%;background:${color}` })), h("span", {}, `${c.hp} / ${c.max}`)]) : null,
+      c.conds.length ? h("div", { class: "conds" }, c.conds.map(k => h("span", {
+        class: "cond" + (dm() ? " x" : ""), title: dm() ? "Remove" : "",
+        onclick: dm() ? () => act("uncond", { ...who(i), name: k.name }) : null }, k.name + (k.rounds > 0 ? " " + k.rounds : "")))) : null);
+    if (!dm()) return el;
+    const amt = h("input", { type: "number", min: 0, placeholder: "HP", class: "amt", onkeydown: ev => { if (ev.key === "Enter") hurt(-1); } });
+    const hurt = sign => { const n = parseInt(amt.value); if (n > 0) act("hp", { ...who(i), d: sign * n }); };
+    const cond = h("select", { onchange: () => {
+      if (!cond.value) return;
+      const r = prompt(`${cond.value} for how many rounds? (blank = until removed)`, "");
+      if (r !== null) act("cond", { ...who(i), name: cond.value, rounds: parseInt(r) || 0 });
+      cond.value = "";
+    } }, h("option", { value: "" }, "+ condition"), state.conditions.map(n => h("option", { value: n }, n)));
+    const more = h("select", { onchange: () => {
+      const v = more.value; more.value = "";
+      if (v === "init") { const x = prompt("Initiative (a number, or +3 to roll d20+3)", c.init); if (x) act("init", { ...who(i), value: x }); }
+      if (v === "rename") { const x = prompt("Name", c.name); if (x) act("rename", { ...who(i), name: x }); }
+      if (v === "max") { const x = prompt("Max HP (0 = don't track)", c.max); if (x !== null) act("maxhp", { ...who(i), max: parseInt(x) || 0 }); }
+      if (v === "dup") act("dup", who(i));
+      if (v === "remove") act("remove", who(i));
+    } }, h("option", { value: "" }, "More…"), h("option", { value: "init" }, "Set initiative"), h("option", { value: "rename" }, "Rename"),
+      h("option", { value: "max" }, "Max HP"), h("option", { value: "dup" }, "Duplicate"), h("option", { value: "remove" }, "Remove"));
+    el.append(h("div", { class: "ctl" },
+      c.max > 0 ? [amt, h("button", { class: "danger", onclick: () => hurt(-1) }, "Damage"), h("button", { onclick: () => hurt(1) }, "Heal")] : null,
+      cond, more));
+    return el;
   }
+  function renderInit(force) {
+    if (!state) return;
+    if (!force && initBox.contains(document.activeElement) && document.activeElement.tagName !== "BUTTON") { held = true; return; }
+    held = false;
+    if (!state.list.length) {
+      roundEl.textContent = "";
+      initBox.replaceChildren(h("div", { class: "card muted" }, dm() ? "No combat yet. Add combatants below, send an encounter, or add them on the device."
+        : "No combat yet."));
+    } else {
+      roundEl.textContent = "Round " + state.round;
+      initBox.replaceChildren(...state.list.map(card));
+    }
+  }
+  // adding combatants
+  const nm = h("input", { type: "text", placeholder: "Name" }), ini = h("input", { type: "text", placeholder: "Init (12 or +3)", style: "width:8rem" });
+  const hp = h("input", { type: "text", placeholder: "HP", style: "width:5rem" }), ac = h("input", { type: "number", placeholder: "AC", style: "width:4.5rem" });
+  const pc = h("input", { type: "checkbox" });
+  const mons = h("input", { type: "text", placeholder: "e.g. 3x Goblin Warrior, Bugbear Stalker" });
+  addBox.replaceChildren(h("h3", {}, "Add to the fight"),
+    h("form", { class: "row", style: "margin:.5rem 0", onsubmit: ev => {
+      ev.preventDefault();
+      act("add", { name: nm.value, init: ini.value, hp: hp.value, ac: ac.value || 0, pc: pc.checked ? 1 : 0 });
+      nm.value = ini.value = hp.value = ac.value = ""; nm.focus();
+    } }, h("span", { class: "grow", style: "min-width:10rem" }, nm), ini, hp, ac, h("label", {}, pc, " PC"), h("button", { class: "primary" }, "Add")),
+    h("form", { class: "row", style: "margin:.5rem 0", onsubmit: ev => { ev.preventDefault(); if (mons.value.trim()) act("monsters", { text: mons.value }).then(() => { mons.value = ""; }); } },
+      h("span", { class: "grow", style: "min-width:14rem" }, mons), h("button", {}, "Add monsters")),
+    h("div", { class: "row" }, h("button", { onclick: () => act("party") }, "Add the party"), h("span", { class: "grow" }),
+      sureButton("Back to round 1", () => act("restart"), ""), sureButton("Remove monsters", () => act("nomonsters")), sureButton("Clear", () => act("clear"))));
   function renderRolls(rolls) {
-    if (!rolls.length) { rollBox.replaceChildren(h("div", { class: "muted small" }, "Rolls made on the Cardputer show up here.")); return; }
+    if (!rolls.length) { rollBox.replaceChildren(h("div", { class: "muted small" }, "Rolls made on the device or on the Dice page show up here.")); return; }
     rollBox.replaceChildren(...rolls.slice().reverse().map(r => h("div", {
       class: "roll" + (r.nat === 20 ? " crit" : r.nat === 1 ? " fumble" : "") + (r.id > seen ? " fresh" : "") },
       h("div", {}, h("b", {}, r.title), r.label ? " · " + r.label : "", r.crit ? h("span", { class: "tag gold", style: "margin-left:.4rem" }, "crit") : null),
@@ -337,16 +541,890 @@ async function viewTable(main) {
     seen = Math.max(seen, ...rolls.map(r => r.id));
     sessionStorage.setItem("seenRoll", seen);
   }
-  async function refresh() {
+  async function poll() {
     try {
-      const d = await api("/api/live").then(r => r.json());
-      if (d.init !== lastInit) { lastInit = d.init; renderInit(parseInit(d.init)); }
-      const top = d.rolls.length ? d.rolls[d.rolls.length - 1].id : 0;
-      if (top !== lastRoll) { lastRoll = top; renderRolls(d.rolls); }
+      const [st, live] = await Promise.all([app("Initiative", "state"), api("/api/live").then(r => r.json())]);
+      const j = JSON.stringify(st);
+      if (j !== lastJson || held) { lastJson = j; state = st; renderInit(false); }
+      const top = live.rolls.length ? live.rolls[live.rolls.length - 1].id : 0;
+      if (top !== lastRoll) { lastRoll = top; renderRolls(live.rolls); }
     } catch (e) { /* shown in the header */ }
   }
+  await poll();
   apply();
-  pollTimer = setInterval(refresh, 1500);
+  every(1500, poll, main);
+}
+// A monster's stat block from the SRD, in a popup over the page.
+const openMonster = name => popByName("monsters", name);
+
+// ------------------------------------------------------------------ dice
+async function viewDice(main) {
+  const SIDES = [4, 6, 8, 10, 12, 20, 100];
+  const pool = {}; let mod = 0, mode = "";
+  const who = h("input", { type: "text", value: localStorage.getItem("rname") || "", placeholder: "Your name (shown with the roll)", style: "max-width:16rem",
+    onchange: () => localStorage.setItem("rname", who.value.trim()) });
+  const exprIn = h("input", { type: "text", placeholder: "or type a roll: 2d6+3, 4d6kh3, d20+5 vs 15", style: "font-size:1.15rem" });
+  const totalEl = h("div", { class: "dtotal" }, "–"), detailEl = h("div", { class: "muted" }, "Pick dice, then Roll.");
+  const hist = h("div", { class: "rolls" }), macroBox = h("div", { class: "list" }), msg = h("span", { class: "st" });
+  const modEl = h("span", { class: "dmod" });
+  const exprOf = () => {
+    const parts = SIDES.filter(s => pool[s]).map(s => {
+      if (s === 20 && pool[s] === 1 && mode) return mode === "adv" ? "2d20kh1" : "2d20kl1";
+      return pool[s] + "d" + s;
+    });
+    let e = parts.join("+");
+    if (mod) e += (mod > 0 ? "+" : "") + mod;
+    return e;
+  };
+  const dieBtns = SIDES.map(s => h("button", { class: "die", onclick: () => { pool[s] = (pool[s] || 0) + 1; sync(); },
+    oncontextmenu: ev => { ev.preventDefault(); if (pool[s]) pool[s]--; sync(); } }, h("b", {}, "d" + s), h("span", { class: "cnt" })));
+  const advB = h("button", { onclick: () => { mode = mode === "adv" ? "" : "adv"; sync(); } }, "Advantage");
+  const disB = h("button", { onclick: () => { mode = mode === "dis" ? "" : "dis"; sync(); } }, "Disadvantage");
+  function sync() {
+    SIDES.forEach((s, i) => { dieBtns[i].querySelector(".cnt").textContent = pool[s] ? "×" + pool[s] : ""; dieBtns[i].classList.toggle("on", !!pool[s]); });
+    modEl.textContent = (mod >= 0 ? "+" : "") + mod;
+    advB.classList.toggle("on", mode === "adv"); disB.classList.toggle("on", mode === "dis");
+    exprIn.value = exprOf();
+  }
+  async function doRoll(expr, label = "") {
+    expr = (expr || "").trim();
+    if (!expr) return;
+    try {
+      const [r] = await rollOn(who.value.trim() || "Web", [{ label, expr }]);
+      if (!r.ok) { flash(msg, r.error || "That roll doesn't work", false); return; }
+      msg.textContent = "";
+      totalEl.textContent = r.total;
+      totalEl.className = "dtotal spin" + (r.nat === 20 ? " crit" : r.nat === 1 ? " fumble" : "");
+      void totalEl.offsetWidth;
+      detailEl.textContent = (label ? label + ": " : "") + r.expr + "  " + r.detail + (r.degree ? "  " + r.degree : "");
+      hist.prepend(h("div", { class: "roll" + (r.nat === 20 ? " crit" : r.nat === 1 ? " fumble" : "") },
+        h("div", {}, h("b", {}, label || r.expr), label ? h("span", { class: "muted" }, " · " + r.expr) : null), h("div", { class: "tot" }, r.total),
+        h("div", { class: "muted small" }, r.detail + (r.degree ? "  " + r.degree : ""))));
+      while (hist.children.length > 12) hist.lastChild.remove();
+    } catch (e) { flash(msg, e.message, false); }
+  }
+  async function loadMacros(list) {
+    list = list || await app("Dice", "macros");
+    macroBox.replaceChildren(...list.map((m, i) => h("div", { class: "row macro" },
+      h("button", { class: "grow", style: "text-align:left", onclick: () => doRoll(m.expr, m.name) }, h("b", {}, m.name), h("span", { class: "muted" }, "  " + m.expr)),
+      h("button", { class: "icon", title: "Delete", onclick: async () => loadMacros(await app("Dice", "delete", { i, name: m.name })) }, "✕"))));
+  }
+  const mname = h("input", { type: "text", placeholder: "Name for this roll" });
+  main.replaceChildren(h("div", { class: "live" },
+    h("div", {},
+      h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Dice"), h("span", { class: "grow" }), who),
+      h("div", { class: "card" },
+        h("div", { class: "dice" }, dieBtns),
+        h("div", { class: "row", style: "margin:.8rem 0" },
+          h("span", { class: "muted" }, "Modifier"), h("button", { onclick: () => { mod--; sync(); } }, "−"), modEl, h("button", { onclick: () => { mod++; sync(); } }, "+"),
+          h("span", { class: "grow" }), advB, disB),
+        h("form", { class: "row", onsubmit: ev => { ev.preventDefault(); doRoll(exprIn.value); } }, h("span", { class: "grow" }, exprIn),
+          h("button", { class: "primary big" }, "Roll"),
+          h("button", { type: "button", onclick: () => { for (const s of SIDES) pool[s] = 0; mod = 0; mode = ""; sync(); } }, "Clear")),
+        h("div", { class: "muted small", style: "margin-top:.4rem" }, "Tap a die to add it, right-click (or long-press) to take one away."),
+        h("div", { class: "dres" }, totalEl, detailEl, msg)),
+      h("h3", { style: "margin:1rem 0 .5rem" }, "Saved rolls"), macroBox,
+      h("form", { class: "row", style: "margin-top:.5rem", onsubmit: async ev => {
+        ev.preventDefault();
+        try { loadMacros(await app("Dice", "add", { name: mname.value, expr: exprIn.value })); mname.value = ""; }
+        catch (e) { flash(msg, e.message, false); }
+      } }, h("span", { class: "grow" }, mname), h("button", {}, "Save the roll above"))),
+    h("div", {}, h("h3", { style: "margin-bottom:.5rem" }, "Your rolls"), hist)));
+  sync();
+  await loadMacros();
+}
+
+// ------------------------------------------------------------------ characters
+const fmt = n => (n >= 0 ? "+" : "") + n;
+// Results of rolls made from a page, in a corner of the screen.
+function showRolls(title, results, note) {
+  let box = $("#rollpop");
+  if (!box) { box = h("div", { id: "rollpop" }); document.body.append(box); }
+  const card = h("div", { class: "roll fresh" + (results.some(r => r.nat === 20) ? " crit" : results.some(r => r.nat === 1) ? " fumble" : "") },
+    h("div", { class: "rp-title" }, h("b", {}, title), h("button", { class: "icon", onclick: () => card.remove() }, "✕")),
+    results.map(r => h("div", { class: "rp-line" }, h("span", { class: "muted" }, (r.label || r.expr) + (r.crit ? " (crit)" : "")),
+      h("span", { class: "rp-tot" }, r.ok ? r.total : "?"), h("span", { class: "muted small" }, r.ok ? r.detail : r.error))),
+    note ? h("div", { class: "small", style: "color:var(--ice)" }, note) : null);
+  box.prepend(card);
+  while (box.children.length > 3) box.lastChild.remove();
+  setTimeout(() => card.remove(), 20000);
+}
+async function viewChars(main, [file]) {
+  if (!file) {
+    const list = await app("Characters", "list");
+    const link = h("input", { type: "url", placeholder: "https://www.dndbeyond.com/characters/…", style: "flex:1;min-width:16rem" });
+    const imsg = h("span", { class: "st" });
+    const importBtn = h("button", { class: "primary", onclick: async () => {
+      if (!link.value.trim()) return;
+      importBtn.disabled = true;
+      flash(imsg, "Downloading from D&D Beyond…", true);
+      try { const r = await app("Characters", "import", { link: link.value.trim() }); flash(imsg, r.msg, true); go("chars", r.file); }
+      catch (e) { flash(imsg, e.message, false); }
+      finally { importBtn.disabled = false; }
+    } }, "Import");
+    main.replaceChildren(h("h2", {}, "Characters"),
+      list.length ? h("div", { class: "list" }, list.map(c => h("a", { class: "card", href: "#chars/" + enc(c.file) }, h("b", {}, c.name),
+        h("div", { class: "muted small" }, c.line + (c.ddb ? " · D&D Beyond" : "")))))
+        : h("div", { class: "card muted" }, "No characters yet. Make one on the device (Characters > New character) or import one below."),
+      h("div", { class: "card", style: "margin-top:1rem" }, h("h3", {}, "Import from D&D Beyond"),
+        h("p", { class: "muted small" }, "On D&D Beyond, set the character's privacy to Public, then Share > Copy link and paste it here. Importing the same character again updates it (your notes here are kept). The device needs web access on your home WiFi."),
+        h("div", { class: "row" }, link, importBtn), imsg),
+      h("p", { class: "muted small" }, "Characters are made and levelled up on the device; play them from here."));
+    return;
+  }
+  let S = null, adv = localStorage.getItem("adv") || "";
+  const msg = h("span", { class: "st" });
+  const body = h("div", {});
+  async function act(what, args = {}, bodyText) {
+    try {
+      const q = Object.entries({ file, what, ...args }).map(([k, v]) => "&" + k + "=" + enc(v)).join("");
+      const r = await api(`/api/app?app=Characters&op=act${q}`, { method: "POST", body: bodyText }).then(r => r.json());
+      S = r.sheet;
+      if (r.rolls && r.rolls.length) await rollLines(r.msg || what, r.rolls, r.msg);
+      else if (r.msg) flash(msg, r.msg);
+      render();
+    } catch (e) { flash(msg, e.message, false); }
+  }
+  const d20 = e => adv && /^d20/.test(e) ? e.replace(/^d20/, adv === "adv" ? "2d20kh1" : "2d20kl1") : e;
+  async function rollLines(title, lines, note) {
+    try { showRolls(title, await rollOn(S.name, lines.map((l, i) => ({ label: l.label, expr: i === 0 ? d20(l.expr) : l.expr }))), note); }
+    catch (e) { flash(msg, e.message, false); }
+  }
+  const check = (label, mod) => rollLines(label, [{ label, expr: "d20" + fmt(mod) }]);
+  const stat = (label, value, fn, cls = "") => h(fn ? "button" : "div", { class: "stat " + cls, onclick: fn }, h("div", { class: "muted small" }, label), h("div", { class: "sv" }, value));
+  const sect = (title, ...kids) => h("section", { class: "card sheet-sec" }, h("h3", {}, title), ...kids);
+  function render() {
+    const c = S;
+    const hpIn = h("input", { type: "text", placeholder: "7, +5, t4 or 2d6", style: "width:9rem" });
+    const hpGo = v => { if (v) act("hp", { v }); };
+    const advSel = h("select", { style: "width:auto", onchange: () => { adv = advSel.value; localStorage.setItem("adv", adv); } },
+      [["", "Normal d20"], ["adv", "Advantage"], ["dis", "Disadvantage"]].map(([v, t]) => h("option", { value: v, selected: v === adv }, t)));
+    const frac = c.hpMax ? Math.max(0, Math.min(1, c.hp / c.hpMax)) : 0;
+    const hpCol = frac > .5 ? "var(--emerald)" : frac > .25 ? "var(--gold)" : "var(--blood)";
+    const notes = h("textarea", { class: "note", style: "min-height:10rem", value: c.notes });
+    const notesSt = h("span", { class: "st" });
+    const sv = makeSaver(() => act("notes", {}, notes.value), notesSt);
+    notes.addEventListener("input", () => sv.touch());
+    const slotPick = {};
+    body.replaceChildren(
+      h("div", { class: "row", style: "margin-bottom:.6rem" },
+        h("div", {}, h("h2", { style: "margin:0" }, c.name), h("div", { class: "muted" }, c.line + " · " + c.species + (c.speciesOpt ? " (" + c.speciesOpt + ")" : "") + " · " + c.background)),
+        h("span", { class: "grow" }), msg, advSel),
+      h("div", { class: "stats" },
+        stat("Armor Class", c.ac, null, "ice"), stat("Initiative", fmt(c.init), () => check("Initiative", c.init), "gold"),
+        stat("Speed", c.speed + " ft"), stat("Proficiency", fmt(c.prof)), stat("Passive Perception", c.passive),
+        stat("Inspiration", c.insp ? "Yes" : "No", () => act("insp"), c.insp ? "gold" : "")),
+      h("div", { class: "card hpcard" },
+        h("div", { class: "row" }, h("b", {}, "Hit points"), h("span", { class: "hpnum", style: "color:" + hpCol }, `${c.hp} / ${c.hpMax}`),
+          c.hpTemp ? h("span", { class: "tag", style: "color:var(--ice)" }, "+" + c.hpTemp + " temp") : null, h("span", { class: "grow" }),
+          h("form", { class: "row", onsubmit: ev => { ev.preventDefault(); hpGo(hpIn.value.trim()); hpIn.value = ""; } }, hpIn,
+            h("button", { type: "button", class: "danger", onclick: () => { const v = hpIn.value.trim(); if (v) hpGo(v.replace(/^[-+t]/i, "")); hpIn.value = ""; } }, "Damage"),
+            h("button", { type: "button", onclick: () => { const v = hpIn.value.trim(); if (v) hpGo("+" + v.replace(/^[-+t]/i, "")); hpIn.value = ""; } }, "Heal"),
+            h("button", { type: "button", onclick: () => { const v = hpIn.value.trim(); if (v) hpGo("t" + v.replace(/^[-+t]/i, "")); hpIn.value = ""; } }, "Temp"))),
+        h("div", { class: "bar", style: "max-width:none;margin:.5rem 0" }, h("div", { style: `width:${frac * 100}%;background:${hpCol}` })),
+        h("div", { class: "row" },
+          h("button", { onclick: () => act("hd"), disabled: c.hdLeft <= 0 }, `Spend a hit die (${c.hdLeft}/${c.level} d${c.hitDie})`),
+          c.hp === 0 || c.deathOk || c.deathFail ? h("button", { class: "danger", onclick: () => act("death") }, `Death save (${c.deathOk} ok / ${c.deathFail} fail)`) : null,
+          h("span", { class: "grow" }), h("button", { onclick: () => act("short") }, "Short rest"), sureButton("Long rest", () => act("long"), ""))),
+      h("div", { class: "sheet" },
+        sect("Abilities", h("div", { class: "abils" }, c.abil.map(a => h("div", { class: "abil" },
+          h("div", { class: "muted small" }, a.name.toUpperCase()), h("div", { class: "am" }, fmt(a.mod)), h("div", { class: "muted small" }, a.score),
+          h("div", { class: "row", style: "justify-content:center;gap:.25rem" },
+            h("button", { onclick: () => check(a.name + " check", a.mod) }, "Check"),
+            h("button", { class: a.saveProf ? "on" : "", onclick: () => check(a.name + " save", a.save) }, "Save " + fmt(a.save))))))),
+        sect("Skills", h("div", { class: "skills" }, c.skills.map(k => h("button", { class: "skill" + (k.lv ? " prof" : ""), onclick: () => check(k.name, k.mod) },
+          h("span", {}, (k.lv === 2 ? "★★ " : k.lv ? "★ " : "") + k.name, h("span", { class: "muted small" }, " " + k.ab)), h("b", {}, fmt(k.mod)))))),
+        sect("Attacks", c.attacks.length ? h("div", { class: "list" }, c.attacks.map(a => h("button", { class: "atk" + (a.equipped ? "" : " dim"),
+          onclick: () => rollLines(a.name, [{ label: "Attack", expr: a.hit }, { label: "Damage " + a.dtype, expr: a.damage }].concat(a.alt ? [{ label: "Two-handed", expr: a.alt }] : [])) },
+          h("b", {}, a.name), h("span", {}, (a.hit.startsWith("d20") ? a.hit.slice(3) : a.note) + "  " + a.damage + " " + a.dtype)))) : h("div", { class: "muted" }, "No attacks.")),
+        sect("Resources",
+          c.res.map((r, i) => h("div", { class: "res-row" },
+            h("div", { class: "row" },
+              h("span", { class: "grow" }, r.name, h("span", { class: "muted small" }, " " + (r.from && r.from !== r.name ? r.from + " · " : "") +
+                (r.rest === "S" ? "all back on a Short Rest" : r.rest === "1" ? "one back on a Short Rest" : "back on a Long Rest"))),
+              h("button", { onclick: () => act("res", { i, d: -1 }) }, "Use"),
+              h("b", { class: "pips" }, r.cur + " / " + r.max), h("button", { onclick: () => act("res", { i, d: 1 }) }, "+1"),
+              r.custom ? sureButton("Remove", () => act("delres", { i, name: r.name }), "danger") : null),
+            r.uses.length ? h("div", { class: "row uses" }, r.uses.map((u, k) => {
+              const run = level => act("use", { i, name: r.name, u: k, level: level || 0 });
+              if (u.levels.length) {
+                const sel = h("select", { style: "width:auto", onchange: () => { const v = sel.value; sel.value = ""; if (v) run(v); } },
+                  h("option", { value: "" }, u.name + "…"), u.levels.map(l => h("option", { value: l }, "Level " + l + " slot")));
+                return sel;
+              }
+              return h("button", { class: "small" + (r.cur < u.cost ? " dim" : ""), title: u.note || "", onclick: () => run() },
+                u.name + (u.cost ? ` (${u.cost})` : ""));
+            })) : null)),
+          c.values.map(v => h("div", { class: "row res-row" }, h("span", { class: "grow muted" }, v.name), h("b", {}, v.value))),
+          h("div", { class: "row", style: "margin-top:.4rem" }, h("button", { class: "small", onclick: () => {
+            const name = prompt("Counter name (a feat or feature with limited uses)"); if (!name || !name.trim()) return;
+            const max = prompt("How many uses?", "1"); if (!max) return;
+            const rest = confirm("Do the uses come back on a Short Rest? (Cancel = Long Rest)") ? "short" : "long";
+            act("addres", { name: name.trim(), max, rest });
+          } }, "Add a counter"))),
+        c.caster || c.spells.length ? sect("Spells",
+          c.caster ? h("div", { class: "muted", style: "margin-bottom:.4rem" }, `Save DC ${c.spellDC} · Spell attack ${fmt(c.spellAtk)}`) : null,
+          c.slots.length ? h("div", { class: "slots" }, c.slots.map(s => h("div", { class: "slot" }, h("span", { class: "muted small" }, "Level " + s.level),
+            h("span", { class: "pip-row" }, Array.from({ length: Math.max(s.max, s.left) }, (_, k) => h("span", { class: "pip" + (k < s.left ? " full" : "") + (k >= s.max ? " extra" : "") }))),
+            h("span", { class: "row", style: "gap:.2rem" }, h("button", { class: "icon", title: "Use a slot", onclick: () => act("slot", { level: s.level, d: -1 }) }, "−"),
+              h("button", { class: "icon", title: "Get a slot back", onclick: () => act("slot", { level: s.level, d: 1 }) }, "+"))))) : null,
+          h("div", { class: "list", style: "margin-top:.5rem" }, c.spells.map((sp, i) => {
+            // the free cast (if any), then every slot level it can use: a higher one upcasts it
+            const opts = sp.level ? (sp.free ? [{ value: 0, text: `free cast (${sp.free} left)` }] : [])
+              .concat(c.slots.filter(s => s.level >= sp.level && s.left > 0).map(s => ({ value: s.level, text: `level ${s.level} slot (${s.left} left)` + (s.level > sp.level ? " ↑" : "") }))) : [];
+            const up = h("div", { class: "muted small", style: "display:none;flex-basis:100%" }, "Upcast: " + sp.higher);
+            const sel = opts.length > 1 ? h("select", { style: "width:auto", onchange: () => { up.style.display = sp.higher && +sel.value > sp.level ? "" : "none"; } },
+              opts.map(o => h("option", { value: o.value }, o.text))) : null;
+            slotPick[i] = sel;
+            return h("div", { class: "row spell" + (sp.found ? "" : " dim") },
+              h("span", { class: "tag" + (sp.level ? "" : " green") }, sp.level ? "L" + sp.level : "C"), h("span", { class: "grow" }, sp.name + (sp.from ? " (" + sp.from + (sp.freeMax ? `, free ${sp.free}/${sp.freeMax}` : "") + ")" : ""),
+                h("span", { class: "muted small" }, " " + (sp.damage ? sp.damage + " " + sp.dtype : sp.heal ? "heals " + sp.heal : sp.save ? sp.save + " save" : ""))),
+              sel, h("button", { disabled: sp.level > 0 && !opts.length, onclick: () => act("cast", { i, name: sp.name, slot: sel ? sel.value : opts.length ? opts[0].value : sp.level }) }, "Cast"), up);
+          }))) : null,
+        sect("Inventory",
+          h("div", { class: "row coins" }, ["cp", "sp", "ep", "gp", "pp"].map((u, i) => h("button", { title: "Change", onclick: () => {
+            const v = prompt(`${u.toUpperCase()}: a new amount, or +10 / -3`, c.coins[i]); if (v !== null && v.trim()) act("coins", { v: v.trim() + u }); } },
+            h("b", {}, c.coins[i]), " " + u))),
+          h("div", { class: "list", style: "margin-top:.5rem" }, c.items.map((it, i) => {
+            const a = h("select", { style: "width:auto", onchange: () => { const v = a.value; a.value = ""; if (v) act("item", { i, name: it.name, a: v }); } },
+              h("option", { value: "" }, "…"),
+              it.kind === "weapon" || it.kind === "armor" || it.kind === "shield" ? h("option", { value: it.equipped ? "unequip" : "equip" }, it.equipped ? "Unequip" : "Equip") : null,
+              it.attune ? h("option", { value: it.attuned ? "unattune" : "attune" }, it.attuned ? "End attunement" : "Attune") : null,
+              it.chargesMax ? [h("option", { value: "charge" }, "Use a charge"), h("option", { value: "recharge" }, "Recharge")] : null,
+              h("option", { value: "more" }, "Quantity +1"), h("option", { value: "less" }, "Quantity −1"), h("option", { value: "remove" }, "Remove"));
+            return h("div", { class: "row item-row" },
+              h("span", { class: "grow" }, it.equipped ? h("span", { class: "tag gold" }, "E") : null, it.attuned ? h("span", { class: "tag", style: "color:var(--arcane)" }, "A") : null,
+                " " + it.name, it.qty !== 1 ? h("span", { class: "muted" }, " ×" + it.qty) : null, it.chargesMax ? h("span", { class: "muted small" }, ` ${it.charges}/${it.chargesMax} charges`) : null),
+              it.rolls ? h("button", { onclick: () => act("item", { i, name: it.name, a: "roll" }) }, "Roll") : null,
+              it.heal ? h("button", { onclick: () => act("item", { i, name: it.name, a: "drink" }) }, "Drink") : null, a);
+          }))),
+        sect("Features",
+          h("div", { class: "list" }, c.features.map(f => h("a", { class: "res", href: "#", onclick: ev => { ev.preventDefault(); popEntry("features", f.off); } },
+            f.name, h("span", { class: "meta" }, "Level " + f.level))),
+            c.feats.map(n => h("a", { class: "res", href: "#", onclick: ev => { ev.preventDefault(); popByName("feats", n); } }, n, h("span", { class: "meta" }, "Feat"))),
+            h("a", { class: "res", href: "#", onclick: ev => { ev.preventDefault(); popByName("species", c.species); } }, c.species + " traits", h("span", { class: "meta" }, "Species"))),
+          c.darkvision ? h("div", { class: "muted small", style: "margin-top:.4rem" }, `Darkvision ${c.darkvision} ft`) : null,
+          c.tools.length ? h("div", { class: "muted small" }, "Tools: " + c.tools.join(", ")) : null),
+        sect("Notes", notes, notesSt)));
+    autosize(notes);
+  }
+  const upd = h("span", {});
+  main.replaceChildren(h("div", { class: "toolbar row" }, h("a", { href: "#chars" }, "← Characters"), h("span", { class: "grow" }), upd), body);
+  S = (await app("Characters", "sheet", { file }, false)).sheet;
+  render();
+  if (/^https:\/\/(www\.)?dndbeyond\.com\//.test(S.ddb || ""))
+    upd.replaceChildren(h("a", { href: S.ddb, target: "_blank", rel: "noopener", style: "margin-right:.6rem" }, "D&D Beyond ↗"),
+      sureButton("Update from D&D Beyond", async () => {
+        flash(msg, "Downloading from D&D Beyond…", true);
+        try { const r = await app("Characters", "import", { link: S.ddb }); S = (await app("Characters", "sheet", { file }, false)).sheet; render(); flash(msg, r.msg, true); }
+        catch (e) { flash(msg, e.message, false); }
+      }, ""));
+  // follow changes made on the device
+  every(3000, async () => {
+    if (body.contains(document.activeElement) && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+    if (saver && saver.pending) return;
+    try {
+      const n = (await app("Characters", "sheet", { file }, false)).sheet;
+      if (JSON.stringify(n) !== JSON.stringify(S)) { S = n; render(); }
+    } catch (e) { /* header shows it */ }
+  }, main);
+}
+async function popEntry(src, off) {
+  const box = h("div", { class: "entry card" }, "Loading…");
+  const shade = h("div", { class: "shade", onclick: ev => { if (ev.target === shade) shade.remove(); } },
+    h("div", { class: "pop" }, h("button", { class: "icon close", onclick: () => shade.remove() }, "✕"), box));
+  document.body.append(shade);
+  await showEntry(box, src, off);
+}
+async function popByName(src, name) {
+  const idx = await refIndex(src);
+  const r = idx.find(x => x.name.toLowerCase() === name.toLowerCase()) || idx.find(x => x.name.toLowerCase().startsWith(name.toLowerCase()));
+  if (r) popEntry(src, r.off);
+}
+
+// ------------------------------------------------------------------ encounters
+async function sendToFight(text, msgEl) {
+  try { await app("Initiative", "monsters", { text }); flash(msgEl, "Sent to the Table - the fight is on"); }
+  catch (e) { flash(msgEl, e.message, false); }
+}
+async function viewEnc(main) {
+  let S = await app("Encounters", "state");
+  const msg = h("span", { class: "st" }), box = h("div", {});
+  const sel = (key, opts) => h("select", { onchange: ev => set({ [key]: ev.target.value }) }, opts.map((o, i) => h("option", { value: i, selected: S[key] === i }, o)));
+  const num = (key, lo, hi) => h("input", { type: "number", min: lo, max: hi, value: S[key], style: "width:5rem", onchange: ev => set({ [key]: ev.target.value }) });
+  async function set(args) { try { S = await app("Encounters", "set", args); render(); } catch (e) { flash(msg, e.message, false); } }
+  async function gen() { try { S = await app("Encounters", "generate"); msg.textContent = ""; render(); } catch (e) { flash(msg, e.message, false); } }
+  function render() {
+    const r = S.result, xp = r.xp, b = S.budgets;
+    const scale = b[2] * 1.4, col = xp > b[2] ? "var(--blood)" : xp > b[1] ? "var(--gold)" : xp > b[0] ? "var(--ice)" : "var(--emerald)";
+    box.replaceChildren(
+      h("div", { class: "card", style: "margin-bottom:1rem" },
+        h("div", { class: "row" }, h("label", {}, "Heroes ", num("party", 1, 10)), h("label", {}, "Level ", num("level", 1, 20)),
+          h("label", {}, "Where ", sel("habitat", S.habitats)), h("label", {}, "Kind ", sel("type", S.types))),
+        h("div", { class: "row", style: "margin-top:.5rem" }, h("label", {}, "Difficulty ", sel("diff", S.diffs)), h("label", {}, "Group ", sel("group", S.groups)),
+          h("span", { class: "grow" }), h("span", { class: "muted small" }, `Budgets: Low ${b[0]} · Moderate ${b[1]} · High ${b[2]} XP`),
+          h("button", { class: "primary big", onclick: gen }, r.monsters.length ? "Generate another" : "Generate"))),
+      r.monsters.length ? h("div", { class: "card" },
+        h("div", { class: "row" }, h("h3", { style: "margin:0" }, r.text), h("span", { class: "grow" }), h("b", { style: "color:" + col }, xp + " XP")),
+        h("div", { class: "xpbar" }, h("div", { style: `width:${Math.min(100, xp / scale * 100)}%;background:${col}` }),
+          b.map(v => h("span", { class: "tick", style: `left:${v / scale * 100}%` }))),
+        h("div", { class: "muted small", style: "margin:.3rem 0 .8rem" }, (r.group ? r.group + " · " : "") + (r.note || r.activity)),
+        h("table", { class: "files" }, h("tr", { class: "muted small" }, h("td", {}, "Monster"), h("td", {}, "CR"), h("td", {}, "XP each"), h("td", {}, "HP"), h("td", {}, "AC")),
+          r.monsters.map(m => h("tr", {}, h("td", {}, h("a", { href: "#", onclick: ev => { ev.preventDefault(); popByName("monsters", m.name); } }, m.count + "× " + m.name)),
+            h("td", {}, m.cr), h("td", {}, m.xp), h("td", {}, m.hp), h("td", {}, m.ac)))),
+        h("div", { class: "row", style: "margin-top:.8rem" },
+          h("button", { class: "primary", onclick: () => sendToFight(r.text, msg) }, "Fight! (send to the Table)"),
+          h("button", { onclick: async () => { try { flash(msg, await app("Encounters", "session")); } catch (e) { flash(msg, e.message, false); } } }, "Add to the session"),
+          h("button", { onclick: async () => { try { flash(msg, await app("Encounters", "save")); } catch (e) { flash(msg, e.message, false); } } }, "Save for Monsters"),
+          h("a", { href: "#table", style: "margin-left:auto" }, "Go to the Table →")))
+        : h("div", { class: "card muted" }, "Pick the party and the place, then Generate. Monsters come from the SRD on the card (plus your own)."));
+  }
+  main.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Encounters"), msg), box);
+  render();
+}
+
+// ------------------------------------------------------------------ magic shop
+async function viewShop(main) {
+  let S = await app("Magic Shop", "state");
+  const msg = h("span", { class: "st" }), box = h("div", {});
+  const RCOL = ["var(--text)", "var(--emerald)", "var(--ice)", "var(--arcane)", "var(--gold)"];
+  const gp = n => n.toLocaleString() + " gp";
+  async function call(op, args) { try { S = await app("Magic Shop", op, args); render(); } catch (e) { flash(msg, e.message, false); } }
+  function render() {
+    box.replaceChildren(
+      h("div", { class: "card row", style: "margin-bottom:1rem" },
+        h("label", {}, "Where ", h("select", { onchange: ev => call("set", { settle: ev.target.value }) }, S.settles.map((o, i) => h("option", { value: i, selected: S.settle === i }, o)))),
+        h("label", {}, "Shop ", h("select", { onchange: ev => call("set", { kind: ev.target.value }) }, S.kinds.map((o, i) => h("option", { value: i, selected: S.kind === i }, o)))),
+        h("label", {}, "Items ", h("input", { type: "number", min: 1, max: S.max, value: S.count, style: "width:4.5rem", onchange: ev => call("set", { count: ev.target.value }) })),
+        h("span", { class: "grow" }), sureButton("Restock the shelves", () => call("restock"), "primary")),
+      S.stock.length ? h("table", { class: "files shop" },
+        h("tr", { class: "muted small" }, h("td", {}, "Item"), h("td", {}, "Rarity"), h("td", { class: "sz" }, "Price"), h("td", {})),
+        S.stock.map((it, i) => h("tr", { class: it.sold ? "sold" : "" },
+          h("td", {}, h("a", { href: "#", onclick: ev => { ev.preventDefault(); popByName(it.spell >= 0 ? "spells" : "magic", it.spell >= 0 ? it.name.replace(/^Spell Scroll[^A-Za-z]*\(?/, "").replace(/\)$/, "") : it.name); } }, it.name),
+            h("div", { class: "muted small" }, it.type + (it.attune ? " · attunement" : ""))),
+          h("td", { style: "color:" + RCOL[it.rarity] }, S.rarities[it.rarity]),
+          h("td", { class: "sz" }, gp(it.price)),
+          h("td", { class: "act" }, h("button", { onclick: () => call("sold", { i, name: it.name }) }, it.sold ? "Unsell" : "Sold"),
+            h("button", { onclick: () => call("swap", { i, name: it.name }) }, "Swap")))))
+        : h("div", { class: "card muted" }, "The shelves are empty - Restock them."),
+      h("details", { style: "margin-top:1.2rem" }, h("summary", {}, h("b", {}, "Price guides")),
+        h("div", { class: "sheet", style: "margin-top:.6rem" },
+          h("div", { class: "card" }, h("h3", {}, "Magic items"), tableEl([["Rarity", "Value", "Craft", "Craft cost"],
+            ...S.rarities.map((r, i) => [r, gp(S.value[i]), S.craftDays[i] + " days", gp(S.craftGp[i])])])),
+          h("div", { class: "card" }, h("h3", {}, "Spell scrolls & spellcasting"), tableEl([["Level", "Scroll", "Craft", "Save DC / atk", "Cast for you"],
+            ...S.scrollGp.map((g, i) => [i ? String(i) : "Cantrip", gp(g), S.scrollDays[i] + (S.scrollDays[i] === 1 ? " day" : " days"),
+              S.scrollDc[i] + " / +" + S.scrollAtk[i], gp(S.serviceGp[i]) + " (" + S.serviceWhere[i] + ")"])])))));
+  }
+  main.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Magic Shop"), msg), box);
+  render();
+}
+
+// ------------------------------------------------------------------ travel
+async function viewTravel(main) {
+  let S = await app("Travel", "state");
+  const msg = h("span", { class: "st" }), box = h("div", {});
+  async function call(op, args) { try { S = await app("Travel", op, args); render(); } catch (e) { flash(msg, e.message, false); } }
+  const roll = async (title, lines, note) => { try { showRolls(title, await rollOn(title, lines), note); } catch (e) { flash(msg, e.message, false); } };
+  const num = (label, key, min, max) => h("label", {}, label + " ",
+    h("input", { type: "number", min, max, value: S[key], style: "width:5rem", onchange: ev => call("set", { [key]: ev.target.value }) }));
+  function render() {
+    const t = S.terrains[S.terrain], boat = t.maxPace === 3, per = S.perDay;
+    const days = per ? Math.ceil(S.miles / per) : 0, hot = t.name === "Desert", there = S.miles && S.done >= S.miles;
+    const maxPace = boat ? 2 : Math.min(2, t.maxPace + (S.road ? 1 : 0));
+    const sign = n => (n >= 0 ? "+" : "") + n;
+    const notes = [];
+    if (S.paceNow < S.pace) notes.push([`${t.name}: ${S.paces[S.paceNow]} at most` + (S.road ? "" : " (a road helps)"), "var(--gold)"]);
+    notes.push([S.paceEffects[S.paceNow], "var(--dim)"]);
+    if (S.hours > 8) notes.push([`Past 8 hours: CON save DC ${10 + S.hours - 8} or 1 Exhaustion`, "var(--blood)"]);
+    else if (t.name === "Arctic" && S.paceNow === 2) notes.push(["Fast in the arctic needs skis or the like", "var(--dim)"]);
+    const check = (what, dc) => roll(`${what} (Survival, DC ${dc})`, [{ label: "Survival", expr: "d20" + sign(S.survival) }]);
+    box.replaceChildren(h("div", { class: "sheet" },
+      h("div", {},
+        h("div", { class: "card" }, h("h3", {}, "Terrain"),
+          h("div", { class: "tgrid" }, S.terrains.map((x, i) => h("button", { class: i === S.terrain ? "on" : "", onclick: () => call("set", { terrain: i }) }, x.name)))),
+        h("div", { class: "card", style: "margin-top:.8rem" }, h("h3", {}, "Pace"),
+          h("div", { class: "row" }, S.paces.map((p, i) => h("button", { class: (i === S.paceNow ? "on" : "") + " grow", disabled: !boat && i > maxPace, onclick: () => call("set", { pace: i }) }, p)),
+            h("button", { class: S.road ? "on" : "", onclick: () => call("set", { road: S.road ? 0 : 1 }) }, S.road ? "Road: yes" : "Road: no"))),
+        h("div", { class: "card row", style: "margin-top:.8rem" }, num("Distance (mi)", "miles", 0, 9999), num("Hours a day", "hours", 1, 16),
+          num("Party", "party", 1, 12), num("Guide's Survival", "survival", -5, 17))),
+      h("div", {},
+        h("div", { class: "stats", style: "grid-template-columns:repeat(4,1fr)" },
+          h("div", { class: "stat" }, h("div", { class: "muted small" }, "Per day"), h("div", { class: "sv", style: "color:var(--emerald)" }, boat ? "vessel" : per + " mi"), h("div", { class: "muted small" }, boat ? "ship's speed" : S.mph[S.paceNow] + " mi/hour")),
+          h("div", { class: "stat" }, h("div", { class: "muted small" }, "Trip"), h("div", { class: "sv", style: "color:var(--emerald)" }, boat || !S.miles ? "-" : days + (days === 1 ? " day" : " days")), h("div", { class: "muted small" }, S.miles + " mi")),
+          h("div", { class: "stat ice" }, h("div", { class: "muted small" }, "Food"), h("div", { class: "sv" }, days * S.party + " lb"), h("div", { class: "muted small" }, "whole trip")),
+          h("div", { class: "stat ice" }, h("div", { class: "muted small" }, "Water"), h("div", { class: "sv" }, days * S.party * (hot ? 2 : 1) + " gal"), h("div", { class: "muted small" }, hot ? "x2: hot" : "whole trip"))),
+        h("div", { class: "card" },
+          h("div", { class: "row" }, h("b", { style: "color:var(--gold)" }, there ? `Arrived after ${S.day} day${S.day === 1 ? "" : "s"}` : S.day ? `Day ${S.day} done` : "Not set out yet"),
+            h("span", { class: "grow" }), h("span", { class: "muted small" }, `${Math.min(S.done, S.miles)} of ${S.miles} mi` + (S.miles > S.done ? `, ${S.miles - S.done} to go` : ""))),
+          h("div", { class: "bar", style: "max-width:none;height:14px;margin:.6rem 0" }, h("div", { style: `width:${S.miles ? Math.min(100, 100 * S.done / S.miles) : 0}%;background:var(--ice)` })),
+          h("div", { class: "row" }, h("button", { class: "primary grow", disabled: there || boat || !per, onclick: () => call("day") }, there ? "Arrived" : "Travel a day"),
+            h("button", { class: "grow", disabled: !S.day, onclick: () => call("restart") }, "Start over"))),
+        h("div", { class: "card", style: "margin-top:.8rem" }, notes.map(([txt, c]) => h("div", { style: "color:" + c }, txt))),
+        h("div", { class: "stats", style: "grid-template-columns:repeat(4,1fr);margin-top:.8rem" },
+          [["Navigate", t.navigate], ["Forage", t.forage], ["Search", t.search]].map(([w, dc]) =>
+            h("button", { class: "stat", onclick: () => check(w, dc) }, h("div", { class: "muted small" }, w), h("div", { class: "sv", style: "color:var(--emerald)" }, "DC " + dc), h("div", { class: "muted small" }, "tap: roll"))),
+          h("button", { class: "stat gold", onclick: () => roll(`Encounter distance (${t.name})`, [{ label: "Distance", expr: t.encounter }], "x 10 feet") },
+            h("div", { class: "muted small" }, "Encounter"), h("div", { class: "sv" }, t.encounter), h("div", { class: "muted small" }, "x 10 feet"))))));
+  }
+  main.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Travel"), msg), box);
+  render();
+}
+
+// ------------------------------------------------------------------ 5-room dungeon
+async function viewDungeon(main) {
+  let S = await app("5-Room Dungeon", "state");
+  const msg = h("span", { class: "st" }), box = h("div", {});
+  async function call(op, args) { try { S = await app("5-Room Dungeon", op, args); render(); } catch (e) { flash(msg, e.message, false); } }
+  const ROOMS = [["The hook", ["Hook"]], ["1. Entrance & guardian", ["Way in", "Guardian"]], ["2. Puzzle or roleplay", ["Challenge"]],
+    ["3. Trick or setback", ["Setback"]], ["4. Climax", ["Boss", "Battlefield"]], ["5. Reward & revelation", ["Reward", "Twist"]]];
+  function render() {
+    const kv = {};
+    for (const l of S.text.split("\n")) { const i = l.indexOf(": "); if (i > 0) kv[l.slice(0, i)] = l.slice(i + 2); }
+    const xs = S.nodes.map(n => n[0]), ys = S.nodes.map(n => n[1]);
+    const x0 = Math.min(...xs) - 16, y0 = Math.min(...ys) - 12, w = Math.max(...xs) - x0 + 16, ht = Math.max(...ys) - y0 + 12;
+    const svg = `<svg viewBox="${x0} ${y0} ${w} ${ht}" class="fivemap">` +
+      S.nodes.slice(1).map((n, i) => `<line x1="${S.nodes[i][0]}" y1="${S.nodes[i][1]}" x2="${n[0]}" y2="${n[1]}"/>`).join("") +
+      S.nodes.map((n, i) => `<circle cx="${n[0]}" cy="${n[1]}" r="7" class="${i === 4 ? "boss" : ""}"/><text x="${n[0]}" y="${n[1] + 3}">${i + 1}</text>`).join("") + "</svg>";
+    const map = h("div", { class: "card", style: "text-align:center" }); map.innerHTML = svg;
+    box.replaceChildren(
+      h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, S.title), h("span", { class: "muted" }, S.layout + " map"), msg,
+        h("span", { class: "grow" }), h("button", { class: "primary", onclick: () => call("generate") }, "New dungeon"),
+        h("button", { onclick: () => call("save").then(() => loadSaved()) }, S.saved && !S.dirty ? "Saved" : "Save")),
+      map,
+      h("div", { class: "sheet", style: "margin-top:.8rem" }, ROOMS.map(([title, keys], p) => h("div", { class: "card" },
+        h("div", { class: "row" }, h("h3", { style: "margin:0" }, title), h("span", { class: "grow" }), h("button", { class: "icon", title: "Roll again", onclick: () => call("reroll", { page: p }) }, "🎲")),
+        keys.map(k => h("p", {}, keys.length > 1 || p === 0 ? h("span", { class: "muted" }, k + ": ") : null, kv[k] || ""))))),
+      h("h3", { style: "margin:1rem 0 .5rem" }, "Saved dungeons"), saved);
+  }
+  const saved = h("div", { class: "row" });
+  async function loadSaved() {
+    const files = await app("5-Room Dungeon", "saved");
+    saved.replaceChildren(...(files.length ? files.map(f => h("button", { onclick: () => call("open", { file: f }) }, f.replace(/\.txt$/, "").replace(/_/g, " ")))
+      : [h("span", { class: "muted small" }, "None yet.")]));
+  }
+  main.replaceChildren(box);
+  render();
+  loadSaved();
+}
+
+// ------------------------------------------------------------------ dungeon23
+const D23_KINDS = [["room", "Room"], ["puzzle", "Puzzle room"], ["setpiece", "Set piece"], ["faction", "Faction lair"]];
+const D23_LIGHTS = ["Dark", "Dim", "Illuminated", "Outdoor", "Special"], D23_FEATURES = ["Monster", "Treasure", "Trap", "Special"];
+const D23_FIELDS = {
+  common: [["desc", "Description"], ["monsters", "Inhabitants"], ["f1", "Feature 1"], ["f2", "Feature 2"], ["f3", "Feature 3"], ["t1", "Treasure 1"], ["t2", "Treasure 2"], ["t3", "Treasure 3"]],
+  puzzle: [["puzzle", "Puzzle"], ["solution", "Solutions"], ["failure", "Failure result"]],
+  setpiece: [["behavior", "Behaviour & personality"], ["wants", "Wants"], ["fears", "Fears"]],
+  faction: [["faction", "Faction"], ["leader", "Leader"], ["desires", "Desires"], ["defenses", "Lair defences"]],
+};
+// A worksheet field: write in it (saved when you leave it), or roll it.
+function sheetField(label, value, save, roll) {
+  const t = h("textarea", { rows: 1, value: value || "", placeholder: "-", oninput: () => autosize(t), onchange: () => save(t.value) });
+  setTimeout(() => autosize(t), 0);
+  return h("div", { class: "wfield" }, h("div", { class: "row" }, h("label", { class: "wlabel grow" }, label),
+    roll ? h("button", { class: "icon die-btn", title: "Roll it", onclick: roll }, "🎲") : null), t);
+}
+async function viewD23(main, [id, lvArg, mode]) {
+  const msg = h("span", { class: "st" });
+  const d23 = async (op, args = {}) => app("Dungeon23", op, { id, ...args });
+  if (!id) {
+    const list = await app("Dungeon23", "list");
+    const nm = h("input", { type: "text", placeholder: "Name (blank: roll one)" });
+    main.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Dungeon23"),
+      h("span", { class: "muted" }, "A room a day, a level a month: a megadungeon in a year."), msg),
+      h("div", { class: "list" }, list.map(d => h("div", { class: "card row" }, h("a", { class: "grow", href: "#d23/" + enc(d.id) }, h("b", {}, d.name),
+        h("div", { class: "muted small" }, (d.theme || "No theme yet") + " · " + d.rooms + " of 365 rooms")),
+        sureButton("Delete", async () => { try { await d23("delete", { id: d.id }); route(); } catch (e) { flash(msg, e.message, false); } })))),
+      h("form", { class: "row", style: "margin-top:1rem", onsubmit: async ev => {
+        ev.preventDefault();
+        try { const d = await app("Dungeon23", "new", { name: nm.value }); go("d23", d.id); } catch (e) { flash(msg, e.message, false); }
+      } }, h("span", { class: "grow" }, nm), h("button", { class: "primary" }, "+ New dungeon")));
+    return;
+  }
+  if (!lvArg) {
+    let D = await d23("dungeon");
+    const box = h("div", {});
+    const setd = async (key, value) => { try { D = await d23("setd", { key, value }); render(); } catch (e) { flash(msg, e.message, false); } };
+    const rolld = async key => { try { D = await d23("rolld", { key }); render(); } catch (e) { flash(msg, e.message, false); } };
+    const INTRO = [["name", "Dungeon name"], ["theme", "Theme"], ["history", "Origin & history"], ["haven", "Nearest haven"],
+      ["h1", "Hook 1"], ["h2", "Hook 2"], ["h3", "Hook 3"], ["r1", "Rumour 1"], ["r2", "Rumour 2"], ["r3", "Rumour 3"]];
+    function render() {
+      const t = D.today;
+      box.replaceChildren(
+        h("div", { class: "row", style: "margin-bottom:.8rem" }, h("a", { href: "#d23" }, "← Dungeons"), h("h2", { style: "margin:0" }, D.info.name || D.id), msg),
+        h("div", { class: "sheet" },
+          h("div", {},
+            h("div", { class: "card", style: "margin-bottom:.8rem" },
+              t ? h("div", { class: "row" }, h("div", { class: "grow" }, h("div", { class: "muted small" }, "TODAY"), h("b", {}, `Level ${t.level}, room ${t.room}`)),
+                h("a", { class: "button primary", href: `#d23/${enc(id)}/${t.level}/${t.room}` }, "Write it"))
+                : h("div", { class: "muted" }, D.info.start ? "Past the twelfth level." : "No start date (set the device's clock)."),
+              h("div", { class: "row", style: "margin-top:.6rem" },
+                h("label", {}, "Party ", h("input", { type: "number", min: 1, max: 10, value: D.party, style: "width:4.5rem", onchange: ev => setd("party", ev.target.value) })),
+                h("label", {}, "Level on level 1 ", h("input", { type: "number", min: 1, max: 20, value: D.info.base || 1, style: "width:4.5rem", onchange: ev => setd("base", ev.target.value) })),
+                h("label", {}, "Started ", h("input", { type: "date", value: D.info.start || "", onchange: ev => setd("start", ev.target.value) })))),
+            h("div", { class: "card" }, INTRO.map(([k, l]) => sheetField(l, D.info[k], v => setd(k, v), () => rolld(k))))),
+          h("div", { class: "levels" }, D.levels.map((lv, i) => h("a", { class: "card lvcard" + (t && t.level === i + 1 ? " today" : ""), href: `#d23/${enc(id)}/${i + 1}` },
+            h("div", { class: "muted small" }, `Level ${i + 1}  ${lv.month}`), h("b", {}, lv.name || "Unwritten"),
+            h("div", { class: "bar", style: "margin:.4rem 0" }, h("div", { style: `width:${Math.min(100, lv.rooms / lv.target * 100)}%;background:var(--gold)` })),
+            h("div", { class: "muted small" }, `${lv.rooms} rooms · ${lv.pct}% · party lv ${lv.partyLevel}`))))));
+    }
+    main.replaceChildren(box);
+    render();
+    return;
+  }
+  const l = +lvArg;
+  let L = await d23("level", { l });
+  if (mode === "players") return d23Players(main, id, l, L);
+  let tab = sessionStorage.getItem("d23tab") || "rooms", sel = /^\d+$/.test(mode || "") ? +mode : +(sessionStorage.getItem("d23room:" + id + l) || 1);
+  let player = false, encHit = 0;
+  const box = h("div", {});
+  async function call(op, args = {}) {
+    try { L = await d23(op, { l, ...args }); msg.textContent = ""; render(); } catch (e) { flash(msg, e.message, false); }
+  }
+  const room = k => L.rooms[k - 1] || {};
+  const written = r => !!(r && r.name);
+  const has = (r, f) => (r.features || "").includes(f);
+  function roomsTab() {
+    sel = Math.max(1, Math.min(L.target, sel));
+    sessionStorage.setItem("d23room:" + id + l, sel);
+    const r = room(sel), boss = sel === L.target, kind = boss ? "boss" : r.kind || "room";
+    const fields = [...D23_FIELDS.common];
+    const extra = D23_FIELDS[kind === "boss" ? "setpiece" : kind];
+    if (extra) fields.splice(kind === "puzzle" ? 1 : 2, 0, ...extra);
+    const set = (key, value) => call("set", { room: sel, key, value });
+    const FC = { Monster: "var(--blood)", Treasure: "var(--gold)", Trap: "var(--emerald)", Special: "var(--arcane)" };
+    return h("div", { class: "d23rooms" },
+      h("div", {}, h("div", { class: "muted small", style: "margin-bottom:.4rem" }, `${L.rooms.filter(written).length} of ${L.target} rooms · party ${L.party} × level ${L.partyLevel}`),
+        h("div", { class: "rgrid" }, Array.from({ length: L.target }, (_, i) => {
+          const k = i + 1, rr = room(k);
+          return h("button", { class: "rtile" + (k === sel ? " on" : "") + (written(rr) ? " w" : "") + (k === L.target ? " boss" : ""), title: rr.name || "",
+            onclick: () => { sel = k; render(); } }, h("b", {}, k + (k === L.target ? " ♛" : "")),
+            h("span", { class: "dots" }, D23_FEATURES.filter(f => has(rr, f)).map(f => h("i", { style: "background:" + FC[f] }))));
+        })),
+        h("div", { class: "row small muted", style: "margin-top:.6rem;gap:.8rem" }, D23_FEATURES.map(f => h("span", {}, h("i", { class: "dot", style: "background:" + FC[f] }), " " + f)))),
+      h("div", { class: "card" },
+        h("div", { class: "muted small", style: "color:" + (boss ? "var(--blood)" : "var(--gold)") }, `KEY ${sel} · ${boss ? "Boss - guards the stairs down" : (D23_KINDS.find(k => k[0] === kind) || [, "Room"])[1]}` + (r.date ? " · written " + r.date : "")),
+        sheetField("Room name", r.name, v => set("name", v), () => call("roll", { room: sel, key: "name" })),
+        h("div", { class: "row", style: "margin:.4rem 0" },
+          boss ? null : h("select", { style: "width:auto", onchange: ev => set("kind", ev.target.value) }, D23_KINDS.map(([v, t]) => h("option", { value: v, selected: kind === v }, t))),
+          h("select", { style: "width:auto", onchange: ev => set("light", ev.target.value) }, h("option", { value: "" }, "Light?"), D23_LIGHTS.map(v => h("option", { value: v, selected: r.light === v }, v))),
+          D23_FEATURES.map(f => h("label", { class: "chip" + (has(r, f) ? " on" : "") }, h("input", { type: "checkbox", checked: has(r, f), onchange: () => {
+            const on = D23_FEATURES.filter(x => x === f ? !has(r, f) : has(r, x));
+            set("features", on.join(",") || "Empty");
+          } }), f))),
+        fields.map(([k, lab]) => sheetField(lab, r[k], v => set(k, v), () => call("roll", { room: sel, key: k }))),
+        h("div", { class: "row", style: "margin-top:.6rem" },
+          h("button", { class: "primary", onclick: () => call("gen", { room: sel }) }, written(r) ? "Fill what's empty" : "Generate"),
+          r.monsters ? h("button", { class: "danger", onclick: () => sendToFight(r.monsters, msg) }, "Fight!") : null,
+          h("span", { class: "grow" }), sureButton("Roll it all again", () => call("gen", { room: sel, all: 1 }), ""), sureButton("Clear", () => call("clear", { room: sel })),
+          h("button", { onclick: () => { sel = sel % L.target + 1; render(); } }, "Next room →"))));
+  }
+  function levelTab() {
+    const set = (key, value) => call("set", { key, value });
+    return h("div", { class: "sheet" },
+      h("div", { class: "card" }, [["name", "Level name"], ["theme", "Theme"], ["desc", "Level description"]].map(([k, lab]) => sheetField(lab, L.info[k], v => set(k, v), () => call("roll", { key: k })))),
+      h("div", { class: "card" },
+        h("label", {}, "Rooms on this level ", h("input", { type: "number", min: 3, max: 31, value: L.target, style: "width:5rem", onchange: ev => set("rooms", ev.target.value) })),
+        h("p", { class: "muted small" }, `The last room (${L.target}) is the boss, who guards the stairs down. Monsters are sized for ${L.party} heroes of level ${L.partyLevel}.`),
+        sureButton("Stock every empty room", () => call("stock"), "primary"),
+        h("p", { class: "muted small" }, "Fills every unwritten room (at least one puzzle and one faction lair), the encounter table and the level's own fields.")));
+  }
+  function encTab() {
+    return h("div", {},
+      h("div", { class: "row", style: "margin-bottom:.6rem" },
+        h("button", { class: "primary", onclick: () => { encHit = 1 + Math.floor(Math.random() * 8); render(); } }, "Roll d8"),
+        h("button", { onclick: async () => { for (let i = 1; i <= 8; i++) if (!L.info["e" + i]) await call("roll", { key: "e" + i }); } }, "Fill empty rows"),
+        h("span", { class: "muted small" }, "Each omen hints at its encounter.")),
+      h("div", { class: "list" }, Array.from({ length: 8 }, (_, i) => {
+        const n = i + 1, e = L.info["e" + n] || "";
+        return h("div", { class: "card encrow" + (n === encHit ? " hit" : "") },
+          h("div", { class: "encn" }, n),
+          h("div", { class: "grow" }, sheetField("Encounter", e, v => call("set", { key: "e" + n, value: v })),
+            sheetField("Omen", L.info["o" + n], v => call("set", { key: "o" + n, value: v }))),
+          h("div", { class: "list" }, h("button", { class: "icon die-btn", title: "Roll again", onclick: () => call("roll", { key: "e" + n }) }, "🎲"),
+            e ? h("button", { class: "danger", onclick: () => sendToFight(e, msg) }, "Fight!") : null));
+      })));
+  }
+  function checkTab() {
+    return h("div", { class: "sheet" }, h("div", { class: "card", style: "text-align:center" }, h("div", { class: "dtotal", style: "color:" + (L.pct === 100 ? "var(--emerald)" : "var(--gold)") }, L.pct + "%"),
+      h("div", { class: "muted" }, `${L.checklist.filter(c => c.done).length} of ${L.checklist.length} done`)),
+      h("div", { class: "list" }, L.checklist.map(c => h(c.key ? "label" : "div", { class: "card chk" + (c.done ? " done" : "") },
+        c.key ? h("input", { type: "checkbox", checked: c.done, onchange: () => call("check", { key: c.key }) }) : h("span", { class: "tick" }, c.done ? "✔" : "○"),
+        h("div", {}, h("b", {}, c.label), c.detail ? h("div", { class: "muted small" }, c.detail) : null)))));
+  }
+  function mapTab() {
+    if (!L.map) return h("div", { class: "card muted" }, `Write the boss room (${L.target}) and a few more rooms first - or Stock the level.`);
+    const info = h("div", { class: "card" }, "Tap a room to read it.");
+    const svg = d23Svg(L, !player, k => {
+      if (player) { call("explore", { room: k, on: 1 }); return; }
+      const r = room(k), ex = (L.info.explored || "").split(",").includes(String(k));
+      info.replaceChildren(h("div", { class: "muted small" }, `KEY ${k} · ${r.light || ""}`), h("h3", {}, r.name || "Room " + k),
+        ...[["Inhabitants", r.monsters], ["Features", [r.f1, r.f2, r.f3].filter(Boolean).join("; ")], ["Treasure", [r.t1, r.t2, r.t3].filter(Boolean).join("; ")], ["Description", r.desc]]
+          .filter(x => x[1]).map(([a, b]) => h("p", {}, h("span", { class: "muted" }, a + ": "), b)),
+        h("div", { class: "row" }, h("button", { class: ex ? "on" : "", onclick: () => call("explore", { room: k, on: ex ? 0 : 1 }) }, ex ? "Explored" : "Mark explored"),
+          r.monsters ? h("button", { class: "danger", onclick: () => sendToFight(r.monsters, msg) }, "Fight!") : null,
+          h("button", { onclick: () => { sel = k; tab = "rooms"; render(); } }, "Edit")));
+    });
+    return h("div", { class: "d23map" }, h("div", {},
+      h("div", { class: "row", style: "margin-bottom:.5rem" }, h("label", {}, h("input", { type: "checkbox", checked: player, onchange: ev => { player = ev.target.checked; render(); } }), " Players' view (fog)"),
+        h("span", { class: "grow" }), h("a", { class: "button", href: `#d23/${enc(id)}/${l}/players`, target: "_blank" }, "Open the players' map ↗"),
+        sureButton("Reset fog", () => call("fog"), ""), sureButton("New layout", () => call("layout"), "")),
+      svg), player ? h("div", { class: "card muted" }, "Tap a room as the party enters it.") : info);
+  }
+  function render() {
+    sessionStorage.setItem("d23tab", tab);
+    const TABS = [["rooms", "Rooms"], ["level", "Level"], ["enc", "Encounters"], ["check", "Checklist"], ["map", "Run"]];
+    box.replaceChildren(
+      h("div", { class: "row", style: "margin-bottom:.6rem" }, h("a", { href: "#d23/" + enc(id) }, "← Dungeon"),
+        h("h2", { style: "margin:0" }, `Level ${l}` + (L.info.name ? ": " + L.info.name : "")), h("span", { class: "tag gold" }, L.pct + "%"), msg, h("span", { class: "grow" }),
+        l > 1 ? h("a", { href: `#d23/${enc(id)}/${l - 1}` }, "↑ Level " + (l - 1)) : null, l < 12 ? h("a", { href: `#d23/${enc(id)}/${l + 1}` }, "↓ Level " + (l + 1)) : null),
+      h("div", { class: "tabs" }, TABS.map(([k, t]) => h("button", { class: tab === k ? "on" : "", onclick: () => { tab = k; render(); } }, t))),
+      tab === "rooms" ? roomsTab() : tab === "level" ? levelTab() : tab === "enc" ? encTab() : tab === "check" ? checkTab() : mapTab());
+  }
+  main.replaceChildren(box);
+  render();
+}
+// The run map as SVG. dm: every room with its key and every door; else fog of war.
+function d23Svg(L, dm, onRoom) {
+  const M = L.map, CW = 100, CH = 80, ex = new Set((L.info.explored || "").split(",").filter(Boolean).map(Number));
+  const seen = i => i === 0 || ex.has(M.nodes[i].key);
+  const known = i => seen(i) || M.links.some(([a, b, d]) => d !== 3 && ((a === i && seen(b)) || (b === i && seen(a))));
+  const c = n => [n.x * CW + CW / 2, n.y * CH + CH / 2];
+  let s = `<svg viewBox="0 0 ${M.w * CW} ${M.h * CH}" class="d23svg">`;
+  for (const [a, b, d] of M.links) {
+    if (!dm && (!(known(a) && known(b)) || !(seen(a) || seen(b)) || (d === 3 && !(seen(a) && seen(b))))) continue;
+    const [x1, y1] = c(M.nodes[a]), [x2, y2] = c(M.nodes[b]), mx = (x1 + x2) / 2, my = (y1 + y2) / 2, hz = y1 === y2;
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="cor"/>`;
+    if (d) s += `<rect x="${mx - (hz ? 3 : 9)}" y="${my - (hz ? 9 : 3)}" width="${hz ? 6 : 18}" height="${hz ? 18 : 6}" class="door d${d}"/>` + (d === 2 ? `<circle cx="${mx}" cy="${my}" r="2.5" class="lock"/>` : "") +
+      (d === 3 && dm ? `<text x="${mx + (hz ? 0 : 14)}" y="${my + (hz ? -12 : 4)}" class="sec">S</text>` : "");
+  }
+  const bi = M.nodes.findIndex(n => n.key === L.target);
+  if (M.down[0] >= 0 && bi >= 0 && (dm || ex.has(L.target))) {
+    const [x1, y1] = c(M.nodes[bi]), x2 = M.down[0] * CW + CW / 2, y2 = M.down[1] * CH + CH / 2;
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="cor"/><g class="stairs">` +
+      Array.from({ length: 5 }, (_, i) => `<rect x="${x2 - 24 + i * 6}" y="${y2 - 16 + i * 7}" width="${48 - i * 12}" height="4"/>`).join("") + `<text x="${x2}" y="${y2 + 32}">Down</text></g>`;
+  }
+  M.nodes.forEach((n, i) => {
+    if (!dm && !known(i)) return;
+    const [x, y] = c(n), w = n.key === L.target ? 88 : 64, hh = n.key === L.target ? 68 : 52;
+    const fog = !dm && !seen(i);
+    s += `<g class="rm${fog ? " fog" : ""}${n.key === L.target ? " boss" : ""}${!dm || seen(i) ? "" : " dimr"}" data-k="${n.key}"><rect x="${x - w / 2}" y="${y - hh / 2}" width="${w}" height="${hh}"/>` +
+      (fog ? `<text x="${x}" y="${y + 6}">?</text>` : dm ? `<text x="${x}" y="${y + 6}">${n.key}</text>` : "") +
+      (i === 0 ? `<path d="M${x - w / 2 + 4} ${y + hh / 2 - 4} h6 v-5 h6 v-5 h6" class="up"/>` : "") + "</g>";
+  });
+  const wrap = h("div", { class: "card d23wrap" });
+  wrap.innerHTML = s + "</svg>";
+  wrap.querySelectorAll(".rm").forEach(g => g.addEventListener("click", () => onRoom(+g.dataset.k)));
+  return wrap;
+}
+// The players' map on its own page (for a TV): fog, tap rooms as they're entered.
+async function d23Players(main, id, l, L) {
+  document.body.classList.add("tv", "bare");
+  const box = h("div", {});
+  let last = "";
+  const draw = () => {
+    box.replaceChildren(h("h2", { style: "text-align:center" }, `Level ${l}` + (L.info.name ? ": " + L.info.name : "")),
+      L.map ? d23Svg(L, false, async k => { L = await app("Dungeon23", "explore", { id, l, room: k, on: 1 }); draw(); }) : h("div", { class: "card muted" }, "No map yet."));
+  };
+  main.replaceChildren(box);
+  draw();
+  every(2500, async () => {
+    try { const n = await app("Dungeon23", "level", { id, l }); const j = JSON.stringify(n); if (j !== last) { last = j; L = n; draw(); } } catch (e) { }
+  }, main);
+}
+
+// ------------------------------------------------------------------ hex map
+const HEX_TER = { w: ["Water", "#2c5c96"], p: ["Grassland", "#7aa048"], f: ["Forest", "#2e6e3a"], h: ["Hills", "#968a52"],
+  m: ["Mountains", "#7a706a"], s: ["Swamp", "#54684a"], d: ["Desert", "#d6b876"], t: ["Tundra", "#ced8de"] };
+const HEX_GLYPH = { f: "🌲", h: "⛰", m: "🏔", s: "🌾", d: "🏜" };
+const HEX_ICON = { town: "🏰", village: "🏠", ruin: "🏛", dungeon: "🕳", lair: "💀", camp: "⛺", tower: "🗼", shrine: "⛩",
+  landmark: "🗿", wonder: "✨", resource: "💎", water: "⚓", note: "📝" };
+const HEX_NAV = { w: 10, p: 5, f: 15, h: 10, m: 15, s: 15, d: 10, t: 10 }, HEX_FORAGE = { w: 15, p: 15, f: 10, h: 15, m: 20, s: 10, d: 20, t: 20 };
+const hexLabel = (M, i) => String(i % M.w + 1).padStart(2, "0") + String(Math.floor(i / M.w) + 1).padStart(2, "0");
+function hexNb(M, i, d) {
+  const c = i % M.w, r = Math.floor(i / M.w), o = (r & 1 ? [[1, 0], [1, -1], [0, -1], [-1, 0], [0, 1], [1, 1]] : [[1, 0], [0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1]])[d];
+  const nc = c + o[0], nr = r + o[1];
+  return nc < 0 || nc >= M.w || nr < 0 || nr >= M.h ? -1 : nr * M.w + nc;
+}
+function hexDist(M, a, b) {
+  const cube = i => { const c = i % M.w, r = Math.floor(i / M.w); return [c - (r - (r & 1)) / 2, r]; };
+  const [ax, az] = cube(a), [bx, bz] = cube(b), dx = ax - bx, dz = az - bz;
+  return Math.max(Math.abs(dx), Math.abs(dz), Math.abs(dx + dz));
+}
+const hexPoly = (x, y, r) => Array.from({ length: 6 }, (_, k) => { const a = (60 * k - 90) * Math.PI / 180; return `${(x + r * Math.cos(a)).toFixed(1)},${(y + r * Math.sin(a)).toFixed(1)}`; }).join(" ");
+// The region as SVG. players: fog of war, only what the party has seen.
+function hexSvg(M, players, sel, onHex) {
+  const R = 22, S3 = Math.sqrt(3), W = R * S3 * (M.w + 0.5), H = R * (1.5 * M.h + 0.5);
+  const ctr = i => { const c = i % M.w, r = Math.floor(i / M.w); return [R * S3 * (c + 0.5 + 0.5 * (r & 1)), R * (1 + 1.5 * r)]; };
+  const edge = (i, d) => { const [x, y] = ctr(i), a = -60 * d * Math.PI / 180; return [x + R * S3 / 2 * Math.cos(a), y + R * S3 / 2 * Math.sin(a)]; };
+  const feats = {};
+  for (const f of M.hexes) feats[f.i] = f;
+  let s = `<svg viewBox="-2 -2 ${W + 4} ${H + 4}" class="hexsvg">`, rivers = "", roads = "", icons = "";
+  for (let i = 0; i < M.w * M.h; i++) {
+    const [x, y] = ctr(i), seen = +M.seen[i], t = M.ter[i];
+    if (players && !seen) { s += `<polygon points="${hexPoly(x, y, R)}" class="hx fog" data-i="${i}"/>`; continue; }
+    s += `<polygon points="${hexPoly(x, y, R)}" class="hx${players && seen === 1 ? " dim" : ""}" fill="${HEX_TER[t][1]}" data-i="${i}"/>`;
+    if (HEX_GLYPH[t] && !(players && seen === 1)) s += `<text x="${x}" y="${y + 5}" class="gl">${HEX_GLYPH[t]}</text>`;
+    if (M.river[i] !== "-" && t !== "w") { const [ex, ey] = edge(i, +M.river[i]); rivers += `<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"/>`; }
+    for (let d = 0; d < 6; d++) {
+      const n = hexNb(M, i, d);
+      if (n >= 0 && M.river[n] === String((d + 3) % 6)) { const [ex, ey] = edge(i, d); rivers += `<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"/>`; }
+      if ((M.road.charCodeAt(i) - 48) & (1 << d)) { const [ex, ey] = edge(i, d); roads += `<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"/>`; }
+    }
+    const f = feats[i];
+    if (f && f.kind !== "none" && !(players && (!f.found || f.kind === "note"))) icons += `<text x="${x}" y="${y + 6}" class="ic">${HEX_ICON[f.kind] || "•"}</text>`;
+  }
+  s += `<g class="rv">${rivers}</g><g class="rd">${roads}</g>${icons}`;
+  if (M.eventHex >= 0) { const [x, y] = ctr(M.eventHex); s += `<circle cx="${x}" cy="${y}" r="${R - 4}" class="evt"/>`; }
+  if (sel >= 0) { const [x, y] = ctr(sel); s += `<polygon points="${hexPoly(x, y, R - 1.5)}" class="sel"/>`; }
+  if (M.pos >= 0) { const [x, y] = ctr(M.pos); s += `<circle cx="${x}" cy="${y - 8}" r="6" class="party"/>`; }
+  const wrap = h("div", { class: "card hexwrap" });
+  wrap.innerHTML = s + "</svg>";
+  wrap.querySelectorAll(".hx").forEach(p => p.addEventListener("click", () => onHex(+p.dataset.i)));
+  return wrap;
+}
+// One hex as seven sub-hexes (the outer ones lean toward the neighbours).
+function hexTemplate(M, i) {
+  const r = 16, S3 = Math.sqrt(3), sub = M.sub.slice(i * 7, i * 7 + 7);
+  let s = `<svg viewBox="-60 -60 120 120" class="hextpl">`;
+  for (let k = 0; k < 7; k++) {
+    const a = -60 * k * Math.PI / 180, x = k === 6 ? 0 : r * S3 * Math.cos(a), y = k === 6 ? 0 : r * S3 * Math.sin(a);
+    s += `<polygon points="${hexPoly(x, y, r)}" fill="${HEX_TER[sub[k]][1]}"/>` + (HEX_GLYPH[sub[k]] ? `<text x="${x}" y="${y + 4}" class="gl">${HEX_GLYPH[sub[k]]}</text>` : "");
+  }
+  const d = h("div", {});
+  d.innerHTML = s + "</svg>";
+  return d.firstChild;
+}
+async function viewHex(main, [id, mode]) {
+  const msg = h("span", { class: "st" });
+  const hx = async (op, args = {}) => app("Hex Map", op, { id, ...args });
+  if (!id) {
+    const list = await app("Hex Map", "list");
+    const nm = h("input", { type: "text", placeholder: "Name (blank: roll one)" });
+    const cl = h("select", {}, ["Temperate", "Arid", "Cold"].map((c, i) => h("option", { value: i }, c)));
+    main.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, "Hex Map"),
+      h("span", { class: "muted" }, "A hexcrawl region: 6-mile hexes, rivers, roads, ruins and lairs."), msg),
+      h("div", { class: "list" }, list.map(d => h("div", { class: "card row" }, h("a", { class: "grow", href: "#hex/" + enc(d.id) }, h("b", {}, d.name),
+        h("div", { class: "muted small" }, d.climate + " region")),
+        sureButton("Delete", async () => { try { await hx("delete", { id: d.id }); route(); } catch (e) { flash(msg, e.message, false); } })))),
+      h("form", { class: "row", style: "margin-top:1rem", onsubmit: async ev => {
+        ev.preventDefault();
+        flash(msg, "Rolling the map…");
+        try { const d = await app("Hex Map", "new", { name: nm.value, climate: cl.value }); go("hex", d.id); } catch (e) { flash(msg, e.message, false); }
+      } }, h("span", { class: "grow" }, nm), cl, h("button", { class: "primary" }, "+ New map")));
+    return;
+  }
+  let M = await hx("map");
+  if (mode === "players") return hexPlayers(main, id, M);
+  let sel = -1, player = false;
+  const box = h("div", {});
+  async function call(op, args = {}) {
+    try { M = await hx(op, args); msg.textContent = ""; render(); } catch (e) { flash(msg, e.message, false); }
+  }
+  const day = () => `Day ${Math.floor(M.hours / 8) + 1} · ${M.hours % 8} of 8 hours travelled`;
+  const eventCard = () => M.event ? h("div", { class: "card", style: "margin-top:.8rem" }, h("div", { class: M.eventHex >= 0 ? "err" : "gold" }, M.event),
+    M.eventHex >= 0 ? h("button", { class: "danger", style: "margin-top:.5rem", onclick: () => sendToFight(M.event.slice(M.event.indexOf(": ") + 2), msg) }, "Fight!") : null) : null;
+  function summary() {
+    return h("div", {},
+      h("div", { class: "card" }, h("div", { class: "muted small" }, ["Temperate", "Arid", "Cold"][M.climate].toUpperCase() + " REGION · 24 × 16 HEXES OF 6 MILES"),
+        h("b", {}, day()),
+        h("div", { class: "row", style: "margin-top:.6rem" },
+          h("label", {}, "Party ", h("input", { type: "number", min: 1, max: 10, value: M.party, style: "width:4.5rem", onchange: ev => call("set", { key: "party", value: ev.target.value }) })),
+          h("label", {}, "Level ", h("input", { type: "number", min: 1, max: 20, value: M.level, style: "width:4.5rem", onchange: ev => call("set", { key: "level", value: ev.target.value }) }))),
+        h("div", { class: "row", style: "margin-top:.6rem" }, h("button", { onclick: () => call("camp") }, "Make camp"),
+          sureButton("Reset fog", () => call("fog"), ""), sureButton("Re-roll map", () => call("regen")))),
+      eventCard(),
+      h("div", { class: "card muted", style: "margin-top:.8rem" }, "Click a hex to see what's there and move the party. ",
+        Object.entries(HEX_ICON).map(([k, v]) => h("span", { class: "tag" }, v + " " + k))));
+  }
+  function hexPanel(i) {
+    const t = M.ter[i], f = M.hexes.find(x => x.i === i) || { kind: "none", notes: "" }, keyed = f.kind !== "none" && f.kind !== "note";
+    const next = M.pos >= 0 && hexDist(M, M.pos, i) === 1, slow = (t === "m" || t === "s") && M.road[i] === "0";
+    const put = h("select", { onchange: ev => { if (ev.target.value) call("put", { i, kind: ev.target.value }); } }, h("option", { value: "" }, "Put something here…"),
+      ["village", "ruin", "dungeon", "lair", "camp", "tower", "shrine", "landmark", "wonder"].map(k => h("option", { value: k }, HEX_ICON[k] + " " + k)));
+    const notes = h("textarea", { rows: 2, value: f.notes || "", placeholder: "Your notes" , onchange: () => call("set", { i, key: "notes", value: notes.value }) });
+    return h("div", {},
+      h("div", { class: "card" },
+        h("div", { class: "row" }, h("h3", { class: "grow", style: "margin:0" }, `Hex ${hexLabel(M, i)} · ${HEX_TER[t][0]}`), h("button", { class: "icon", onclick: () => { sel = -1; render(); } }, "✕")),
+        h("div", { class: "row", style: "align-items:flex-start;margin-top:.4rem" }, hexTemplate(M, i),
+          h("div", { class: "muted small grow" },
+            h("div", {}, `${slow ? 3 : 2} h to cross` + (M.road[i] !== "0" ? ", road" : "") + (M.river[i] !== "-" && t !== "w" ? ", river" : "")),
+            h("div", {}, `Navigate DC ${HEX_NAV[t]} · Forage DC ${HEX_FORAGE[t]}`),
+            h("div", {}, M.pos === i ? "The party is here" : M.pos >= 0 ? (d => d + (d === 1 ? " hex" : " hexes") + " from the party")(hexDist(M, M.pos, i)) : ""),
+            h("div", {}, ["Unexplored", "Seen", "Visited"][+M.seen[i]]))),
+        keyed ? h("div", {}, h("div", { class: "muted small", style: "margin-top:.6rem" }, f.label.toUpperCase() + (f.found ? " · FOUND" : " · NOT FOUND YET")),
+          h("h3", { style: "margin:.2rem 0" }, f.name), f.text.split("\n").map(l => h("p", { style: "margin:.25rem 0" }, l)))
+          : h("p", { class: "muted" }, "Nothing here yet."),
+        notes,
+        h("div", { class: "row", style: "margin-top:.6rem;flex-wrap:wrap" },
+          h("button", { class: "primary", onclick: () => call("move", { i, jump: next ? 0 : 1 }) }, next ? "Travel here" : "Jump the party here"),
+          h("button", { class: "danger", onclick: () => call("encounter", { i }) }, "Encounter"),
+          f.monsters ? h("button", { class: "danger", onclick: () => sendToFight(f.monsters, msg) }, "Fight!") : null,
+          keyed ? h("button", { class: f.found ? "on" : "", onclick: () => call("set", { i, key: "found", value: f.found ? 0 : 1 }) }, f.found ? "Found" : "Mark found") : null,
+          keyed ? h("button", { onclick: () => call("reroll", { i }) }, "Re-roll") : null,
+          keyed ? sureButton("Clear", () => call("clear", { i })) : null, put)),
+      eventCard());
+  }
+  function render() {
+    box.replaceChildren(
+      h("div", { class: "row", style: "margin-bottom:.6rem" }, h("a", { href: "#hex" }, "← Maps"), h("h2", { style: "margin:0" }, M.name), msg, h("span", { class: "grow" }),
+        h("label", {}, h("input", { type: "checkbox", checked: player, onchange: ev => { player = ev.target.checked; render(); } }), " Players' view (fog)"),
+        h("a", { class: "button", href: `#hex/${enc(id)}/players`, target: "_blank" }, "Open the players' map ↗")),
+      h("div", { class: "hexmap" }, hexSvg(M, player, sel, i => { sel = sel === i ? -1 : i; render(); }), sel >= 0 ? hexPanel(sel) : summary()));
+  }
+  main.replaceChildren(box);
+  render();
+}
+// The players' map on its own page (for a TV): follows the device.
+async function hexPlayers(main, id, M) {
+  document.body.classList.add("tv", "bare");
+  const box = h("div", {});
+  let last = "";
+  const draw = () => box.replaceChildren(h("h2", { style: "text-align:center" }, M.name + " · Day " + (Math.floor(M.hours / 8) + 1)), hexSvg(M, true, -1, () => { }));
+  main.replaceChildren(box);
+  draw();
+  every(3000, async () => {
+    try { const n = await app("Hex Map", "map", { id }); const j = JSON.stringify([n.seen, n.pos, n.hexes.map(f => f.found), n.hours]); if (j !== last) { last = j; M = n; draw(); } } catch (e) { }
+  }, main);
+}
+
+// ------------------------------------------------------------------ random tables
+async function viewTables(main, [name]) {
+  const tables = await app("Random Tables", "list");
+  const q = h("input", { type: "search", placeholder: "Search tables…", value: sessionStorage.getItem("q:tables") || "" });
+  const results = h("div", { class: "results" });
+  const draw = () => {
+    sessionStorage.setItem("q:tables", q.value);
+    const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = tables.filter(t => words.every(w => t.name.toLowerCase().includes(w)));
+    results.replaceChildren(...hits.map(t => h("a", { class: "res" + (t.name === name ? " on" : ""), href: "#tables/" + enc(t.name) },
+      t.name, h("span", { class: "meta" }, t.n + " entries" + (t.srd ? " · SRD" : "")))));
+  };
+  q.addEventListener("input", draw);
+  draw();
+  const right = h("div", {});
+  main.replaceChildren(h("div", { class: "cols" }, h("div", {}, q, h("div", { style: "margin-top:.5rem" }, results)), right));
+  if (!name) { right.replaceChildren(h("div", { class: "card muted" }, "Pick a table to roll on. Tables in /gmtools/tables on the card are yours to add.")); return; }
+  const out = h("div", { class: "rolls" }), entries = h("ol", { class: "entries" }), msg = h("span", { class: "st" });
+  const roll = async () => {
+    try {
+      const r = await app("Random Tables", "roll", { name }, false);
+      out.prepend(h("div", { class: "roll fresh" }, h("div", { class: "tres" }, r.text), h("div", { class: "muted small" }, r.how)));
+      while (out.children.length > 10) out.lastChild.remove();
+      [...entries.children].forEach((li, i) => li.classList.toggle("on", i === r.index));
+    } catch (e) { flash(msg, e.message, false); }
+  };
+  right.replaceChildren(h("div", { class: "row", style: "margin-bottom:.8rem" }, h("h2", { style: "margin:0" }, name), h("span", { class: "grow" }), msg,
+    h("button", { class: "primary big", onclick: roll }, "Roll")), out,
+    h("details", { style: "margin-top:1rem" }, h("summary", { class: "muted" }, "Entries"), entries));
+  const list = await app("Random Tables", "entries", { name }, false);
+  const total = list.reduce((a, e) => a + e.w, 0);
+  let at = 1;
+  entries.replaceChildren(...list.map(e => {
+    const range = e.w > 1 || total === 100 ? (e.w > 1 ? `${at}–${at + e.w - 1}` : `${at}`) : "";
+    at += e.w;
+    return h("li", {}, range ? h("span", { class: "muted" }, range + "  ") : null, e.text);
+  }));
+  roll();
 }
 
 // ------------------------------------------------------------------ campaigns
@@ -638,16 +1716,19 @@ function tableEl(rows) {
   })));
 }
 let refCache = {};
-async function viewRef(main, [src, off]) {
-  const sources = (await ls(SRD)).filter(f => f.n.endsWith(".idx")).map(f => f.n.slice(0, -4)).sort();
-  if (!sources.length) { main.replaceChildren(h("div", { class: "card muted" }, "No SRD data on the SD card (" + SRD + ").")); return; }
-  src = sources.includes(src) ? src : sources.includes("spells") ? "spells" : sources[0];
+async function refIndex(src) {
   if (!refCache[src]) {
     const txt = await getText(`${SRD}/${src}.idx`);
     refCache[src] = txt.split("\n").filter(Boolean).map(l => { const f = l.split("\t"); return { off: f[0], name: f[1] || "", cols: f.slice(2) }; })
       .sort((a, b) => a.name.localeCompare(b.name));
   }
-  const rows = refCache[src];
+  return refCache[src];
+}
+async function viewRef(main, [src, off]) {
+  const sources = (await ls(SRD)).filter(f => f.n.endsWith(".idx")).map(f => f.n.slice(0, -4)).sort();
+  if (!sources.length) { main.replaceChildren(h("div", { class: "card muted" }, "No SRD data on the SD card (" + SRD + ").")); return; }
+  src = sources.includes(src) ? src : sources.includes("spells") ? "spells" : sources[0];
+  const rows = await refIndex(src);
   const meta = r => (REF_META[src] ? REF_META[src](r.cols) : r.cols).filter(Boolean).join(" · ");
   const sel = h("select", { onchange: () => go("ref", sel.value) }, sources.map(s => h("option", { value: s, selected: s === src }, s[0].toUpperCase() + s.slice(1))));
   const q = h("input", { type: "search", placeholder: "Search " + src + "…", value: sessionStorage.getItem("q:" + src) || "" });
@@ -665,30 +1746,59 @@ async function viewRef(main, [src, off]) {
   draw();
   main.replaceChildren(h("div", { class: "cols" }, h("div", {}, h("div", { class: "list" }, sel, q), h("div", { style: "margin-top:.5rem" }, results)), entry));
   if (off != null) {
-    const txt = await api(`/api/rec?path=${enc(SRD + "/" + src + ".txt")}&off=${enc(off)}`).then(r => r.text());
-    const kv = txt.split("\n").map(l => { const i = l.indexOf(": "); return i > 0 ? [l.slice(0, i), unesc(l.slice(i + 2))] : null; }).filter(Boolean);
-    const ABIL = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
-    for (const p of kv) if ((p[0] === "scores" || p[0] === "saves") && p[1].split(",").length === 6) p[1] = p[1].split(",").map((v, i) => ABIL[i] + " " + v).join("  ");
-    for (let i = kv.length - 1; i >= 0; i--) if (/^roll\d+$/.test(kv[i][0])) kv.splice(i, 1);   // the Cardputer's quick-roll data
-    for (const p of kv) if ((p[0] === "conc" || p[0] === "ritual") && p[1] === "1") p[1] = "Yes";
-    // a class's level table is stored as cols + L1..L20 ("1".."9" are spell slot columns)
-    const colsKv = kv.find(([k]) => k === "cols");
-    let classTable = null;
-    if (colsKv) {
-      const head = colsKv[1].split("|").map(c => /^\d$/.test(c.trim()) ? "Slot " + c.trim() : c.trim());
-      const rows = [head];
-      for (let lv = 1; lv <= 20; lv++) { const r = kv.find(([k]) => k === "L" + lv); if (r) rows.push(r[1].split("|").map(c => c.trim())); }
-      classTable = tableEl(rows);
-      for (let i = kv.length - 1; i >= 0; i--) if (/^(cols|L\d+|equip_[a-z])$/.test(kv[i][0])) kv.splice(i, 1);
-    }
-    const name = (kv.find(([k]) => k === "name") || [, ""])[1];
-    const short = kv.filter(([k, v]) => k !== "name" && v.length <= 70 && !v.includes("\n"));
-    const long = kv.filter(([k, v]) => k !== "name" && (v.length > 70 || v.includes("\n")));
-    entry.replaceChildren(h("div", {}, h("h2", {}, name),
-      short.length ? h("dl", {}, short.map(([k, v]) => [h("dt", {}, label(k)), h("dd", {}, v)])) : null,
-      classTable ? [h("h4", {}, "Class table"), classTable] : null,
-      long.map(([k, v]) => [k === "text" ? null : h("h4", {}, label(k)), richText(v)])));
+    await showEntry(entry, src, off);
     if (innerWidth <= 760) entry.scrollIntoView();
+  }
+}
+// One SRD entry, drawn into `entry`.
+async function showEntry(entry, src, off) {
+  const txt = await api(`/api/rec?path=${enc(SRD + "/" + src + ".txt")}&off=${enc(off)}`).then(r => r.text());
+  const kv = txt.split("\n").map(l => { const i = l.indexOf(": "); return i > 0 ? [l.slice(0, i), unesc(l.slice(i + 2))] : null; }).filter(Boolean);
+  const ABIL = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+  for (const p of kv) if ((p[0] === "scores" || p[0] === "saves") && p[1].split(",").length === 6) p[1] = p[1].split(",").map((v, i) => ABIL[i] + " " + v).join("  ");
+  for (let i = kv.length - 1; i >= 0; i--) if (/^roll\d+$/.test(kv[i][0])) kv.splice(i, 1);   // the Cardputer's quick-roll data
+  for (const p of kv) if ((p[0] === "conc" || p[0] === "ritual") && p[1] === "1") p[1] = "Yes";
+  // a class's level table is stored as cols + L1..L20 ("1".."9" are spell slot columns)
+  const colsKv = kv.find(([k]) => k === "cols");
+  let classTable = null;
+  if (colsKv) {
+    const head = colsKv[1].split("|").map(c => /^\d$/.test(c.trim()) ? "Slot " + c.trim() : c.trim());
+    const rows = [head];
+    for (let lv = 1; lv <= 20; lv++) { const r = kv.find(([k]) => k === "L" + lv); if (r) rows.push(r[1].split("|").map(c => c.trim())); }
+    classTable = tableEl(rows);
+    for (let i = kv.length - 1; i >= 0; i--) if (/^(cols|L\d+|equip_[a-z])$/.test(kv[i][0])) kv.splice(i, 1);
+  }
+  const name = (kv.find(([k]) => k === "name") || [, ""])[1];
+  const short = kv.filter(([k, v]) => k !== "name" && v.length <= 70 && !v.includes("\n"));
+  const long = kv.filter(([k, v]) => k !== "name" && (v.length > 70 || v.includes("\n")));
+  entry.replaceChildren(h("div", {}, h("div", { class: "row" }, h("h2", { class: "grow" }, name),
+      src === "monsters" && hasApp("Initiative") ? h("button", { onclick: async ev => {
+        try { await app("Initiative", "monsters", { text: "1x " + name }); ev.target.textContent = "Added ✓"; } catch (e) { ev.target.textContent = e.message; }
+      } }, "Add to the fight") : null),
+    short.length ? h("dl", {}, short.map(([k, v]) => [h("dt", {}, label(k)), h("dd", {}, v)])) : null,
+    classTable ? [h("h4", {}, "Class table"), classTable] : null,
+    long.map(([k, v]) => [k === "text" ? null : h("h4", {}, label(k)), richText(v)])));
+  diceLinks(entry, name);
+}
+// Dice in a text ("2d6 + 3", "1d20") become links that roll on the device.
+function diceLinks(el, title) {
+  const re = /\b\d*d(?:4|6|8|10|12|20|100)\b(?:\s*[+\u2212-]\s*\d+)?/g;
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (walker.nextNode()) if (re.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+  for (const n of nodes) {
+    const parts = [], t = n.nodeValue;
+    let at = 0;
+    for (const m of t.matchAll(re)) {
+      parts.push(t.slice(at, m.index));
+      const expr = m[0].replace(/\u2212/g, "-").replace(/\s+/g, "");
+      parts.push(h("a", { class: "dicelink", href: "#", title: "Roll " + expr, onclick: async ev => {
+        ev.preventDefault();
+        try { showRolls(title, await rollOn(title, [{ label: "", expr }])); } catch (e) { }
+      } }, m[0]));
+      at = m.index + m[0].length;
+    }
+    parts.push(t.slice(at));
+    n.replaceWith(...parts);
   }
 }
 
@@ -799,6 +1909,11 @@ async function viewDevice(main) {
         h("dt", { class: "muted" }, "Address"), h("dd", {}, st.ip + (st.mode === "hotspot" ? "" : "  (or http://dnd.local)")),
         h("dt", { class: "muted" }, "SD card"), h("dd", {}, st.sd ? "OK" : "missing"),
         h("dt", { class: "muted" }, "Free memory"), h("dd", {}, kb(st.heap)))),
+    h("h3", {}, "Foundry VTT link key"),
+    h("p", { class: "muted small" }, "Paste this into Foundry: Game Settings > Configure Settings > Cardputer Link > Link key."),
+    h("div", { class: "row", style: "margin-bottom:1rem" },
+      h("code", { style: "font-size:1.3rem;padding:.3rem .6rem;border:1px solid var(--edge, #555);border-radius:6px;user-select:all" }, st.fkey || "-"),
+      h("button", { onclick: async ev => { try { await navigator.clipboard.writeText(st.fkey); ev.target.textContent = "Copied"; } catch (e) { ev.target.textContent = "Select and copy it"; } } }, "Copy")),
     h("h3", {}, "Home network"),
     h("p", { class: "muted small" }, "Web access joins this network when started, and falls back to its own hotspot if it can't. Changes apply the next time you start web access on the Cardputer."),
     h("form", { class: "list", style: "max-width:420px", onsubmit: async ev => {
@@ -806,9 +1921,40 @@ async function viewDevice(main) {
       try { await api("/api/wifi", { method: "POST", body: ssid.value.trim() + "\n" + pass.value }); msg.textContent = "Saved"; msg.className = "st ok"; }
       catch (e) { msg.textContent = e.message; msg.className = "st err"; }
     } }, ssid, pass, h("div", { class: "row" }, h("button", { class: "primary" }, "Save"), msg)));
+  if (hasApp("Settings")) main.append(await settingsCards());
+}
+async function settingsCards() {
+  let S = await app("Settings", "state");
+  const box = h("div", {}), msg = h("span", { class: "st" });
+  async function call(op, args) { try { S = await app("Settings", op, args); render(); } catch (e) { flash(msg, e.message, false); } }
+  function render() {
+    const now = new Date();
+    box.replaceChildren(h("h3", { style: "margin-top:1.2rem" }, "Date & time"),
+      h("div", { class: "card", style: "max-width:560px" },
+        h("div", { class: "row" }, h("span", { class: "dtotal", style: "font-size:2.4rem" }, S.valid ? S.time : "--:--"), h("span", {}, S.valid ? S.date : "Not set"), msg),
+        h("div", { class: "muted small" }, S.syncing ? "Asking the internet…" : S.syncedAgo >= 0 ? `Set from the internet ${S.syncedAgo} min ago` : "Sets itself from the internet when web access joins your WiFi."),
+        h("div", { class: "row", style: "margin-top:.6rem" },
+          h("label", {}, "Time zone ", h("select", { style: "width:auto", onchange: ev => call("zone", { i: ev.target.value }) }, S.zones.map((z, i) => h("option", { value: i, selected: S.zone === i }, z)))),
+          h("button", { onclick: () => call("time", { y: now.getFullYear(), mo: now.getMonth() + 1, d: now.getDate(), h: now.getHours(), mi: now.getMinutes(), s: now.getSeconds() }) }, "Use this device's time"),
+          h("button", { onclick: () => call("sync") }, "Ask the internet"))),
+      h("h3", { style: "margin-top:1.2rem" }, "Sound & screen"),
+      h("div", { class: "card list", style: "max-width:560px" },
+        h("label", { class: "row" }, h("span", { style: "width:7rem" }, "Volume"), h("input", { type: "range", min: 0, max: 255, value: S.volume, class: "grow", onchange: ev => call("set", { volume: ev.target.value }) })),
+        h("label", { class: "row" }, h("span", { style: "width:7rem" }, "Brightness"), h("input", { type: "range", min: 10, max: 255, value: S.brightness, class: "grow", onchange: ev => call("set", { brightness: ev.target.value }) })),
+        S.timeouts ? h("label", { class: "row" }, h("span", { style: "width:7rem" }, "Screen timeout"),
+          h("select", { style: "width:auto", onchange: ev => call("set", { timeout: ev.target.value }) },
+            S.timeouts.map(t => h("option", { value: t, selected: S.timeout === t }, !t ? "Never" : t < 60 ? t + " seconds" : t / 60 + (t === 60 ? " minute" : " minutes"))))) : null,
+        S.kbLights != null ? h("label", { class: "row" }, h("span", { style: "width:7rem" }, "Keyboard lights"),
+          h("select", { style: "width:auto", onchange: ev => call("set", { kbLights: ev.target.value }) },
+            ["Off", "Dim", "Normal"].map((t, i) => h("option", { value: i, selected: S.kbLights === i }, t)))) : null,
+        h("label", {}, h("input", { type: "checkbox", checked: S.sound, onchange: ev => call("set", { sound: ev.target.checked ? 1 : 0 }) }), " Sound effects"),
+        h("label", {}, h("input", { type: "checkbox", checked: S.logRolls, onchange: ev => call("set", { logRolls: ev.target.checked ? 1 : 0 }) }), " Keep a log of every roll on the card")));
+  }
+  render();
+  return box;
 }
 
-route();
+status().then(buildNav).catch(() => {}).finally(route);
 </script>
 </body>
 </html>

@@ -31,6 +31,7 @@ public:
     // When set, Esc in the detail view leaves the browser instead of going to the list.
     bool closeOnBack = false;
 
+    bool bigLayout() const override { return true; }
     void onEnter() override;
     void onExit() override;
     bool handle(const input::Event& e) override;
@@ -44,6 +45,8 @@ protected:
     std::vector<int> vis_;
     String search_;
     int sel_ = 0, top_ = 0;
+    float listPos_ = 0;   // big screen: the list scrolled by this many px
+    int shownSel_ = -1;   // the selection it was last scrolled to
     db::Rec cur_;
     int curIdx_ = -1;
     TextView tv_;
@@ -60,7 +63,8 @@ protected:
     virtual void drawRow(int i, int y, bool sel) = 0;
     virtual void buildDetail() = 0;
     virtual bool detailKey(const input::Event& e) { return false; }
-    virtual void drawDetailBar(int y) {}
+    // A line above the entry's text, at y across x..x+w (classic: 0..W).
+    virtual void drawDetailBar(int x, int y, int w) {}
     virtual void rollCurrent() = 0;
     virtual std::vector<Wizard::Step> wizardSteps() { return {}; }
     virtual void presetWizard(const db::Rec& r) {}
@@ -72,6 +76,13 @@ protected:
 
     void refilter();
     void openDetail(int visIndex);
+    // Right edge for drawRow's right-aligned columns (the list pane on the big screen).
+    int rowRight() const { return ui::wide() ? listW() : ui::W; }
+    // Big screen: the list is on the left, the entry beside it.
+    static int listW() { return ui::W * 2 / 5; }
+    int shownIdx_ = -1;          // entry built into tv_ (big-screen preview)
+    void preview();
+    void drawWide();
     void startWizard(int editIndex, const db::Rec* from);
     void finishWizard();
     static String jstr(const char* s) { return String(s ? s : ""); }
@@ -82,3 +93,14 @@ DbBrowser* newSpellsBrowser();
 DbBrowser* newItemsBrowser();
 DbBrowser* newMonstersBrowser();
 DbBrowser* newRulesBrowser();
+
+// A monster's rollable actions (attacks, saves, initiative, HP), from its
+// SRD record: the Monsters roll menu and the Initiative DM panel.
+struct MonsterRoll {
+    String label;                      // "Tentacle  +9  2d6+5"
+    String name, detail;               // "Tentacle", "+9  2d6+5"
+    std::vector<rollui::Line> lines;   // for rollui::show
+    String title;
+    bool attack = false;               // an action, not a save / initiative / HP
+};
+std::vector<MonsterRoll> monsterRolls(const db::Rec& r);

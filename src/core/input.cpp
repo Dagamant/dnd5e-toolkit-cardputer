@@ -28,6 +28,10 @@ void begin() { s_lastActivity = millis(); }
 void setTextMode(bool on) { s_textMode = on; }
 bool textMode() { return s_textMode; }
 uint32_t lastActivity() { return s_lastActivity; }
+void poke() { s_lastActivity = millis(); }
+static bool s_asleep = false;
+void setAsleep(bool on) { s_asleep = on; }
+bool asleep() { return s_asleep; }
 
 static void emit(uint16_t id, bool repeat) {
     Event e;

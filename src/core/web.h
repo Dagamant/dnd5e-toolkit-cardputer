@@ -19,6 +19,9 @@
 //   POST /api/rm|mkdir|mv   ?path= (&to= for mv)
 //   GET  /api/live          initiative state + recent rolls
 //   POST /api/wifi          body = "ssid\npassword" (home network for next start)
+//   POST /api/roll?title=   body = "label|expr" lines -> results, logged like the device's rolls
+//   GET|POST /api/app?app=&op= an app's own web side (App::web); /api/status lists the apps that have one
+//   /api/foundry/*          Foundry VTT link, with its own key (core/foundry.h)
 // Paths are confined to /gmtools.
 namespace web {
 
@@ -36,6 +39,9 @@ String pin();
 uint32_t requests();     // API calls served since start
 String savedSsid();
 void saveNetwork(const String& ssid, const String& pass);
+
+// A JSON string literal: "..." with escapes.
+String js(const String& s);
 
 // Recent rolls, for the live table view.
 void logRoll(const String& title, const String& label, const String& expr, int total, const String& breakdown,

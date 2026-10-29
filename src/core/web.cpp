@@ -1,5 +1,10 @@
 #include "web.h"
+#include "clock.h"
 #include "app.h"
+#include "dice_expr.h"
+#include "foundry.h"
+#include "roll_overlay.h"
+#include "settings.h"
 #include "storage.h"
 #include "web_page.h"
 #include <ESPmDNS.h>
@@ -45,7 +50,7 @@ static String randomString(const char* alphabet, int n) {
     return s;
 }
 
-static String json(const String& s) {
+String js(const String& s) {
     String o = "\"";
     o.reserve(s.length() + 8);
     for (size_t i = 0; i < s.length(); i++) {
@@ -59,6 +64,8 @@ static String json(const String& s) {
     }
     return o + "\"";
 }
+
+static String json(const String& s) { return js(s); }
 
 // Only paths inside /gmtools, without "..".
 static bool safePath(const String& p) {
@@ -147,7 +154,18 @@ static void handleStatus() {
     if (!guard()) return;
     String o = String("{\"mode\":") + json(s_ap ? "hotspot" : "wifi") + ",\"network\":" + json(s_name) +
                ",\"ip\":" + json(address()) + ",\"heap\":" + ESP.getFreeHeap() + ",\"saved\":" + json(savedSsid()) +
-               ",\"sd\":" + (storage::ok() ? "true" : "false") + "}";
+               ",\"sd\":" + (storage::ok() ? "true" : "false") + ",\"fkey\":" + json(foundry::keyGrouped()) + ",\"apps\":[";
+    bool first = true;
+    forEachApp([&](App* a) {
+        WebCall c;
+        c.op = "hello";
+        c.arg = [](const char*) { return String(); };
+        String out;
+        if (a->web(c, out) != 200) return;
+        o += (first ? "" : ",") + json(a->name());
+        first = false;
+    });
+    o += "]}";
     reply(200, o, "application/json");
 }
 
@@ -310,6 +328,59 @@ static void handleLive() {
     reply(200, o + "]}", "application/json");
 }
 
+// Rolls from the page, made here so they join the shared roll log (and the
+// session log). Body: one "label|expr" line per roll; as on the device, a
+// natural 20 on the first line doubles the dice of the lines after it.
+static void handleRoll() {
+    if (!guard()) return;
+    const String title = s_server->arg("title");
+    String body = s_server->arg("plain"), o = "[";
+    bool crit = false, first = true;
+    int start = 0, k = 0;
+    while (start < (int)body.length()) {
+        int nl = body.indexOf('\n', start);
+        String l = nl < 0 ? body.substring(start) : body.substring(start, nl);
+        start = nl < 0 ? body.length() : nl + 1;
+        l.trim();
+        if (!l.length()) continue;
+        const int bar = l.indexOf('|');
+        const String label = bar < 0 ? String("") : l.substring(0, bar);
+        String e = bar < 0 ? l : l.substring(bar + 1);
+        const bool doubled = k > 0 && crit;
+        if (doubled) e = rollui::doubleDice(e);
+        dice::Result r = dice::roll(e);
+        if (k++ == 0 && r.ok && r.natural == 20) crit = true;
+        if (r.ok) {
+            logRoll(title, label, r.expr, r.total, r.breakdown(), doubled, r.natural);
+            if (settings::cur.logRolls && storage::ok())
+                storage::appendLine(storage::sessionLogPath().c_str(),
+                                    String(millis() / 1000) + "s  " + title + (label.length() ? " " + label : String("")) + ": " +
+                                        r.expr + " = " + r.total + "  " + r.breakdown() + "  (web)");
+        }
+        o += String(first ? "" : ",") + "{\"label\":" + json(label) + ",\"ok\":" + (r.ok ? "true" : "false") +
+             ",\"error\":" + json(r.error) + ",\"expr\":" + json(r.expr) + ",\"total\":" + r.total +
+             ",\"detail\":" + json(r.breakdown()) + ",\"nat\":" + r.natural + ",\"crit\":" + (doubled ? "true" : "false") +
+             ",\"degree\":" + json(r.hasTarget ? dice::degreeName(r.degree) : "") + "}";
+        first = false;
+    }
+    reply(200, o + "]", "application/json");
+}
+
+// An app's own web side: /api/app?app=<name>&op=<op>&... (App::web).
+static void handleApp() {
+    if (!guard()) return;
+    App* a = findApp(s_server->arg("app").c_str());
+    if (!a) { reply(404, "No such app"); return; }
+    WebCall c;
+    c.op = s_server->arg("op");
+    c.body = s_server->arg("plain");
+    c.arg = [](const char* k) { return s_server->arg(k); };
+    String out;
+    const int code = a->web(c, out);
+    if (!code) { reply(404, "That app has no web side"); return; }
+    reply(code, out, out.startsWith("{") || out.startsWith("[") ? "application/json" : "text/plain; charset=utf-8");
+}
+
 static void handleWifi() {
     if (!guard()) return;
     String b = s_server->arg("plain");
@@ -321,6 +392,36 @@ static void handleWifi() {
     reply(200, "saved");
 }
 
+// Foundry VTT link (core/foundry.h). These routes take the pairing key instead
+// of the PIN token, so a reverse proxy can expose just /api/foundry/ to the
+// browser running Foundry. CORS is open for setups that call the device directly.
+static bool foundryGuard() {
+    s_server->sendHeader("Access-Control-Allow-Origin", "*");
+    s_server->sendHeader("Cache-Control", "no-store");
+    if (foundry::keyOk(s_server->header("X-Link-Key"))) return true;
+    s_server->send(401, "text/plain", "Wrong link key");
+    return false;
+}
+
+static void handleFoundryOptions() {
+    s_server->sendHeader("Access-Control-Allow-Origin", "*");
+    s_server->sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    s_server->sendHeader("Access-Control-Allow-Headers", "X-Link-Key, Content-Type");
+    s_server->sendHeader("Access-Control-Max-Age", "600");
+    s_server->send(204);
+}
+
+static void handleFoundryPush() {
+    if (!foundryGuard()) return;
+    bool ok = foundry::store(s_server->arg("s"), s_server->arg("plain"));
+    s_server->send(ok ? 200 : 413, "text/plain", ok ? "ok" : "Unknown section, too big, or the Cardputer is low on memory");
+}
+
+static void handleFoundryPoll() {
+    if (!foundryGuard()) return;
+    s_server->send(200, "text/plain", foundry::takeRequest());
+}
+
 static void handlePage() {
     s_server->sendHeader("Content-Encoding", "gzip");
     s_server->sendHeader("Cache-Control", "no-cache");
@@ -329,8 +430,8 @@ static void handlePage() {
 
 static void beginServer() {
     s_server = new WebServer(80);
-    static const char* headers[] = {"X-Token"};
-    s_server->collectHeaders(headers, 1);
+    static const char* headers[] = {"X-Token", "X-Link-Key"};
+    s_server->collectHeaders(headers, 2);
     s_server->on("/", HTTP_GET, handlePage);
     s_server->on("/api/login", HTTP_POST, handleLogin);
     s_server->on("/api/status", HTTP_GET, handleStatus);
@@ -344,6 +445,13 @@ static void beginServer() {
     s_server->on("/api/upload", HTTP_POST, handleUploadDone, handleUploadChunk);
     s_server->on("/api/live", HTTP_GET, handleLive);
     s_server->on("/api/wifi", HTTP_POST, handleWifi);
+    s_server->on("/api/roll", HTTP_POST, handleRoll);
+    s_server->on("/api/app", HTTP_GET, handleApp);
+    s_server->on("/api/app", HTTP_POST, handleApp);
+    s_server->on("/api/foundry/push", HTTP_POST, handleFoundryPush);
+    s_server->on("/api/foundry/poll", HTTP_GET, handleFoundryPoll);
+    s_server->on("/api/foundry/push", HTTP_OPTIONS, handleFoundryOptions);
+    s_server->on("/api/foundry/poll", HTTP_OPTIONS, handleFoundryOptions);
     s_server->onNotFound([] { reply(404, "Not found"); });
     s_server->begin();
     s_state = RUNNING;
@@ -420,6 +528,7 @@ void stop() {
 void update() {
     if (s_state == CONNECTING) {
         if (WiFi.status() == WL_CONNECTED) {
+            wallclock::syncFromInternet();   // a home network: set the clock while we're at it
             MDNS.begin("dnd");
             MDNS.addService("http", "tcp", 80);
             beginServer();

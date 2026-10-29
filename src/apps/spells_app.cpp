@@ -91,22 +91,23 @@ protected:
     void drawRow(int i, int y, bool s) override {
         const char* school = table_.col(i, "school");
         int lvl = atoi(table_.col(i, "level"));
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
-        gfx.fillCircle(8, y + 4, 2, schoolColor(school));
+        gfx.fillCircle(u(8), y + u(4), u(2), schoolColor(school));
         gfx.setTextColor(s ? C_TEXT : rgb(200, 192, 210));
         String n = table_.at(i).name;
-        if (n.length() > 27) n = n.substring(0, 26) + ".";
-        gfx.drawString(n, 14, y + 1);
+        if (wide()) n = fitText(n, rowRight() - u(64));
+        else if (n.length() > 27) n = n.substring(0, 26) + ".";
+        gfx.drawString(n, u(14), y + u(1));
         gfx.setTextDatum(top_right);
         String tags;
         if (table_.isCustom(i)) tags += "*";
         if (*table_.col(i, "conc")) tags += "C";
         if (*table_.col(i, "ritual")) tags += "R";
         gfx.setTextColor(C_ICE);
-        gfx.drawString(tags, W - 28, y + 1);
+        gfx.drawString(tags, rowRight() - u(28), y + u(1));
         gfx.setTextColor(lvl ? C_GOLD : C_DIM);
-        gfx.drawString(lvl ? String(lvl) : String("C"), W - 8, y + 1);
+        gfx.drawString(lvl ? String(lvl) : String("C"), rowRight() - u(8), y + u(1));
     }
 
     void buildDetail() override {
@@ -155,19 +156,19 @@ protected:
         return false;
     }
 
-    void drawDetailBar(int y) override {
+    void drawDetailBar(int x, int y, int w) override {
         int lvl = cur_.num("level");
         bool cantrip = lvl == 0 && cur_.get("higher").startsWith("Cantrip");
         if (!cantrip && !canUpcast()) return;
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(top_left);
         gfx.setTextColor(C_GOLD);
         String s = cantrip ? String("< caster level ") + std::max(1, slot_) + " >" : String("< cast at level ") + slot_ + " >";
         String expr = expression();
-        gfx.drawString(s, 6, y + 1);
+        gfx.drawString(s, x + u(6), y + u(1));
         gfx.setTextDatum(top_right);
         gfx.setTextColor(C_EMERALD);
-        gfx.drawString(expr, W - 6, y + 1);
+        gfx.drawString(expr, x + w - u(6), y + u(1));
     }
 
     String expression() const {

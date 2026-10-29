@@ -1,4 +1,5 @@
 #include "textview.h"
+#include "touch.h"
 
 using namespace ui;
 
@@ -21,6 +22,7 @@ static std::vector<String> cellsOf(const String& l) {
 }
 
 void TextView::add(const String& text, Style st, int width) {
+    if (width <= 0) width = width_ ? width_ : metrics().w - u(14);
     // split into plain text and table runs
     String plain;
     std::vector<std::vector<String>> table;
@@ -47,6 +49,11 @@ void TextView::add(const String& text, Style st, int width) {
         } else {
             flushTable();
             if (l.startsWith("* ")) { flushPlain(); addText(l.substring(2), BULLET, width); }
+            else if (l.startsWith("# ")) {   // heading (Foundry journals and sheets)
+                flushPlain();
+                if (!lines_.empty() && lines_.back().second.length()) lines_.push_back({BODY, ""});
+                addText(l.substring(2), HEAD, width);
+            }
             else plain += (plain.length() ? "\n" : "") + l;
         }
         if (nl < 0) break;
@@ -59,7 +66,7 @@ void TextView::add(const String& text, Style st, int width) {
 void TextView::addText(const String& text, Style st, int width) {
     gfx.setFont(metrics().body);
     std::vector<String> w;
-    int indent = st == BULLET ? 8 : 0;
+    int indent = st == BULLET ? u(8) : 0;
     wrapLines(text, width - indent, w);
     for (size_t i = 0; i < w.size(); i++) lines_.push_back({(st == BULLET && i) ? BULLET_CONT : st, w[i]});
 }
@@ -146,38 +153,50 @@ void TextView::addTable(const std::vector<std::vector<String>>& in, int width) {
 
 void TextView::draw(int x, int y, int h, uint16_t accent) {
     const int lh = metrics().line;
+    const int right = width_ ? x + width_ + u(5) : metrics().w;   // stripes and scroll bar end here
+    lh_ = lh;
+    viewH_ = h;
     rows_ = h / lh;
+    // a finger may hold it past an end; otherwise keep it inside
+    if (!touch::scrolling()) pos_ = std::max(0.0f, std::min(pos_, maxPos()));
+    touch::scroller(x - u(4), y, right - x + u(4), h, &pos_, maxPos());
+    int32_t cx, cy, cw, ch;
+    gfx.getClipRect(&cx, &cy, &cw, &ch);
+    gfx.setClipRect(x - u(3), y, right - x + u(3), h);
     gfx.setFont(metrics().body);
     gfx.setTextDatum(top_left);
-    for (int i = top_; i < (int)lines_.size() && i < top_ + rows_; i++) {
+    const int p = (int)pos_, first = std::max(0, p / lh);
+    for (int i = first; i < (int)lines_.size(); i++) {
+        int ly = y + i * lh - p;
+        if (ly >= y + h) break;
         auto& l = lines_[i];
-        int ly = y + (i - top_) * lh;
         int lx = x;
         switch (l.first) {
-            case HEAD: gfx.setTextColor(accent); break;
+            case HEAD: gfx.setTextColor(accent); if (wide()) gfx.setFont(metrics().bold); break;
             case DIM: gfx.setTextColor(C_DIM); break;
             case ACCENT: gfx.setTextColor(C_GOLD); break;
             case GOOD: gfx.setTextColor(C_EMERALD); break;
             case BAD: gfx.setTextColor(C_BLOOD); break;
-            case BULLET: gfx.fillCircle(x + 3, ly + 4, 1, accent); lx += 8; gfx.setTextColor(C_TEXT); break;
-            case BULLET_CONT: lx += 8; gfx.setTextColor(C_TEXT); break;
+            case BULLET: gfx.fillCircle(x + u(3), ly + lh * 2 / 5, u(1), accent); lx += u(8); gfx.setTextColor(C_TEXT); break;
+            case BULLET_CONT: lx += u(8); gfx.setTextColor(C_TEXT); break;
             case TH:
-                gfx.fillRect(x - 2, ly - 1, metrics().w - x - 2, lh, C_PANEL);
+                gfx.fillRect(x - u(2), ly - u(1), right - x - u(2), lh, C_PANEL);
                 gfx.setTextColor(C_GOLD);
                 break;
             case TD_ALT:
-                gfx.fillRect(x - 2, ly - 1, metrics().w - x - 2, lh, C_BG2);
+                gfx.fillRect(x - u(2), ly - u(1), right - x - u(2), lh, C_BG2);
                 gfx.setTextColor(C_TEXT);
                 break;
             case TD_KEY: gfx.setTextColor(accent); break;
             default: gfx.setTextColor(C_TEXT);
         }
         gfx.drawString(l.second, lx, ly);
+        if (l.first == HEAD && wide()) gfx.setFont(metrics().body);
     }
-    if ((int)lines_.size() > rows_) {
-        int areaH = rows_ * lh;
-        int sh = std::max(6, areaH * rows_ / (int)lines_.size());
-        int sy = y + (areaH - sh) * top_ / std::max(1, maxTop());
-        gfx.fillRect(metrics().w - 3, sy, 2, sh, accent);
+    gfx.setClipRect(cx, cy, cw, ch);
+    if (maxPos() > 0) {
+        int sh = std::max(u(6), h * h / ((int)lines_.size() * lh));
+        float f = std::max(0.0f, std::min(1.0f, pos_ / maxPos()));
+        gfx.fillRect(right - u(3), y + (int)((h - sh) * f), u(2), sh, accent);
     }
 }

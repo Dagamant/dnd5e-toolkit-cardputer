@@ -1,7 +1,11 @@
 #include "../core/app.h"
+#include "../core/hold_menu.h"
+#include "../core/osk.h"
+#include "../core/touch.h"
 #include "../core/sfx.h"
 #include "../core/storage.h"
 #include "../core/ui.h"
+#include "../core/widgets.h"
 #include <algorithm>
 #include <vector>
 
@@ -16,8 +20,7 @@ namespace {
 
 constexpr const char* DIR = "/gmtools/notes";
 constexpr int MAX_LEN = 8000;
-constexpr int COLS = 38;          // Font0 is 6 px wide: (240 - 12) / 6
-constexpr int LINE_H = 10;
+static int lineH() { return ui::metrics().line + (ui::wide() ? 6 : 0); }
 constexpr uint32_t AUTOSAVE_MS = 4000;
 
 struct NoteInfo { String file, title; size_t size; };
@@ -56,9 +59,12 @@ public:
         if (mode_ == Mode::Edit && dirty_ && millis() - lastEdit_ > AUTOSAVE_MS) save(false);
     }
 
+    bool bigLayout() const override { return true; }
+
     void draw() override {
         drawBackground();
-        if (mode_ == Mode::Edit) drawEditor();
+        if (wide()) drawWide();
+        else if (mode_ == Mode::Edit) drawEditor();
         else drawList();
     }
 
@@ -76,6 +82,11 @@ private:
     uint32_t lastEdit_ = 0, sessionStart_ = 0;
     // RAM fallback when there's no SD card
     std::vector<String> ramNotes_;
+    int editW_ = 0;        // the editor's text width, from its last draw (0: the whole screen)
+    float listPos_ = 0;    // big screen: the note list's scroll, in px
+
+    // editor columns: 38 on the Cardputer (Font0 is 6 px wide: (240 - 12) / 6)
+    int cols() const { return (editW_ ? editW_ : ui::W - ui::u(12)) / ui::metrics().charW; }
 
     // ---------- list ----------
     void refresh() {
@@ -172,30 +183,39 @@ private:
 
     void drawList() {
         drawHeader("Notes", accent());
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         int n = notes_.size() + 1;
-        const int rowH = 13, top = HEADER_H + 4, rows = 8;
+        const int rowH = touchRow(13), pad = touchPad(13), top = HEADER_H + u(4), rows = (H - FOOTER_H - top) / rowH;
         int first = std::max(0, std::min(sel_ - rows / 2, n - rows));
         for (int i = first; i < n && i < first + rows; i++) {
-            int y = top + (i - first) * rowH;
+            int y = top + (i - first) * rowH + pad;
             bool s = i == sel_;
-            if (s) drawPanel(4, y - 2, W - 8, rowH, C_PANEL, accent());
+            if (s) drawPanel(u(4), y - pad - u(2), W - u(8), rowH, C_PANEL, accent());
+            touch::row(0, y - pad - u(2), W, rowH, sel_, i);
             gfx.setTextDatum(top_left);
             if (i == 0) {
                 gfx.setTextColor(C_GOLD);
-                gfx.drawString("+ New note", 12, y + 1);
+                gfx.drawString("+ New note", u(12), y + u(1));
                 continue;
             }
+            touch::onHold(0, y - pad - u(2), W, rowH, [this, i] {
+                sel_ = i;
+                holdmenu::open(notes_[i - 1].title, {{"Open", [this, i] { openNote(i - 1); }},
+                                                     {"Delete", [this, i] { confirmDelete_ = true; deleteNote(i - 1); }, C_BLOOD, true}});
+            });
             const NoteInfo& ni = notes_[i - 1];
             String t = ni.title;
-            if (t.length() > 30) t = t.substring(0, 29) + ".";
+            if (wide()) t = fitText(t, W - u(60));
+            else if (t.length() > 30) t = t.substring(0, 29) + ".";
             gfx.setTextColor(s ? C_TEXT : rgb(200, 192, 180));
-            gfx.drawString(t, 12, y + 1);
+            gfx.drawString(t, u(12), y + u(1));
             gfx.setTextDatum(top_right);
             gfx.setTextColor(C_DIM);
-            gfx.drawString(ni.size >= 1000 ? String(ni.size / 1000) + "k" : String(ni.size), W - 10, y + 1);
+            gfx.drawString(ni.size >= 1000 ? String(ni.size / 1000) + "k" : String(ni.size), W - u(10), y + u(1));
         }
-        drawFooter(storage::ok() ? "Ent open  N new  X del  Esc back" : "No SD card: notes are lost at power off");
+        drawFooter(!storage::ok() ? "No SD card: notes are lost at power off"
+                   : wide()       ? "Ent open  N new  hold for more  Esc back"
+                                  : "Ent open  N new  X del  Esc back");
     }
 
     // ---------- editor ----------
@@ -217,6 +237,7 @@ private:
             ok = storage::writeText(path_.c_str(), text_);
         }
         if (ok) dirty_ = false;
+        if (ok && wide()) refresh();   // the list beside the editor shows the new title
         if (announce) ok ? toast("Saved", C_EMERALD) : toast("Save failed", C_BLOOD);
         if (!ok) sfx::error();
     }
@@ -237,7 +258,7 @@ private:
         int n = text_.length(), i = 0;
         while (true) {
             int start = i, lastSpace = -1, len = 0;
-            while (i < n && text_[i] != '\n' && len < COLS) {
+            while (i < n && text_[i] != '\n' && len < cols()) {
                 if (text_[i] == ' ') lastSpace = i;
                 i++; len++;
             }
@@ -258,29 +279,33 @@ private:
             else break;
         }
         // a cursor exactly at a soft-wrap boundary belongs to the next line
-        col = std::min(cursor_ - lines[row].start, COLS);
+        col = std::min(cursor_ - lines[row].start, cols());
+    }
+
+    // "[1:05] ": time since the session started
+    void insertTime() {
+        uint32_t m = (millis() - sessionStart_) / 60000;
+        char b[16];
+        snprintf(b, sizeof(b), "[%lu:%02lu] ", (unsigned long)(m / 60), (unsigned long)(m % 60));
+        insert(b);
+    }
+
+    void closeEditor() {
+        save(false);
+        mode_ = Mode::List;
+        input::setTextMode(false);
+        refresh();
+        sfx::back();
     }
 
     bool handleEdit(const input::Event& e) {
         if (e.fn && e.key == input::K_CHAR) {
             if (e.base == 's') { save(true); sfx::select(); return true; }
-            if (e.base == 't') {
-                uint32_t m = (millis() - sessionStart_) / 60000;
-                char b[16];
-                snprintf(b, sizeof(b), "[%lu:%02lu] ", (unsigned long)(m / 60), (unsigned long)(m % 60));
-                insert(b);
-                return true;
-            }
+            if (e.base == 't') { insertTime(); return true; }
         }
         std::vector<VLine> lines;
         switch (e.key) {
-            case input::K_BACK:
-                save(false);
-                mode_ = Mode::List;
-                input::setTextMode(false);
-                refresh();
-                sfx::back();
-                return true;
+            case input::K_BACK: closeEditor(); return true;
             case input::K_ENTER: insert("\n"); return true;
             case input::K_TAB: insert("  "); return true;
             case input::K_DEL:
@@ -307,26 +332,35 @@ private:
 
     void drawEditor() {
         String title = firstLine(text_);
-        if (title.length() > 24) title = title.substring(0, 23) + ".";
+        if (!wide() && title.length() > 24) title = title.substring(0, 23) + ".";
         drawHeader(title.c_str(), accent());
-        gfx.setFont(&fonts::Font0);
+        gfx.setFont(ui::font(&fonts::Font0));
         gfx.setTextDatum(middle_right);
         gfx.setTextColor(dirty_ ? C_GOLD : C_EMERALD);
-        gfx.drawString(dirty_ ? "*" : "saved", W - 30, HEADER_H / 2);
+        gfx.drawString(dirty_ ? "*" : "saved", W - u(30), HEADER_H / 2);
 
+        gfx.setFont(ui::font(&fonts::Font0));
+        drawText(0, HEADER_H, W, H - HEADER_H - FOOTER_H);
+        drawFooter("Esc close  FnS save  FnT time  Fn+arrows");
+    }
+
+    // The note's text in (x, y, w, h), with the cursor; a tap moves the cursor there.
+    void drawText(int x, int y, int w, int h) {
+        const int pad = u(6), tx = x + pad, areaTop = y + u(3);
+        editW_ = wide() ? w - 2 * pad : 0;
         std::vector<VLine> lines;
         layout(lines);
         int row, col;
         cursorPos(lines, row, col);
-        const int areaTop = HEADER_H + 3;
-        const int visible = (H - FOOTER_H - areaTop - 2) / LINE_H;
+        const int visible = std::max(1, (h - u(5)) / lineH());
         if (row < top_) top_ = row;
         if (row >= top_ + visible) top_ = row - visible + 1;
 
-        gfx.fillRect(0, HEADER_H, W, H - HEADER_H - FOOTER_H, rgb(20, 18, 26));
+        gfx.fillRect(x, y, w, h, rgb(20, 18, 26));
         gfx.setTextDatum(top_left);
+        const int cw = metrics().charW;
         for (int r = top_; r < (int)lines.size() && r < top_ + visible; r++) {
-            int y = areaTop + (r - top_) * LINE_H;
+            int ly = areaTop + (r - top_) * lineH();
             String s = text_.substring(lines[r].start, lines[r].start + lines[r].len);
             // first line is the title
             gfx.setTextColor(r == 0 ? accent() : C_TEXT);
@@ -334,25 +368,141 @@ private:
             if (s.startsWith("[") && s.indexOf(']') > 0 && s.indexOf(']') < 8) {
                 int b = s.indexOf(']') + 1;
                 gfx.setTextColor(C_ARCANE);
-                gfx.drawString(s.substring(0, b), 6, y);
+                gfx.drawString(s.substring(0, b), tx, ly);
                 gfx.setTextColor(C_TEXT);
-                gfx.drawString(s.substring(b), 6 + b * 6, y);
+                gfx.drawString(s.substring(b), tx + b * cw, ly);
             } else {
-                gfx.drawString(s, 6, y);
+                gfx.drawString(s, tx, ly);
             }
         }
         if ((millis() / 450) % 2 || millis() - lastEdit_ < 400) {
-            int cy = areaTop + (row - top_) * LINE_H;
-            gfx.fillRect(6 + col * 6, cy - 1, 1, 9, C_GOLD);
+            int cy = areaTop + (row - top_) * lineH();
+            gfx.fillRect(tx + col * cw, cy - u(1), wide() ? 3 : u(1), lineH() - u(1), C_GOLD);
         }
         // scrollbar
         if ((int)lines.size() > visible) {
-            int areaH = visible * LINE_H;
-            int sh = std::max(6, areaH * visible / (int)lines.size());
+            int areaH = visible * lineH();
+            int sh = std::max(u(6), areaH * visible / (int)lines.size());
             int sy = areaTop + (areaH - sh) * top_ / std::max(1, (int)lines.size() - visible);
-            gfx.fillRect(W - 3, sy, 2, sh, C_GOLD_DK);
+            gfx.fillRect(x + w - u(3), sy, u(2), sh, C_GOLD_DK);
         }
-        drawFooter("Esc close  FnS save  FnT time  Fn+arrows");
+        // a tap puts the cursor under the finger
+        touch::zone(x, y, w, h, [this, tx, areaTop, cw] {
+            std::vector<VLine> ls;
+            layout(ls);
+            const int r = std::max(0, std::min((int)ls.size() - 1, top_ + (touch::tapY() - areaTop) / lineH()));
+            const int c = std::max(0, std::min(ls[r].len, (touch::tapX() - tx + cw / 2) / cw));
+            cursor_ = ls[r].start + c;
+            wantCol_ = -1;
+            lastEdit_ = millis() - 1000;   // the cursor shows at once
+        });
+        touch::onHold(x, y, w, h, [this] {
+            holdmenu::open(firstLine(text_), {{"Add the time", [this] { insertTime(); }},
+                                              {"Save", [this] { save(true); sfx::select(); }},
+                                              {"Close", [this] { closeEditor(); }}});
+        });
+    }
+
+    // ---------- big screen: the notes on the left, the open one on the right
+    int openIndex() const {
+        for (size_t i = 0; i < notes_.size(); i++)
+            if (mode_ == Mode::Edit && path_.endsWith("/" + notes_[i].file)) return i;
+        return -1;
+    }
+
+    void openWide(int i) {
+        if (mode_ == Mode::Edit) save(false);
+        if (i < 0 || i >= (int)notes_.size()) return;
+        const String file = notes_[i].file;
+        refresh();
+        for (size_t k = 0; k < notes_.size(); k++) if (notes_[k].file == file) { openNote(k); return; }
+    }
+
+    void drawWide() {
+        using namespace widgets;
+        const Metrics& m = metrics();
+        drawHeader(mode_ == Mode::Edit ? firstLine(text_).c_str() : "Notes", accent());
+        const int LX = 16, LW = 380, RX = LX + LW + 16, RW = W - RX - 16, top = HEADER_H + 10;
+        const int bottom = H - (osk::visible() ? osk::height() : FOOTER_H) - 10;
+
+        // the list
+        button(LX, top, LW, 56, "+ New note", false, C_GOLD, [this] { if (mode_ == Mode::Edit) save(false); newNote(); });
+        const int ly = top + 66, lh = bottom - ly, rowH = 92;
+        const int n = notes_.size(), cur = openIndex();
+        const float maxPos = std::max(0, n * rowH - lh);
+        listPos_ = std::max(0.0f, std::min(listPos_, maxPos + 60));
+        touch::scroller(LX, ly, LW, lh, &listPos_, maxPos);
+        gfx.setClipRect(LX, ly, LW, lh);
+        for (int i = 0; i < n; i++) {
+            const int y = ly + i * rowH - (int)listPos_;
+            if (y + rowH < ly || y > ly + lh) continue;
+            const bool on = i == cur;
+            gfx.fillRoundRect(LX, y, LW, rowH - 8, 10, on ? C_PANEL : C_BG2);
+            gfx.drawRoundRect(LX, y, LW, rowH - 8, 10, on ? accent() : C_EDGE);
+            gfx.setFont(m.bold);
+            gfx.setTextDatum(top_left);
+            gfx.setTextColor(on ? accent() : C_TEXT);
+            gfx.drawString(fitText(notes_[i].title, LW - 32), LX + 16, y + 10);
+            gfx.setFont(m.small);
+            gfx.setTextColor(C_DIM);
+            const size_t sz = notes_[i].size;
+            gfx.drawString(sz >= 1000 ? String(sz / 1000) + "k characters" : String(sz) + " characters", LX + 16, y + 50);
+            const int vy = std::max(y, ly), vh = std::min(y + rowH - 8, ly + lh) - vy;
+            if (vh > 0) {
+                touch::zone(LX, vy, LW, vh, [this, i] { openWide(i); });
+                touch::onHold(LX, vy, LW, vh, [this, i] {
+                    holdmenu::open(notes_[i].title, {{"Open", [this, i] { openWide(i); }},
+                                                     {"Delete", [this, i] { removeWide(i); }, C_BLOOD, true}});
+                });
+            }
+        }
+        gfx.clearClipRect();
+        if (!n) {
+            gfx.setFont(m.small);
+            gfx.setTextDatum(top_center);
+            gfx.setTextColor(C_DIM);
+            gfx.drawString(storage::ok() ? "No notes yet." : "No SD card: notes are lost at power off", LX + LW / 2, ly + 20);
+        }
+
+        // the open note
+        if (mode_ != Mode::Edit) {
+            drawPanel(RX, top, RW, bottom - top, C_BG2, C_EDGE);
+            gfx.setFont(m.body);
+            gfx.setTextDatum(middle_center);
+            gfx.setTextColor(C_DIM);
+            gfx.drawString("Pick a note, or start a new one.", RX + RW / 2, (top + bottom) / 2 - 20);
+            gfx.setFont(m.small);
+            gfx.drawString("The first line is its title. Notes save themselves as you type.", RX + RW / 2, (top + bottom) / 2 + 24);
+            drawFooter("Ent open  N new  hold for more  Esc back");
+            return;
+        }
+        // toolbar: what the Fn keys do
+        const int bw = 150, bh = 54;
+        int bx = RX + RW - 4 * bw - 3 * 10;
+        gfx.setFont(m.small);
+        gfx.setTextDatum(middle_left);
+        gfx.setTextColor(dirty_ ? C_GOLD : C_EMERALD);
+        gfx.drawString(tooLong_ ? "read only: too long" : dirty_ ? "editing..." : "saved", RX + 4, top + bh / 2);
+        button(bx, top, bw, bh, "Time", false, C_ARCANE, [this] { insertTime(); });
+        button(bx += bw + 10, top, bw, bh, "Save", false, C_EMERALD, [this] { save(true); sfx::select(); }, dirty_);
+        button(bx += bw + 10, top, bw, bh, "Delete", false, C_BLOOD, [this] {
+            const int i = openIndex();
+            if (i < 0) { closeEditor(); return; }   // never saved: nothing to delete
+            holdmenu::open(notes_[i].title, {{"Delete this note", [this, i] { removeWide(i); }, C_BLOOD, true}});
+        });
+        button(bx += bw + 10, top, bw, bh, "Close", false, C_DIM, [this] { closeEditor(); });
+        const int ty = top + bh + 10;
+        gfx.setFont(m.body);
+        drawText(RX, ty, RW, bottom - ty);
+        gfx.drawRect(RX, ty, RW, bottom - ty, C_EDGE);
+        drawFooter("Esc close  type to write  hold the text for more");
+    }
+
+    void removeWide(int i) {
+        const bool wasOpen = i == openIndex();
+        if (wasOpen) { mode_ = Mode::List; input::setTextMode(false); dirty_ = false; path_ = ""; }
+        confirmDelete_ = true;
+        deleteNote(i);
     }
 };
 

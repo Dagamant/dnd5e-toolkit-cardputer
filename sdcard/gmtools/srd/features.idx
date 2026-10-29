@@ -3,230 +3,230 @@
 1801	Weapon Mastery	Barbarian		1
 2313	Danger Sense	Barbarian		2
 2565	Reckless Attack	Barbarian		2
-2945	Barbarian Subclass	Barbarian		3
-3327	Primal Knowledge	Barbarian		3
-3935	Ability Score Improvement	Barbarian		4
-4175	Extra Attack	Barbarian		5
-4314	Fast Movement	Barbarian		5
-4437	Feral Instinct	Barbarian		7
-4564	Instinctive Pounce	Barbarian		7
-4715	Brutal Strike	Barbarian		9
-5514	Relentless Rage	Barbarian		11
-5980	Improved Brutal Strike	Barbarian		13
-6509	Persistent Rage	Barbarian		15
-6985	Improved Brutal Strike	Barbarian		17
-7212	Indomitable Might	Barbarian		18
-7410	Epic Boon	Barbarian		19
-7600	Primal Champion	Barbarian		20
-7754	Frenzy	Barbarian	Path of the Berserker	3
-8169	Mindless Rage	Barbarian	Path of the Berserker	6
-8425	Retaliation	Barbarian	Path of the Berserker	10
-8685	Intimidating Presence	Barbarian	Path of the Berserker	14
-9422	Bardic Inspiration	Bard		1
-10545	Spellcasting	Bard		1
-12742	Expertise	Bard		2
-13048	Jack of All Trades	Bard		2
-13419	Bard Subclass	Bard		3
-13770	Ability Score Improvement	Bard		4
-14000	Font of Inspiration	Bard		5
-14265	Countercharm	Bard		7
-14615	Magical Secrets	Bard		10
-15159	Superior Inspiration	Bard		18
-15336	Epic Boon	Bard		19
-15513	Words of Creation	Bard		20
-15851	Bonus Proficiencies	Bard	College of Lore	3
-15986	Cutting Words	Bard	College of Lore	3
-16542	Magical Discoveries	Bard	College of Lore	6
-17079	Peerless Skill	Bard	College of Lore	14
-17427	Spellcasting	Cleric		1
-19696	Divine Order	Cleric		1
-20175	Channel Divinity	Cleric		2
-22066	Cleric Subclass	Cleric		3
-22423	Ability Score Improvement	Cleric		4
-22657	Sear Undead	Cleric		5
-23000	Blessed Strikes	Cleric		7
-23544	Divine Intervention	Cleric		10
-23947	Improved Blessed Strikes	Cleric		14
-24397	Epic Boon	Cleric		19
-24568	Greater Divine Intervention	Cleric		20
-24868	Disciple of Life	Cleric	Life Domain	3
-25157	Life Domain Spells	Cleric	Life Domain	3
-25653	Preserve Life	Cleric	Life Domain	3
-26116	Blessed Healer	Cleric	Life Domain	6
-26431	Supreme Healing	Cleric	Life Domain	17
-26808	Spellcasting	Druid		1
-29065	Druidic	Druid		1
-29553	Primal Order	Druid		1
-30025	Wild Shape	Druid		2
-33130	Wild Companion	Druid		2
-33484	Druid Subclass	Druid		3
-33843	Ability Score Improvement	Druid		4
-34075	Wild Resurgence	Druid		5
-34439	Elemental Fury	Druid		7
-34934	Improved Elemental Fury	Druid		15
-35276	Beast Spells	Druid		18
-35498	Epic Boon	Druid		19
-35682	Archdruid	Druid		20
-36476	Circle of the Land Spells	Druid	Circle of the Land	3
-37327	Land's Aid	Druid	Circle of the Land	3
-37981	Natural Recovery	Druid	Circle of the Land	6
-38779	Nature's Ward	Druid	Circle of the Land	10
-39157	Nature's Sanctuary	Druid	Circle of the Land	14
-39719	Fighting Style	Fighter		1
-40001	Second Wind	Fighter		1
-40516	Weapon Mastery	Fighter		1
-40986	Action Surge	Fighter		2
-41344	Tactical Mind	Fighter		2
-41758	Fighter Subclass	Fighter		3
-42117	Ability Score Improvement	Fighter		4
-42360	Extra Attack	Fighter		5
-42497	Tactical Shift	Fighter		5
-42683	Indomitable	Fighter		9
-43043	Tactical Master	Fighter		9
-43246	Two Extra Attacks	Fighter		11
-43395	Studied Attacks	Fighter		13
-43667	Epic Boon	Fighter		19
-43849	Three Extra Attacks	Fighter		20
-43999	Improved Critical	Fighter	Champion	3
-44183	Remarkable Athlete	Fighter	Champion	3
-44490	Additional Fighting Style	Fighter	Champion	7
-44625	Heroic Warrior	Fighter	Champion	10
-44842	Superior Critical	Fighter	Champion	15
-45028	Survivor	Fighter	Champion	18
-45492	Martial Arts	Monk		1
-46513	Unarmored Defense	Monk		1
-46692	Monk's Focus	Monk		2
-48002	Unarmored Movement	Monk		2
-48234	Uncanny Metabolism	Monk		2
-48563	Deflect Attacks	Monk		3
-49368	Monk Subclass	Monk		3
-49728	Ability Score Improvement	Monk		4
-49959	Slow Fall	Monk		4
-50135	Extra Attack	Monk		5
-50269	Stunning Strike	Monk		5
-50759	Empowered Strikes	Monk		6
-50929	Evasion	Monk		7
-51255	Acrobatic Movement	Monk		9
-51483	Heightened Focus	Monk		10
-52188	Self-Restoration	Monk		10
-52475	Deflect Energy	Monk		13
-52658	Disciplined Survivor	Monk		14
-52926	Perfect Focus	Monk		15
-53108	Superior Defense	Monk		18
-53383	Epic Boon	Monk		19
-53568	Body and Mind	Monk		20
-53739	Open Hand Technique	Monk	Warrior of the Open Hand	3
-54238	Wholeness of Body	Monk	Warrior of the Open Hand	6
-54696	Fleet Step	Monk	Warrior of the Open Hand	11
-54906	Quivering Palm	Monk	Warrior of the Open Hand	17
-55784	Lay On Hands	Paladin		1
-56438	Spellcasting	Paladin		1
-58196	Weapon Mastery	Paladin		1
-58588	Fighting Style	Paladin		2
-59159	Paladin's Smite	Paladin		2
-59396	Channel Divinity	Paladin		3
-61136	Paladin Subclass	Paladin		3
-61503	Ability Score Improvement	Paladin		4
-61739	Extra Attack	Paladin		5
-61876	Faithful Steed	Paladin		5
-62156	Aura of Protection	Paladin		6
-62631	Abjure Foes	Paladin		9
-63225	Aura of Courage	Paladin		10
-63468	Radiant Strikes	Paladin		11
-63696	Restoring Touch	Paladin		14
-64101	Aura Expansion	Paladin		18
-64206	Epic Boon	Paladin		19
-64383	Oath of Devotion Spells	Paladin	Oath of Devotion	3
-64906	Sacred Weapon	Paladin	Oath of Devotion	3
-65577	Aura of Devotion	Paladin	Oath of Devotion	7
-65841	Smite of Protection	Paladin	Oath of Devotion	15
-66140	Holy Nimbus	Paladin	Oath of Devotion	20
-66875	Spellcasting	Ranger		1
-68635	Favored Enemy	Ranger		1
-69047	Weapon Mastery	Ranger		1
-69445	Deft Explorer	Ranger		2
-69768	Fighting Style	Ranger		2
-70319	Ranger Subclass	Ranger		3
-70671	Ability Score Improvement	Ranger		4
-70905	Extra Attack	Ranger		5
-71041	Roving	Ranger		6
-71220	Expertise	Ranger		9
-71372	Tireless	Ranger		10
-71913	Relentless Hunter	Ranger		13
-72031	Nature's Veil	Ranger		14
-72392	Precise Hunter	Ranger		17
-72540	Feral Senses	Ranger		18
-72677	Epic Boon	Ranger		19
-72862	Foe Slayer	Ranger		20
-72974	Hunter's Lore	Ranger	Hunter	3
-73322	Hunter's Prey	Ranger	Hunter	3
-74085	Defensive Tactics	Ranger	Hunter	7
-74532	Superior Hunter's Prey	Ranger	Hunter	11
-74811	Superior Hunter's Defense	Ranger	Hunter	15
-75053	Expertise	Rogue		1
-75339	Sneak Attack	Rogue		1
-76015	Thieves' Cant	Rogue		1
-76282	Weapon Mastery	Rogue		1
-76676	Cunning Action	Rogue		2
-76894	Rogue Subclass	Rogue		3
-77240	Steady Aim	Rogue		3
-77521	Ability Score Improvement	Rogue		4
-77757	Cunning Strike	Rogue		5
-79002	Uncanny Dodge	Rogue		5
-79194	Evasion	Rogue		7
-79567	Reliable Talent	Rogue		7
-79752	Improved Cunning Strike	Rogue		11
-79929	Devious Strikes	Rogue		14
-80696	Slippery Mind	Rogue		15
-80862	Elusive	Rogue		18
-81070	Epic Boon	Rogue		19
-81252	Stroke of Luck	Rogue		20
-81510	Fast Hands	Rogue	Thief	3
-81869	Second-Story Work	Rogue	Thief	3
-82175	Supreme Sneak	Rogue	Thief	9
-82476	Use Magic Device	Rogue	Thief	13
-83258	Thief's Reflexes	Rogue	Thief	17
-83551	Spellcasting	Sorcerer		1
-85758	Innate Sorcery	Sorcerer		1
-86238	Font of Magic	Sorcerer		2
-87574	Metamagic	Sorcerer		2
-88260	Sorcerer Subclass	Sorcerer		3
-88632	Ability Score Improvement	Sorcerer		4
-88870	Sorcerous Restoration	Sorcerer		5
-89153	Sorcery Incarnate	Sorcerer		7
-89476	Epic Boon	Sorcerer		19
-89663	Arcane Apotheosis	Sorcerer		20
-93021	Draconic Resilience	Sorcerer	Draconic Sorcery	3
-93443	Draconic Spells	Sorcerer	Draconic Sorcery	3
-93828	Elemental Affinity	Sorcerer	Draconic Sorcery	6
-94228	Dragon Wings	Sorcerer	Draconic Sorcery	14
-94666	Dragon Companion	Sorcerer	Draconic Sorcery	18
-95102	Eldritch Invocations	Warlock		1
-96177	Pact Magic	Warlock		1
-98773	Magical Cunning	Warlock		2
-99078	Warlock Subclass	Warlock		3
-99441	Ability Score Improvement	Warlock		4
-99677	Contact Patron	Warlock		9
-100154	Mystic Arcanum	Warlock		11
-100867	Epic Boon	Warlock		19
-101039	Eldritch Master	Warlock		20
-110112	Dark One's Blessing	Warlock	Fiend Patron	3
-110455	Fiend Spells	Warlock	Fiend Patron	3
-110901	Dark One's Own Luck	Warlock	Fiend Patron	6
-111428	Fiendish Resilience	Warlock	Fiend Patron	10
-111685	Hurl Through Hell	Warlock	Fiend Patron	14
-112427	Spellcasting	Wizard		1
-115461	Ritual Adept	Wizard		1
-115713	Arcane Recovery	Wizard		1
-116306	Scholar	Wizard		2
-116589	Wizard Subclass	Wizard		3
-118160	Ability Score Improvement	Wizard		4
-118394	Memorize Spell	Wizard		5
-118645	Spell Mastery	Wizard		18
-119209	Epic Boon	Wizard		19
-119388	Signature Spells	Wizard		20
-119792	Evocation Savant	Wizard	Evoker	3
-120236	Potent Cantrip	Wizard	Evoker	3
-120622	Sculpt Spells	Wizard	Evoker	6
-121088	Empowered Evocation	Wizard	Evoker	10
-121295	Overchannel	Wizard	Evoker	14
+2944	Barbarian Subclass	Barbarian		3
+3326	Primal Knowledge	Barbarian		3
+3934	Ability Score Improvement	Barbarian		4
+4174	Extra Attack	Barbarian		5
+4313	Fast Movement	Barbarian		5
+4436	Feral Instinct	Barbarian		7
+4563	Instinctive Pounce	Barbarian		7
+4714	Brutal Strike	Barbarian		9
+5513	Relentless Rage	Barbarian		11
+5979	Improved Brutal Strike	Barbarian		13
+6508	Persistent Rage	Barbarian		15
+6984	Improved Brutal Strike	Barbarian		17
+7211	Indomitable Might	Barbarian		18
+7409	Epic Boon	Barbarian		19
+7599	Primal Champion	Barbarian		20
+7753	Frenzy	Barbarian	Path of the Berserker	3
+8168	Mindless Rage	Barbarian	Path of the Berserker	6
+8424	Retaliation	Barbarian	Path of the Berserker	10
+8684	Intimidating Presence	Barbarian	Path of the Berserker	14
+9421	Bardic Inspiration	Bard		1
+10543	Spellcasting	Bard		1
+12739	Expertise	Bard		2
+13045	Jack of All Trades	Bard		2
+13416	Bard Subclass	Bard		3
+13767	Ability Score Improvement	Bard		4
+13997	Font of Inspiration	Bard		5
+14262	Countercharm	Bard		7
+14612	Magical Secrets	Bard		10
+15156	Superior Inspiration	Bard		18
+15333	Epic Boon	Bard		19
+15510	Words of Creation	Bard		20
+15848	Bonus Proficiencies	Bard	College of Lore	3
+15983	Cutting Words	Bard	College of Lore	3
+16539	Magical Discoveries	Bard	College of Lore	6
+17076	Peerless Skill	Bard	College of Lore	14
+17424	Spellcasting	Cleric		1
+19693	Divine Order	Cleric		1
+20172	Channel Divinity	Cleric		2
+22063	Cleric Subclass	Cleric		3
+22420	Ability Score Improvement	Cleric		4
+22654	Sear Undead	Cleric		5
+22997	Blessed Strikes	Cleric		7
+23541	Divine Intervention	Cleric		10
+23944	Improved Blessed Strikes	Cleric		14
+24394	Epic Boon	Cleric		19
+24565	Greater Divine Intervention	Cleric		20
+24865	Disciple of Life	Cleric	Life Domain	3
+25154	Life Domain Spells	Cleric	Life Domain	3
+25650	Preserve Life	Cleric	Life Domain	3
+26113	Blessed Healer	Cleric	Life Domain	6
+26428	Supreme Healing	Cleric	Life Domain	17
+26805	Spellcasting	Druid		1
+29061	Druidic	Druid		1
+29548	Primal Order	Druid		1
+30020	Wild Shape	Druid		2
+33125	Wild Companion	Druid		2
+33479	Druid Subclass	Druid		3
+33838	Ability Score Improvement	Druid		4
+34070	Wild Resurgence	Druid		5
+34434	Elemental Fury	Druid		7
+34929	Improved Elemental Fury	Druid		15
+35271	Beast Spells	Druid		18
+35493	Epic Boon	Druid		19
+35677	Archdruid	Druid		20
+36471	Circle of the Land Spells	Druid	Circle of the Land	3
+37322	Land's Aid	Druid	Circle of the Land	3
+37976	Natural Recovery	Druid	Circle of the Land	6
+38774	Nature's Ward	Druid	Circle of the Land	10
+39152	Nature's Sanctuary	Druid	Circle of the Land	14
+39714	Fighting Style	Fighter		1
+39996	Second Wind	Fighter		1
+40511	Weapon Mastery	Fighter		1
+40981	Action Surge	Fighter		2
+41339	Tactical Mind	Fighter		2
+41753	Fighter Subclass	Fighter		3
+42112	Ability Score Improvement	Fighter		4
+42355	Extra Attack	Fighter		5
+42492	Tactical Shift	Fighter		5
+42678	Indomitable	Fighter		9
+43038	Tactical Master	Fighter		9
+43241	Two Extra Attacks	Fighter		11
+43390	Studied Attacks	Fighter		13
+43662	Epic Boon	Fighter		19
+43844	Three Extra Attacks	Fighter		20
+43994	Improved Critical	Fighter	Champion	3
+44178	Remarkable Athlete	Fighter	Champion	3
+44485	Additional Fighting Style	Fighter	Champion	7
+44620	Heroic Warrior	Fighter	Champion	10
+44837	Superior Critical	Fighter	Champion	15
+45023	Survivor	Fighter	Champion	18
+45487	Martial Arts	Monk		1
+46508	Unarmored Defense	Monk		1
+46687	Monk's Focus	Monk		2
+47996	Unarmored Movement	Monk		2
+48228	Uncanny Metabolism	Monk		2
+48557	Deflect Attacks	Monk		3
+49362	Monk Subclass	Monk		3
+49722	Ability Score Improvement	Monk		4
+49952	Slow Fall	Monk		4
+50128	Extra Attack	Monk		5
+50262	Stunning Strike	Monk		5
+50752	Empowered Strikes	Monk		6
+50922	Evasion	Monk		7
+51248	Acrobatic Movement	Monk		9
+51476	Heightened Focus	Monk		10
+52181	Self-Restoration	Monk		10
+52468	Deflect Energy	Monk		13
+52651	Disciplined Survivor	Monk		14
+52919	Perfect Focus	Monk		15
+53101	Superior Defense	Monk		18
+53376	Epic Boon	Monk		19
+53561	Body and Mind	Monk		20
+53732	Open Hand Technique	Monk	Warrior of the Open Hand	3
+54231	Wholeness of Body	Monk	Warrior of the Open Hand	6
+54689	Fleet Step	Monk	Warrior of the Open Hand	11
+54899	Quivering Palm	Monk	Warrior of the Open Hand	17
+55777	Lay On Hands	Paladin		1
+56431	Spellcasting	Paladin		1
+58189	Weapon Mastery	Paladin		1
+58581	Fighting Style	Paladin		2
+59152	Paladin's Smite	Paladin		2
+59389	Channel Divinity	Paladin		3
+61118	Paladin Subclass	Paladin		3
+61485	Ability Score Improvement	Paladin		4
+61721	Extra Attack	Paladin		5
+61858	Faithful Steed	Paladin		5
+62138	Aura of Protection	Paladin		6
+62613	Abjure Foes	Paladin		9
+63207	Aura of Courage	Paladin		10
+63450	Radiant Strikes	Paladin		11
+63678	Restoring Touch	Paladin		14
+64083	Aura Expansion	Paladin		18
+64188	Epic Boon	Paladin		19
+64365	Oath of Devotion Spells	Paladin	Oath of Devotion	3
+64888	Sacred Weapon	Paladin	Oath of Devotion	3
+65559	Aura of Devotion	Paladin	Oath of Devotion	7
+65823	Smite of Protection	Paladin	Oath of Devotion	15
+66122	Holy Nimbus	Paladin	Oath of Devotion	20
+66857	Spellcasting	Ranger		1
+68617	Favored Enemy	Ranger		1
+69029	Weapon Mastery	Ranger		1
+69426	Deft Explorer	Ranger		2
+69749	Fighting Style	Ranger		2
+70300	Ranger Subclass	Ranger		3
+70652	Ability Score Improvement	Ranger		4
+70886	Extra Attack	Ranger		5
+71022	Roving	Ranger		6
+71201	Expertise	Ranger		9
+71353	Tireless	Ranger		10
+71894	Relentless Hunter	Ranger		13
+72012	Nature's Veil	Ranger		14
+72373	Precise Hunter	Ranger		17
+72521	Feral Senses	Ranger		18
+72658	Epic Boon	Ranger		19
+72843	Foe Slayer	Ranger		20
+72955	Hunter's Lore	Ranger	Hunter	3
+73303	Hunter's Prey	Ranger	Hunter	3
+74066	Defensive Tactics	Ranger	Hunter	7
+74513	Superior Hunter's Prey	Ranger	Hunter	11
+74792	Superior Hunter's Defense	Ranger	Hunter	15
+75034	Expertise	Rogue		1
+75320	Sneak Attack	Rogue		1
+75995	Thieves' Cant	Rogue		1
+76262	Weapon Mastery	Rogue		1
+76656	Cunning Action	Rogue		2
+76874	Rogue Subclass	Rogue		3
+77220	Steady Aim	Rogue		3
+77501	Ability Score Improvement	Rogue		4
+77737	Cunning Strike	Rogue		5
+78982	Uncanny Dodge	Rogue		5
+79174	Evasion	Rogue		7
+79547	Reliable Talent	Rogue		7
+79732	Improved Cunning Strike	Rogue		11
+79909	Devious Strikes	Rogue		14
+80676	Slippery Mind	Rogue		15
+80842	Elusive	Rogue		18
+81050	Epic Boon	Rogue		19
+81232	Stroke of Luck	Rogue		20
+81490	Fast Hands	Rogue	Thief	3
+81849	Second-Story Work	Rogue	Thief	3
+82155	Supreme Sneak	Rogue	Thief	9
+82456	Use Magic Device	Rogue	Thief	13
+83238	Thief's Reflexes	Rogue	Thief	17
+83531	Spellcasting	Sorcerer		1
+85736	Innate Sorcery	Sorcerer		1
+86216	Font of Magic	Sorcerer		2
+87552	Metamagic	Sorcerer		2
+91409	Sorcerer Subclass	Sorcerer		3
+91781	Ability Score Improvement	Sorcerer		4
+92019	Sorcerous Restoration	Sorcerer		5
+92302	Sorcery Incarnate	Sorcerer		7
+92625	Epic Boon	Sorcerer		19
+92812	Arcane Apotheosis	Sorcerer		20
+93008	Draconic Resilience	Sorcerer	Draconic Sorcery	3
+93430	Draconic Spells	Sorcerer	Draconic Sorcery	3
+93815	Elemental Affinity	Sorcerer	Draconic Sorcery	6
+94215	Dragon Wings	Sorcerer	Draconic Sorcery	14
+94653	Dragon Companion	Sorcerer	Draconic Sorcery	18
+95089	Eldritch Invocations	Warlock		1
+105111	Pact Magic	Warlock		1
+107706	Magical Cunning	Warlock		2
+108011	Warlock Subclass	Warlock		3
+108374	Ability Score Improvement	Warlock		4
+108610	Contact Patron	Warlock		9
+109087	Mystic Arcanum	Warlock		11
+109800	Epic Boon	Warlock		19
+109972	Eldritch Master	Warlock		20
+110122	Dark One's Blessing	Warlock	Fiend Patron	3
+110465	Fiend Spells	Warlock	Fiend Patron	3
+110911	Dark One's Own Luck	Warlock	Fiend Patron	6
+111438	Fiendish Resilience	Warlock	Fiend Patron	10
+111695	Hurl Through Hell	Warlock	Fiend Patron	14
+112437	Spellcasting	Wizard		1
+116662	Ritual Adept	Wizard		1
+116913	Arcane Recovery	Wizard		1
+117506	Scholar	Wizard		2
+117789	Wizard Subclass	Wizard		3
+118141	Ability Score Improvement	Wizard		4
+118375	Memorize Spell	Wizard		5
+118626	Spell Mastery	Wizard		18
+119190	Epic Boon	Wizard		19
+119369	Signature Spells	Wizard		20
+119773	Evocation Savant	Wizard	Evoker	3
+120217	Potent Cantrip	Wizard	Evoker	3
+120603	Sculpt Spells	Wizard	Evoker	6
+121069	Empowered Evocation	Wizard	Evoker	10
+121276	Overchannel	Wizard	Evoker	14

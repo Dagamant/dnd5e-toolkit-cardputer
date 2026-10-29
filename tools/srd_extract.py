@@ -107,6 +107,7 @@ def flatten(rs):
     prev_x1 = 0
     row_x = 0       # left edge of the current table row
     saw_eol = False
+    prev_rk = None  # the last text run's kind (a wrapped bold heading isn't a new paragraph)
     for r in rs:
         if r.kind == "eol":
             saw_eol = True
@@ -140,10 +141,16 @@ def flatten(rs):
             row_x = r.x
         elif not tab and prev_kind == "tab" and txt and not txt.endswith("\n"):
             txt += "\n"
-        if txt.endswith("-") and t[:1].islower() and not txt.endswith(" -"):
-            txt = txt[:-1]  # hyphenated line break: "descrip-" + "tion"
+        elif (saw_eol and r.kind in ("bold", "bolditalic") and prev_kind == "text" and txt and not txt.endswith("\n")
+              and t.strip()[:1].isalnum() and prev_rk not in ("bold", "bolditalic")):
+            txt = txt.rstrip(" ") + "\n"   # a run-in heading ("Sunlight.", "1/Day Each:") starts a paragraph
+        if txt.endswith("-") and t[:1].islower() and not txt.endswith(" -") and not re.search(r"\d-\w+-$", txt):
+            txt = txt[:-1]  # hyphenated line break: "descrip-" + "tion" (but "5-foot-" + "wide" keeps it)
+        elif saw_eol and re.search(r"(?<![-\w])[A-Za-z]+- $", txt) and t[:1].islower() and t.split()[0] not in ("and", "or", "to"):
+            txt = txt[:-2]  # the same with a space after the hyphen ("max- " + "imum")
         txt += t
         prev_kind = "tab" if tab else "text"
+        prev_rk = r.kind
         prev_y = r.y
         prev_x1 = r.x1
         saw_eol = False
@@ -152,6 +159,10 @@ def flatten(rs):
     txt = re.sub(r"( \| )+", " | ", txt)
     txt = re.sub(r"(?<=\S) *\u2022\s*", "\n\u2022 ", txt)   # each bullet on its own line
     txt = re.sub(r"\u2022[ \t]+", "\u2022 ", txt)
+    # a text block can end mid-sentence (the next column, a box): join it back up
+    txt = re.sub(r"(?<![-\w])(\w+)- ?\n(?!(?:and|or|to)\b)(?=[a-z])", r"\1", txt)   # "max-" + "imum"
+    txt = re.sub(r"(?<=[a-z,;+])\n(?=[a-z(])", " ", txt)
+    txt = re.sub(r"\b(\d+-\w+)- ?\n?(?=[a-z])", r"\1-", txt)   # "5-foot- wide"
     txt = re.sub("\x00(\\d+)\x00", lambda m: held[int(m.group(1))], txt)
     return fix_charge_tables(fix_abilities(txt.strip()))
 
@@ -252,6 +263,9 @@ def spell_rolls(text):
         m = re.search(r"regains? (?:a number of )?Hit Points equal to (\d+d\d+)( plus your spellcasting ability modifier)?", text)
         if m:
             r["heal"] = m.group(1) + ("+MOD" if m.group(2) else "")
+        else:
+            m = re.search(r"regains? (\d+d\d+(?: \+ \d+)?) Hit Points", text)   # Prayer of Healing, Regenerate
+            if m: r["heal"] = m.group(1).replace(" ", "")
     return r
 
 def write_db(path, records, index_fields):
@@ -270,6 +284,8 @@ def write_db(path, records, index_fields):
 
 def ascii(s):
     # the device fonts are ASCII; normalise typography
+    s = re.sub(r"(?<=\d)(?=[\u00bd\u00bc])", " ", s)   # "1\u00bd" -> "1 1/2", not "11/2"
+    s = re.sub(r"\b11/2\b", "1 1/2", s)                 # printed that way once (Bottle)
     s = (s.replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
           .replace("\u2013", "-").replace("\u2014", " - ").replace("\u00d7", "x").replace("\u2022", "*")
           .replace("\u2026", "...").replace("\u00a0", " ").replace("\u00bd", "1/2").replace("\u00bc", "1/4").replace("\u2212", "-").replace("\u00ad", ""))
@@ -514,13 +530,26 @@ def extract_armor():
     return out
 
 def entries_by_name(first, last, name_pred=lambda r: True):
-    """Entries that start at a 12pt GillSans name run (wrapped names merged)."""
+    """Entries that start at a 12pt GillSans name run (wrapped names merged). A
+    bigger heading ("Mounts and Vehicles", "Traps") ends the entry before it, so
+    the section that follows doesn't read into the last entry. Stat blocks inside
+    an entry (the Figurine's Giant Fly) have big names too; they're kept."""
     rs = runs(first, last)
     ents = []
+    closed = False
     i = 0
+    def stat_block(i):
+        j = i + 1
+        while j < len(rs) and (rs[j].kind in ("eol", "para") or rs[j].kind == "name" and rs[j].size >= 14): j += 1
+        return j < len(rs) and rs[j].kind == "italic" and rs[j].text.strip().startswith(SIZES)
     while i < len(rs):
         r = rs[i]
+        if r.kind == "name" and r.size >= 14 and not stat_block(i):
+            closed = True
+            i += 1
+            continue
         if r.kind == "name" and r.size < 14 and name_pred(r):
+            closed = False
             name = r.text
             j = i + 1
             while j < len(rs) and rs[j].kind in ("eol", "name") and (rs[j].kind == "eol" or rs[j].size < 14):
@@ -529,7 +558,7 @@ def entries_by_name(first, last, name_pred=lambda r: True):
             ents.append([re.sub(r"\s+", " ", name).strip(), []])
             i = j
             continue
-        if ents:
+        if ents and not closed:
             ents[-1][1].append(r)
         i += 1
     return ents
@@ -548,12 +577,17 @@ def extract_gear():
     for name, body in entries_by_name(94, 100):
         m = re.match(r"^(.*?) \((.*?)\)$", name)
         if not m: continue
+        # the Adventuring Gear price list prints beside Ammunition; its rows are the items themselves
+        body = [r for r in body if not (r.kind == "tbl" and (r.text.startswith("Adventuring Gear\n") or r.text.startswith("Item | Weight | Cost\n")))]
         descs[ascii(m.group(1))] = ascii(flatten(body))
     for n, it in items.items():
         d = descs.get(n)
         if d is None:
             # "Lantern, Bullseye" style names vs headings like "Lantern, Bullseye"
             d = next((v for k, v in descs.items() if k.lower() == n.lower()), "")
+        if not d:
+            # one heading for several: "Spell Scroll (Cantrip, 30 GP; Level 1, 50 GP)"
+            d = descs.get(re.sub(r" \(.*\)$", "", n), "")
         if d:
             it["text"] = d.replace("\n", "\\n")
             m = re.search(r"(\d+d\d+(?: ?\+ ?\d+)?) (" + "|".join(DAMAGE_TYPES) + r") damage", d)
@@ -596,10 +630,17 @@ def extract_magic_items():
     out = []
     for name, body in entries_by_name(209, 253):
         # the italic type line may be anywhere near the top due to block order
-        type_line, rest, taken = "", [], False
+        type_line, rest, taken, broke = "", [], False, False
         for r in body:
+            if type_line and r.kind in ("eol", "para"): broke = True
+            # a complete type line ends at its line break; italic text after it is the
+            # description naming the item ("Dragon Scale Mail is made of...")
+            if (not taken and type_line and broke and r.kind == "italic" and r.text.strip()
+                    and re.sub(r"\s+", " ", name).startswith(r.text.strip())):
+                taken = True
             if not taken and r.kind == "italic" and (type_line or ITEM_TYPE.match(r.text.strip())):
                 type_line += r.text
+                broke = False
                 continue
             if type_line and r.kind not in ("italic", "eol", "para"):
                 taken = True
@@ -823,7 +864,7 @@ def extract_classes():
             if r.kind == "name" and cur_feat and r.size < 13.5 and not t.startswith("Level"):
                 # wrapped feature title or a sub-heading inside the feature
                 if cur_feat["_body"] and any(x.kind not in ("eol", "para") for x in cur_feat["_body"]):
-                    cur_feat["_body"].append(Run("para", "")); cur_feat["_body"].append(Run("body", t + ":"))
+                    cur_feat["_body"].append(Run("para", "")); cur_feat["_body"].append(Run("body", t + ": "))
                 else:
                     cur_feat["name"] += " " + ascii(t)
                 continue
@@ -842,7 +883,31 @@ def extract_classes():
         classes.append(rec)
     for f in features:
         f["text"] = ascii(flatten(f.pop("_body"))).replace("\n", "\\n")
-    return classes, features, subclasses
+    return classes, move_feature_sections(features), subclasses
+
+# Option lists and sidebars printed after a class's last feature read into it;
+# put each with the feature that uses it.
+FEATURE_SECTIONS = [("METAMAGIC OPTIONS", "Sorcerer", "Metamagic"),
+                    ("ELDRITCH INVOCATION OPTIONS", "Warlock", "Eldritch Invocations"),
+                    ("Expanding and Replacing a Spellbook", "Wizard", "Spellcasting")]
+
+def move_feature_sections(features):
+    for head, cls, target in FEATURE_SECTIONS:
+        dest = next((f for f in features if f["class"] == cls and f["name"] == target and not f.get("subclass")), None)
+        for f in features:
+            if f is dest or f["class"] != cls: continue
+            t = f["text"]
+            i = t.find("\\n" + head + "\\n")
+            if i < 0 or not dest: continue
+            sec = t[i + 2:]
+            rest = ""
+            if head.startswith("Expanding"):
+                # a sidebar in the middle of a sentence: it ends where the sentence picks up again
+                m = re.search(r"\\n([a-z][^\\]*)$", sec)
+                if m: sec, rest = sec[:m.start()], " " + m.group(1)
+            f["text"] = t[:i] + rest
+            dest["text"] += "\\n" + sec
+    return features
 
 # ---------------------------------------------------------------- origins & feats
 def labelled_fields(body):
@@ -895,7 +960,29 @@ def extract_species():
         m = re.search(r"Darkvision with a range of (\d+) feet", txt_all)
         if m: rec["darkvision"] = m.group(1)
         out.append(rec)
-    return out
+    return move_species_tables(out)
+
+def move_species_tables(recs):
+    """A table printed beside another species' text (Fiendish Legacies sits at the
+    end of Human) reads into the wrong trait; move it to the trait naming it."""
+    def traits(r): return [k for k in r if k.startswith("trait")]
+    for r in recs:
+        for k in traits(r):
+            lines = r[k].split("\\n")
+            i = 1
+            while i < len(lines) - 1:
+                title = lines[i]
+                if " | " in title or " | " not in lines[i + 1]: i += 1; continue
+                j = i + 1
+                while j < len(lines) and " | " in lines[j]: j += 1
+                if f"{title} table" in r[k] or any(f"{title} table" in r[t] for t in traits(r)): i = j; continue
+                dest = next(((o, t) for o in recs if o is not r for t in traits(o) if f"{title} table" in o[t]), None)
+                if not dest: i = j; continue
+                o, t = dest
+                o[t] += "\\n" + "\\n".join(lines[i:j])
+                del lines[i:j]
+            r[k] = "\\n".join(lines)
+    return recs
 
 def extract_feats():
     out = []
@@ -1224,8 +1311,13 @@ def extract_monsters():
             # split into entries at bold-italic names
             entries, cur = [], None
             intro = []
-            for r in sections[sec]:
-                if r.kind == "bolditalic" and r.text.strip().endswith(".") and r.text.strip()[:1].isupper():
+            runs_ = sections[sec]
+            for k, r in enumerate(runs_):
+                # the full stop after a name is sometimes its own bold run ("Fire Breath (Recharge 5-6)" ".")
+                if r.kind == "bold" and r.text.strip() == "." and k and runs_[k - 1].kind == "bolditalic" and cur and not cur[1]:
+                    continue
+                if (r.kind == "bolditalic" and r.text.strip()[:1].isupper() and (r.text.strip().endswith(".") or
+                        (k + 1 < len(runs_) and runs_[k + 1].kind == "bold" and runs_[k + 1].text.strip() == "."))):
                     cur = [r.text.strip().rstrip("."), []]; entries.append(cur); continue
                 (cur[1] if cur else intro).append(r)
             parts = []

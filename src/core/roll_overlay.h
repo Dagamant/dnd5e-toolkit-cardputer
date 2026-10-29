@@ -23,6 +23,11 @@ inline void show(const String& title, const String& expr, const String& suffix =
     show(title, std::vector<Line>{{"", expr, suffix}});
 }
 bool active();
+// True while the big screen should keep drawing at full speed (dice tumbling).
+bool animating();
+// Big screen: the popup is already over the app's last frame, so the app
+// needn't be drawn again; the popup redraws (and shows) only its own box.
+bool drawsAlone();
 // Total of line i of the most recent roll (valid right after show()).
 int total(size_t i = 0);
 // When set, Enter closes instead of rerolling (for rolls already applied, e.g. healing).

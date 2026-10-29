@@ -214,16 +214,26 @@ bool Character::load(const String& p) {
         else if (k == "spells") spells = splitList(v);
         else if (k == "mi_spells") miSpells = splitList(v);
         else if (k == "mi_ability") miAbility = v;
+        else if (k == "species_ability") spAbility = v;
+        else if (k == "free_used") freeUsed = splitList(v);
         else if (k == "weapons") weapons = v;
         else if (k == "armor") armor = v;
         else if (k == "slots_used") { auto s = splitList(v, ','); for (int i = 0; i < 10 && i < (int)s.size(); i++) slotsUsed[i] = s[i].toInt(); }
-        else if (k == "res") { auto s = splitList(v); if (s.size() >= 3) res.push_back({s[0], (int)s[1].toInt(), (int)s[2].toInt()}); }
+        else if (k == "res") {
+            auto s = splitList(v);
+            if (s.size() < 3) continue;
+            Resource r;
+            r.name = s[0]; r.cur = s[1].toInt(); r.max = s[2].toInt();
+            if (s.size() >= 5 && s[4] == "c") { r.custom = true; r.rest = s[3].length() ? s[3][0] : 'L'; }
+            res.push_back(r);
+        }
         else if (k == "item") items.push_back(Item::decode(v));
         else if (k == "coins") { auto s = splitList(v, ','); for (int i = 0; i < 5 && i < (int)s.size(); i++) coins[i] = s[i].toInt(); }
         else if (k == "speed") speed = v.toInt();
         else if (k == "darkvision") darkvision = v.toInt();
         else if (k == "size") size = v;
         else if (k == "notes") notes = db::unescape(v);
+        else if (k == "ddb") ddb = v;
     }
     ci.load(cls);
     syncResources();
@@ -236,6 +246,7 @@ bool Character::save() {
     String s;
     auto put = [&](const char* k, const String& v) { if (v.length()) { s += k; s += ": "; s += v; s += "\n"; } };
     put("name", name);
+    put("ddb", ddb);   // near the top: the list reads only the start of each file
     put("class", cls);
     put("subclass", subclass);
     put("level", String(level));
@@ -259,13 +270,15 @@ bool Character::save() {
     put("spells", joinList(spells));
     put("mi_spells", joinList(miSpells));
     put("mi_ability", miAbility);
+    put("species_ability", spAbility);
+    put("free_used", joinList(freeUsed));
     put("weapons", weapons);
     put("armor", armor);
     String su;
     bool any = false;
     for (int i = 0; i < 10; i++) { su += String(i ? "," : "") + slotsUsed[i]; any |= slotsUsed[i] != 0; }
     if (any) put("slots_used", su);
-    for (auto& r : res) put("res", r.name + "|" + r.cur + "|" + r.max);
+    for (auto& r : res) put("res", r.name + "|" + r.cur + "|" + r.max + (r.custom ? String("|") + r.rest + "|c" : String("")));
     String co;
     for (int i = 0; i < 5; i++) co += String(i ? "," : "") + coins[i];
     put("coins", co);
@@ -325,7 +338,56 @@ int Character::spellAbil() const {
     String a = ci.rec.get("spell_ability");
     if (a.length()) return abilIndex(a);
     if (miAbility.length()) return abilIndex(miAbility);
+    if (spAbility.length() && !speciesSpells().empty()) return abilIndex(spAbility);
     return -1;
+}
+
+// The SRD's species spells: a cantrip at level 1, spells at character levels 3 and 5.
+namespace {
+struct Lineage { const char* species; const char* opt; const char* spells[3]; };
+const Lineage LINEAGES[] = {
+    {"Elf", "Drow", {"Dancing Lights", "Faerie Fire", "Darkness"}},
+    {"Elf", "High Elf", {"Prestidigitation", "Detect Magic", "Misty Step"}},
+    {"Elf", "Wood Elf", {"Druidcraft", "Longstrider", "Pass without Trace"}},
+    {"Tiefling", "Abyssal", {"Poison Spray", "Ray of Sickness", "Hold Person"}},
+    {"Tiefling", "Chthonic", {"Chill Touch", "False Life", "Ray of Enfeeblement"}},
+    {"Tiefling", "Infernal", {"Fire Bolt", "Hellish Rebuke", "Darkness"}},
+    {"Gnome", "Forest Gnome", {"Minor Illusion", "Speak with Animals", nullptr}},
+    {"Gnome", "Rock Gnome", {"Mending", "Prestidigitation", nullptr}},
+};
+}  // namespace
+
+std::vector<Character::Granted> Character::speciesSpells() const {
+    std::vector<Granted> v;
+    for (auto& l : LINEAGES) {
+        if (species != l.species || !speciesOpt.equalsIgnoreCase(l.opt)) continue;
+        if (species == "Gnome") {
+            // Forest: Speak with Animals free PB times; Rock: two cantrips
+            v.push_back({l.spells[0], l.opt, 0});
+            v.push_back({l.spells[1], l.opt, String(l.opt) == "Forest Gnome" ? prof() : 0});
+        } else {
+            v.push_back({l.spells[0], l.opt, 0});
+            if (level >= 3) v.push_back({l.spells[1], l.opt, 1});
+            if (level >= 5) v.push_back({l.spells[2], l.opt, 1});
+        }
+    }
+    if (species == "Tiefling") v.push_back({"Thaumaturgy", "Tiefling", 0});
+    return v;
+}
+
+int Character::freeLeft(const String& spell, int freeMax) const {
+    int used = 0;
+    for (auto& n : freeUsed) if (n == spell) used++;
+    return std::max(0, freeMax - used);
+}
+
+// The lineage whose level 1 cantrip is among these spells (D&D Beyond lists the
+// species' spells but not always the lineage).
+String Character::guessLineage(const String& species, const std::vector<String>& spells) {
+    for (auto& l : LINEAGES)
+        if (species == l.species)
+            for (auto& s : spells) if (s.equalsIgnoreCase(l.spells[0])) return l.opt;
+    return "";
 }
 int Character::spellAttack() const { int a = spellAbil(); return a < 0 ? 0 : mod(a) + prof(); }
 int Character::spellDC() const { int a = spellAbil(); return a < 0 ? 0 : 8 + mod(a) + prof(); }
@@ -421,32 +483,13 @@ std::vector<Character::Attack> Character::attacks() const {
     return out;
 }
 
-// ---------------------------------------------------------------- resources & rests
-static const char* const COUNTERS[] = {"Rages", "Channel Divinity", "Wild Shape", "Second Wind", "Focus Points",
-                                       "Favored Enemy", "Sorcery Points"};
-
-void Character::syncResources() {
-    std::vector<Resource> want;
-    for (auto c : COUNTERS) {
-        if (!listHas(ci.cols, c)) continue;
-        int mx = ci.num(level, c);
-        if (mx > 0) want.push_back({c, mx, mx});
-    }
-    if (cls == "Bard") want.push_back({"Bardic Inspiration", std::max(1, mod(CHA)), std::max(1, mod(CHA))});
-    if (cls == "Paladin") want.push_back({"Lay On Hands", 5 * level, 5 * level});
-    if (species == "Dragonborn") want.push_back({"Breath Weapon", prof(), prof()});
-    // keep current values for resources that already exist
-    for (auto& w : want) {
-        for (auto& r : res) if (r.name == w.name) { w.cur = std::min(r.cur + (w.max - r.max > 0 ? w.max - r.max : 0), w.max); }
-    }
-    res = want;
-}
+// ---------------------------------------------------------------- rests
+// (resources and what spends them are in resources.cpp)
 
 void Character::shortRest() {
     for (auto& r : res) {
-        if (r.name == "Focus Points" || (r.name == "Bardic Inspiration" && level >= 5)) r.cur = r.max;
-        else if (r.name == "Rages" || r.name == "Channel Divinity" || r.name == "Wild Shape" || r.name == "Second Wind")
-            r.cur = std::min(r.max, r.cur + 1);
+        if (r.rest == 'S') r.cur = r.max;
+        else if (r.rest == '1') r.cur = std::min(r.max, r.cur + 1);
     }
     if (pactSlotLevel()) for (int i = 0; i < 10; i++) slotsUsed[i] = 0;
 }
@@ -457,6 +500,7 @@ void Character::longRest() {
     hitDiceUsed = std::max(0, hitDiceUsed - std::max(1, level / 2));
     deathOk = deathFail = 0;
     for (int i = 0; i < 10; i++) slotsUsed[i] = 0;
+    freeUsed.clear();
     for (auto& r : res) r.cur = r.max;
     for (auto& it : items) if (it.chargesMax) it.charges = it.chargesMax;
 }

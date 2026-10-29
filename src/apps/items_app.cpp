@@ -68,22 +68,23 @@ void ItemsBrowser::cycleFilter(int d) { filter_ = (filter_ + d + 7) % 7; }
 void ItemsBrowser::drawRow(int i, int y, bool s) {
     const char* kind = table_.col(i, "kind");
     const char* rar = table_.col(i, "rarity");
-    gfx.setFont(&fonts::Font0);
+    gfx.setFont(ui::font(&fonts::Font0));
     gfx.setTextDatum(top_left);
     uint16_t dot = !strcmp(kind, "weapon") ? C_BLOOD : !strcmp(kind, "armor") || !strcmp(kind, "shield") ? C_ICE :
                    !strcmp(kind, "tool") ? C_GOLD_DK : *rar ? rarityColor(rar) : C_DIM;
-    gfx.fillCircle(8, y + 4, 2, dot);
+    gfx.fillCircle(u(8), y + u(4), u(2), dot);
     gfx.setTextColor(s ? C_TEXT : rgb(200, 192, 210));
     String n = table_.at(i).name;
-    if (n.length() > 27) n = n.substring(0, 26) + ".";
-    gfx.drawString(n, 14, y + 1);
+    if (wide()) n = fitText(n, rowRight() - u(66));
+    else if (n.length() > 27) n = n.substring(0, 26) + ".";
+    gfx.drawString(n, u(14), y + u(1));
     gfx.setTextDatum(top_right);
     String right = *rar ? String(rar) : String(table_.col(i, "cost"));
     if (right == "Very Rare") right = "V.Rare";
     if (right == "Legendary") right = "Legend";
     gfx.setTextColor(*rar ? rarityColor(rar) : C_DIM);
-    gfx.drawString(right, W - 8, y + 1);
-    if (table_.isCustom(i)) { gfx.setTextColor(C_EMERALD); gfx.drawString("*", W - 52, y + 1); }
+    gfx.drawString(right, rowRight() - u(8), y + u(1));
+    if (table_.isCustom(i)) { gfx.setTextColor(C_EMERALD); gfx.drawString("*", rowRight() - u(52), y + u(1)); }
 }
 
 void ItemsBrowser::buildDetail() {

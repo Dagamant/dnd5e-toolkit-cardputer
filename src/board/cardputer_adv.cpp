@@ -79,5 +79,16 @@ const SdPins& sdPins() {
 
 uint8_t displayRotation() { return 1; }
 
+bool bigScreen() { return false; }
+
+void makeCanvas(M5Canvas& c, bool) {
+    c.setColorDepth(16);
+    c.createSprite(240, 135);
+}
+
+bool fill(M5Canvas&, int, int, int, int, uint16_t) { return false; }
+
+void present(M5Canvas& frame) { frame.pushSprite(0, 0); }
+
 }  // namespace board
 #endif

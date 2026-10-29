@@ -1,0 +1,11 @@
+{
+  "id": "cardputer-link",
+  "title": "Cardputer Link",
+  "description": "Sends the party, combat tracker, rolls, chat log and journals to a D&D 5E Toolkit Cardputer on your network. Runs in the GM's browser; read-only.",
+  "version": "1.0.0",
+  "compatibility": { "minimum": "12", "verified": "14" },
+  "authors": [{ "name": "The_Bent" }],
+  "esmodules": ["scripts/link.mjs"],
+  "relationships": { "systems": [{ "id": "dnd5e", "type": "system" }] },
+  "url": "https://github.com/Dagamant/dnd5e-toolkit-cardputer"
+}
